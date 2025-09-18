@@ -40,5 +40,18 @@ export const projects: Project[] = [
     screenshot: '',
     codeSnippet: '',
   },
+    {
+    title: 'E-commerce Store',
+    description: 'An online store with shopping cart functionality and payment integration.',
+    tech: ['WordPress', 'WooCommerce', 'PHP'],
+    github: '',
+    demo: 'https://chugabags.com/',
+    challenge: 'Create a user-friendly e-commerce platform for selling products online.',
+    solution: 'Developed a WordPress theme with WooCommerce integration for seamless shopping experience.',
+    impact: 'Boosted sales and improved customer satisfaction with easy navigation and checkout process.',
+    gif: '',
+    screenshot: '',
+    codeSnippet: '',
+  },
   // Add more projects as needed
 ];
