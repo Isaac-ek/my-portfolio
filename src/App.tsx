@@ -6,7 +6,6 @@ import Footer from './components/Footer';
 import Fab from './components/Fab';
 import ScrollToTop from './components/ScrollToTop';
 import Starfield from './components/Starfield';
-import AnimatedCursor from 'react-animated-cursor';
 
 import './App.css';
 
@@ -30,23 +29,14 @@ function App() {
       </div>
 
       {/* 🖱️ Animated Cursor */}
-      <AnimatedCursor
-        innerSize={10}
-        outerSize={40}
-        color="59,130,246"
-        outerAlpha={0.4}
-        innerScale={1.5}
+      {/* <AnimatedCursor
+        innerSize={8}
+        outerSize={35}
+        color="0, 123, 255"
+        outerAlpha={0.2}
+        innerScale={1}
         outerScale={2}
-        trailingSpeed={5}
-        clickables={[
-          'a',
-          'button',
-          '.link',
-          '.btn',
-          '.nav-link',
-          '.cursor-pointer',
-        ]}
-      />
+      /> */}
 
       {/* 📦 Main Layout */}
       <Router>
