@@ -1,0 +1,60 @@
+.hero-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 🌟 Base Stars */
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
+  transition: transform 0.2s ease-out;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* 🌠 Shooting Star */
+.shooting-star {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  opacity: 0.7;
+  transform: rotate(45deg);
+  animation: shoot 6s linear infinite;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translate(-150px, -150px) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    transform: translate(100vw, 100vh) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
