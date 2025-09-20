@@ -19,6 +19,7 @@ const skills = [
 const cardVariants = {
 	hidden: { opacity: 0, y: 60, scale: 0.95 },
 	visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } },
+	hover: { scale: 1.18, boxShadow: "0 8px 32px 0 rgba(0, 123, 255, 0.35)", transition: { duration: 0.35 } }
 };
 
 const Skills = (props: React.HTMLAttributes<HTMLElement>) => (
@@ -35,10 +36,11 @@ const Skills = (props: React.HTMLAttributes<HTMLElement>) => (
 			{skills.map((skill, idx) => (
 				<motion.div
 					key={skill}
-					className="bg-blue-900/80 rounded-xl shadow-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer group transition-transform duration-300 hover:scale-110 hover:shadow-2xl hover:bg-gradient-to-br hover:from-blue-700 hover:to-blue-500 hover:text-white border border-blue-800 animate-fadeIn"
+					className="bg-blue-900/80 rounded-xl shadow-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer group border border-blue-800 animate-fadeIn"
 					variants={cardVariants}
 					initial="hidden"
 					whileInView="visible"
+					whileHover="hover"
 					viewport={{ once: true, amount: 0.3 }}
 					transition={{ delay: idx * 0.10 }}
 				>
