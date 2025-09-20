@@ -49,7 +49,7 @@ const Contact = () => {
           <label htmlFor="name" className="block text-blue-200 mb-1 font-semibold">Name</label>
           <input
             id="name"
-            className="w-full p-4 rounded border border-blue-900 bg-[#17203a] text-blue-100 text-lg"
+            className="w-full p-6 min-h-[56px] rounded border border-blue-900 bg-[#17203a] text-blue-100 text-xl"
             type="text"
             name="name"
             placeholder="What's your name?"
@@ -62,7 +62,7 @@ const Contact = () => {
           <label htmlFor="email" className="block text-blue-200 mb-1 font-semibold">Email</label>
           <input
             id="email"
-            className="w-full p-4 rounded border border-blue-900 bg-[#17203a] text-blue-100 text-lg"
+            className="w-full p-6 min-h-[56px] rounded border border-blue-900 bg-[#17203a] text-blue-100 text-xl"
             type="email"
             name="email"
             placeholder="What's your email?"
@@ -75,10 +75,10 @@ const Contact = () => {
           <label htmlFor="message" className="block text-blue-200 mb-1 font-semibold">Message</label>
           <textarea
             id="message"
-            className="w-full p-4 rounded border border-blue-900 bg-[#17203a] text-blue-100 text-lg"
+            className="w-full p-6 min-h-[120px] rounded border border-blue-900 bg-[#17203a] text-blue-100 text-xl"
             name="message"
             placeholder="Help me help you!"
-            rows={6}
+            rows={8}
             value={form.message}
             onChange={handleChange}
             required
