@@ -44,7 +44,7 @@ const Skills = (props: React.HTMLAttributes<HTMLElement>) => (
 					viewport={{ once: true, amount: 0.3 }}
 					transition={{ delay: idx * 0.10 }}
 				>
-					<span className="text-base sm:text-lg font-extrabold font-mono group-hover:font-caveat group-hover:text-xl transition-all duration-300 text-blue-100 break-words whitespace-normal">
+					<span className="text-base sm:text-lg font-extrabold font-mono group-hover:font-caveat group-hover:text-xl transition-all duration-300 text-blue-100 group-hover:text-blue-400 break-words whitespace-normal">
 						{skill}
 					</span>
 				</motion.div>
