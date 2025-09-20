@@ -98,13 +98,6 @@ const Contact = () => {
           <div className="text-red-500 text-center text-lg">Something went wrong. Please try again.</div>
         )}
       </form>
-      <div
-        className="flex items-center justify-center bg-blue-900 rounded-xl shadow-lg p-6 min-w-[180px] min-h-[180px] max-w-xs w-full h-full break-words whitespace-normal text-center"
-      >
-        <span className="font-bold text-2xl sm:text-3xl text-blue-100 break-words whitespace-normal">
-          {skill.name}
-        </span>
-      </div>
     </section>
   );
 };
