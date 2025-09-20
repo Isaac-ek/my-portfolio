@@ -35,14 +35,14 @@ const Skills = (props: React.HTMLAttributes<HTMLElement>) => (
 			{skills.map((skill, idx) => (
 				<motion.div
 					key={skill}
-					className="bg-blue-900/80 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center min-h-[100px] cursor-pointer group transition-transform duration-300 hover:scale-110 hover:shadow-2xl hover:bg-gradient-to-br hover:from-blue-700 hover:to-blue-500 hover:text-white border border-blue-800 animate-fadeIn"
+					className="bg-blue-900/80 rounded-xl shadow-lg p-8 min-h-[160px] min-w-[160px] flex flex-col items-center justify-center text-center cursor-pointer group transition-transform duration-300 hover:scale-110 hover:shadow-2xl hover:bg-gradient-to-br hover:from-blue-700 hover:to-blue-500 hover:text-white border border-blue-800 animate-fadeIn"
 					variants={cardVariants}
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.3 }}
 					transition={{ delay: idx * 0.10 }}
 				>
-					<span className="text-lg sm:text-xl font-extrabold font-mono group-hover:font-caveat group-hover:text-2xl transition-all duration-300 text-blue-100">
+					<span className="text-xl sm:text-2xl font-extrabold font-mono group-hover:font-caveat group-hover:text-3xl transition-all duration-300 text-blue-100 break-words whitespace-normal">
 						{skill}
 					</span>
 				</motion.div>
