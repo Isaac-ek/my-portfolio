@@ -21,7 +21,7 @@ export const projects: Project[] = [
     github: 'https://github.com/yourname/portfolio',
     demo: 'https://your-portfolio-demo.com',
     challenge: 'Showcase skills and projects in a visually engaging way.',
-    solution: 'Built a fully responsive, animated portfolio with filtering and dark mode.',
+    solution: 'Built a fully responsive, animated portfolio.',
     impact: 'Increased interview callbacks and networking opportunities.',
     gif: '', // Add gif or screenshot URLs as needed
     screenshot: '',
