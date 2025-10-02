@@ -24,7 +24,7 @@ export const projects: Project[] = [
     solution: 'Built a fully responsive, animated portfolio.',
     impact: 'Increased interview callbacks and networking opportunities.',
     gif: '', // Add gif or screenshot URLs as needed
-    screenshot: '',
+    screenshot: 'my-portfolio/src/data/portfolio home.png',
     codeSnippet: '',
   },
   {
