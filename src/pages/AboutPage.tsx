@@ -25,11 +25,21 @@ const AboutPage = () => (
       </a>
       <section className="mb-8 w-full">
         <h3 className="text-xl font-bold text-blue-200 mb-2">Summary</h3>
-        <p className="text-blue-100 mb-4">
-          I'm a web developer with nearly 2 years of hands-on experience, currently freelancing for various
-          organizations. I specialize in building responsive, user-friendly web applications and implementing
-          scalable backend services. My background spans e-commerce platforms, non-profit websites, and business
-          tools with a strong focus on user experience, performance, and reliability.
+        <p className="text-blue-100 mb-4 leading-relaxed">
+          Web Developer with 3+ years of experience building and deploying websites for
+          nonprofits, startups, and growing businesses. I freelance with multiple
+          companies, delivering custom websites and e‑commerce solutions that help
+          businesses establish an online presence and sell web‑based products.
+          Recently, I earned the <a
+            href="https://www.credly.com/badges/1a0ca469-c7f7-4850-b13c-9459ffc24530/linked_in_profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-300 underline"
+          >
+            AWS Certified Solutions Architect (SAA‑C03)
+          </a>, which
+          strengthens my ability to design scalable, secure, cloud‑ready solutions.
+          I am open to new opportunities and collaborations.
         </p>
         <h3 className="text-xl font-bold text-blue-200 mb-2">My Stack</h3>
         <p className="text-blue-100 mb-4">
@@ -37,7 +47,14 @@ const AboutPage = () => (
         </p>
         <h3 className="text-xl font-bold text-blue-200 mb-2">Familiar With</h3>
         <p className="text-blue-100 mb-4">
-          WordPress, UI/UX Design, Figma, REST APIs, Cybersecurity Essentials, Cloud Computing, GitHub Pages,
+          WordPress, UI/UX Design, Figma, REST APIs, <a
+            href="https://www.credly.com/badges/0fa81baf-1953-4c20-812e-7d1822152ad8/linked_in_profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-300 underline"
+          >
+            Cybersecurity Essentials
+          </a>, Cloud Computing, GitHub Pages,
           Responsive Design
         </p>
         <h3 className="text-xl font-bold text-blue-200 mb-2">Work Experience</h3>
@@ -79,10 +96,29 @@ const AboutPage = () => (
         </ul>
         <h3 className="text-xl font-bold text-blue-200 mb-2">Certifications</h3>
         <ul className="list-disc list-inside text-blue-100 text-sm mb-4">
+          <li>
+            <a
+              href="https://www.credly.com/badges/1a0ca469-c7f7-4850-b13c-9459ffc24530/linked_in_profile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-300 underline"
+            >
+              AWS Certified Solutions Architect – SAA-C03 (Credly)
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.credly.com/badges/0fa81baf-1953-4c20-812e-7d1822152ad8/linked_in_profile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-300 underline"
+            >
+              Cybersecurity Essentials (Cisco) (Credly)
+            </a>
+          </li>
           <li>Introduction to Python Programming</li>
           <li>Introduction to HTML5</li>
           <li>Data Analysis Using Python</li>
-          <li>Cybersecurity Essentials</li>
         </ul>
         <h3 className="text-xl font-bold text-blue-200 mb-2">Top Skills</h3>
         <p className="text-blue-100 mb-4">
