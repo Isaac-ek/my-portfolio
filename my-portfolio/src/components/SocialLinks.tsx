@@ -1,19 +1,19 @@
-import React from 'react';
+import { profile } from '../data/profile';
 
 const SocialLinks = () => (
-  <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-10 mb-8">
+  <div className="mx-auto mb-8 mt-4 flex max-w-6xl flex-col items-stretch gap-4 px-4 sm:flex-row sm:px-8 md:px-16 lg:px-24">
     <a
-      href="mailto:ekezie.chiemelie@gmail.com"
-      className="inline-flex items-center gap-2 px-5 py-3 bg-blue-800 text-white rounded-lg shadow hover:bg-blue-900 transition-colors font-semibold text-base"
+      href={`mailto:${profile.email}`}
+      className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-base font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
       aria-label="Email"
     >
-      <span className="font-bold">Email:</span> ekezie.chiemelie@gmail.com
+      <span className="font-bold">Email:</span> {profile.email}
     </a>
     <a
-      href="https://www.linkedin.com/in/chiemelie-ekezie-21b029254/"
+      href={profile.linkedin}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 px-5 py-3 bg-blue-700 text-white rounded-lg shadow hover:bg-blue-800 transition-colors font-semibold text-base"
+      className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-base font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
       aria-label="Connect on LinkedIn"
     >
       <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
@@ -22,10 +22,10 @@ const SocialLinks = () => (
       Connect on LinkedIn
     </a>
     <a
-      href="https://github.com/Isaac-ek"
+      href={profile.github}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 px-5 py-3 bg-[#17203a] text-blue-100 rounded-lg shadow hover:bg-blue-900 transition-colors font-semibold text-base"
+      className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-base font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
       aria-label="View GitHub Profile"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -34,10 +34,10 @@ const SocialLinks = () => (
       View GitHub
     </a>
     <a
-      href="https://x.com/thisaint_isaac"
+      href={profile.x}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center px-4 py-3 bg-black text-white rounded-lg shadow hover:bg-gray-900 transition-colors"
+      className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white transition hover:border-cyan-300 hover:text-cyan-200"
       aria-label="X (Twitter)"
     >
       <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">

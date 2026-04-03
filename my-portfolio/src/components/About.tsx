@@ -1,55 +1,46 @@
 import React from 'react';
-
-const techStack = [
-	{ name: 'React', icon: '⚛️' },
-	{ name: 'TypeScript', icon: '🟦' },
-	{ name: 'Tailwind CSS', icon: '🌬️' },
-	{ name: 'Node.js', icon: '🟩' },
-	// Add more as needed
-];
+import { profile } from '../data/profile';
 
 const About = (props: React.HTMLAttributes<HTMLElement>) => (
-	<section
-		{...props}
-		className="container mx-auto py-16 px-4 sm:px-8 md:px-16 lg:px-32 text-center max-w-4xl bg-transparent"
-		data-aos="fade-up"
-	>
-		<h2 className="text-4xl sm:text-5xl font-bold mb-4 text-blue-100 font-jetbrains group-hover:underline group-hover:decoration-wavy group-hover:decoration-blue-400 group">
-			About Me
-		</h2>
-		<div data-aos="fade-up" data-aos-duration="1000">
-			{/* your content */}
-			<p className="mb-6 max-w-2xl mx-auto text-base sm:text-lg text-blue-100">
-				Hi! I'm a passionate web developer with a love for building beautiful,
-				interactive, and accessible web apps. I enjoy working with modern tech and
-				always strive to learn more.
-			</p>
-		</div>
+  <section
+    {...props}
+    className="container mx-auto max-w-6xl px-4 py-20 sm:px-8 md:px-16 lg:px-24"
+    data-aos="fade-up"
+  >
+    <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">About Me</p>
+        <h2 className="mt-4 text-4xl font-black text-white sm:text-5xl">
+          Designing useful interfaces and delivering websites people can trust.
+        </h2>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">{profile.intro}</p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {profile.strengths.map((strength) => (
+            <div
+              key={strength}
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-slate-200"
+            >
+              {strength}
+            </div>
+          ))}
+        </div>
+      </div>
 
-		<div className="flex flex-wrap justify-center gap-6 mb-8">
-			{techStack.map((tech) => (
-				<div
-					key={tech.name}
-					className="flex flex-col items-center min-w-[80px]"
-					data-aos="zoom-in"
-				>
-					<span className="text-2xl sm:text-3xl mb-1 animate-bounce">
-						{tech.icon}
-					</span>
-					<span className="text-xs sm:text-base font-medium">
-						{tech.name}
-					</span>
-				</div>
-			))}
-		</div>
-		<a
-			href="/Chiemelie_Ekezie_Resume.pdf"
-			download
-			className="inline-block px-4 sm:px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors font-semibold text-sm sm:text-base hidden"
-		>
-			Download CV
-		</a>
-	</section>
+      <div className="rounded-[2rem] border border-white/10 bg-slate-950/65 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.45)] backdrop-blur">
+        <h3 className="text-2xl font-bold text-white">What I Can Help With</h3>
+        <div className="mt-6 space-y-3">
+          {profile.services.map((service) => (
+            <div
+              key={service}
+              className="rounded-2xl border border-cyan-400/15 bg-cyan-400/5 px-4 py-4 text-slate-200"
+            >
+              {service}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 );
 
 export default About;

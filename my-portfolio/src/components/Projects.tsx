@@ -16,11 +16,22 @@ const Projects: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
   const filtered = filter ? projects.filter((p) => p.tech.includes(filter)) : projects;
 
   return (
-    <section {...props} className="container mx-auto py-16 px-4 sm:px-8 md:px-16 lg:px-32 max-w-6xl" data-aos="fade-up">
-      <h2 className="text-4xl sm:text-5xl font-bold mb-8 text-center font-jetbrains group-hover:underline group-hover:decoration-wavy group-hover:decoration-blue-400 group">Projects</h2>
-      <div className="flex flex-wrap gap-2 justify-center mb-8">
+    <section
+      {...props}
+      className="container mx-auto max-w-6xl px-4 py-20 sm:px-8 md:px-16 lg:px-24"
+      data-aos="fade-up"
+    >
+      <div className="mb-10 text-center">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Selected Work</p>
+        <h2 className="mt-4 text-4xl font-black text-white sm:text-5xl">Projects</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-300">
+          A few projects that show how I approach product presentation, business goals, and implementation.
+        </p>
+      </div>
+
+      <div className="mb-8 flex flex-wrap justify-center gap-2">
         <button
-          className={`px-4 py-2 rounded ${!filter ? 'bg-blue-600 text-white' : 'bg-blue-900 text-blue-100 border border-blue-700'}`}
+          className={`rounded-full px-4 py-2 ${!filter ? 'bg-cyan-400 text-slate-950' : 'border border-white/10 bg-white/5 text-slate-200'}`}
           onClick={() => setFilter(null)}
         >
           All
@@ -28,61 +39,80 @@ const Projects: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
         {techs.map((tech) => (
           <button
             key={tech}
-            className={`px-4 py-2 rounded ${filter === tech ? 'bg-blue-600 text-white' : 'bg-blue-900 text-blue-100 border border-blue-700'}`}
+            className={`rounded-full px-4 py-2 ${filter === tech ? 'bg-cyan-400 text-slate-950' : 'border border-white/10 bg-white/5 text-slate-200'}`}
             onClick={() => setFilter(tech)}
           >
             {tech}
           </button>
         ))}
       </div>
-      <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {filtered.map((project, idx) => (
           <motion.div
             key={project.title}
-            className="bg-[#0f172a] rounded-xl p-6 shadow-[0_0_20px_rgba(0,0,255,0.3)] hover:scale-105 transition"
+            className="flex h-full flex-col rounded-[1.75rem] border border-white/10 bg-slate-950/70 p-6 shadow-[0_24px_70px_rgba(15,23,42,0.4)]"
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             transition={{ delay: idx * 0.10 }}
-            whileHover={{ scale: 1.07, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.45)' }}
+            whileHover={{ scale: 1.015, boxShadow: '0 20px 60px 0 rgba(8, 47, 73, 0.4)' }}
           >
             {project.gif && (
-              <img src={project.gif} alt="Project demo gif" className="rounded mb-4 w-full object-cover max-h-64" />
+              <img src={project.gif} alt="Project demo gif" className="mb-5 max-h-64 w-full rounded-2xl object-cover" />
             )}
             {project.screenshot && !project.gif && (
-              <img src={project.screenshot} alt="Project screenshot" className="rounded mb-4 w-full object-cover max-h-64" />
+              <img src={project.screenshot} alt="Project screenshot" className="mb-5 max-h-64 w-full rounded-2xl object-cover" />
             )}
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3 group-hover:text-blue-400 transition-colors text-blue-100">{project.title}</h3>
-            <p className="mb-4 text-lg sm:text-xl text-blue-100 font-medium leading-relaxed">{project.description}</p>
+            <h3 className="mb-3 text-2xl font-bold text-white sm:text-3xl">{project.title}</h3>
+            <p className="mb-5 text-base leading-8 text-slate-200 sm:text-lg">{project.description}</p>
             {project.challenge && (
-              <p className="mb-1 text-xs text-blue-400"><span className="font-semibold">Challenge:</span> {project.challenge}</p>
+              <p className="mb-1 text-sm text-cyan-300"><span className="font-semibold">Challenge:</span> {project.challenge}</p>
             )}
             {project.solution && (
-              <p className="mb-1 text-xs text-green-400"><span className="font-semibold">Solution:</span> {project.solution}</p>
+              <p className="mb-1 text-sm text-emerald-300"><span className="font-semibold">Solution:</span> {project.solution}</p>
             )}
             {project.impact && (
-              <p className="mb-2 text-xs text-yellow-400"><span className="font-semibold">Impact:</span> {project.impact}</p>
+              <p className="mb-4 text-sm text-amber-300"><span className="font-semibold">Impact:</span> {project.impact}</p>
             )}
             {project.codeSnippet && (
-              <pre className="bg-[#17203a] text-blue-100 rounded p-2 text-xs overflow-x-auto mb-2"><code>{project.codeSnippet}</code></pre>
+              <pre className="mb-3 overflow-x-auto rounded-2xl bg-[#17203a] p-3 text-xs text-blue-100"><code>{project.codeSnippet}</code></pre>
             )}
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="mb-6 flex flex-wrap gap-2">
               {project.tech.map((t: string) => (
-                <span key={t} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 rounded text-xs font-medium">
+                <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-200">
                   {t}
                 </span>
               ))}
             </div>
-            <div className="flex gap-4 mt-auto">
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-semibold">Live Demo</a>
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:underline">GitHub</a>
+            <div className="mt-auto flex flex-wrap gap-3">
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-cyan-400 px-4 py-2 font-semibold text-slate-950 transition hover:bg-cyan-300"
+                >
+                  Live Demo
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/10 px-4 py-2 font-semibold text-slate-100 transition hover:border-cyan-300 hover:text-cyan-200"
+                >
+                  GitHub
+                </a>
+              )}
             </div>
           </motion.div>
         ))}
       </div>
     </section>
   );
-}
+};
 
 export default Projects;
