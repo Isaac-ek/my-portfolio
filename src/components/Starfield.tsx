@@ -14,7 +14,7 @@ const Starfield: React.FC = () => {
       const offsetX = (e.clientX - centerX) / centerX;
       const offsetY = (e.clientY - centerY) / centerY;
 
-      starsRef.current.forEach((star, index) => {
+      starsRef.current.forEach((star) => {
         const depth = parseFloat(star.dataset.depth || '1');
         const x = offsetX * depth * 10;
         const y = offsetY * depth * 10;

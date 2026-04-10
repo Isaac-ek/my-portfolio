@@ -4,10 +4,8 @@
 
 /* 🌐 Global App Styling */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
 }
 
 /* 🧪 Experimental Gradient Background Class */
@@ -20,9 +18,11 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -20;
-  background: radial-gradient(circle at 20% 30%, #ff00cc33, transparent 60%),
-              radial-gradient(circle at 80% 70%, #00ffff22, transparent 60%);
-  filter: blur(80px);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.16), transparent 32%),
+    radial-gradient(circle at 80% 18%, rgba(244, 114, 182, 0.14), transparent 30%),
+    radial-gradient(circle at 50% 75%, rgba(59, 130, 246, 0.12), transparent 35%);
+  filter: blur(40px);
   pointer-events: none;
 }
 
@@ -54,10 +54,4 @@ body::before {
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
-.card {
-  padding: 2em;
-}
-.read-the-docs {
-  color: #888;
 }
