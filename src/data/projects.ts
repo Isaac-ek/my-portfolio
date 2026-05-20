@@ -46,15 +46,31 @@ export const projects: Project[] = [
   {
     title: 'Finance Dashboard UI Design',
     description:
-      'A modern finance dashboard concept built to present balances, metrics, and activity in a clear, polished, and easy-to-scan layout.',
-    tech: ['React', 'TypeScript', 'Tailwind CSS', 'UI Design'],
+      'A responsive finance dashboard built for tracking balances, transaction activity, and category insights through a polished, easy-to-scan interface.',
+    tech: ['React', 'TypeScript', 'Tailwind CSS', 'Recharts', 'Zustand'],
     github: 'https://github.com/Isaac-ek/finance-dashboard-ui',
     demo: 'https://finance-dashboard-ui-orcin-iota.vercel.app/',
-    challenge: 'Show dense financial information in a way that feels structured instead of overwhelming.',
+    challenge: 'Present financial metrics and transaction history in a way that stays readable as the dashboard gets denser.',
     solution:
-      'Used strong visual hierarchy, card-based sections, and clean spacing to make the dashboard more readable and professional.',
+      'Combined strong visual hierarchy, chart-driven summaries, and clear transaction tables to keep data-rich screens approachable.',
     impact:
-      'Demonstrates UI design strength for data-heavy products and dashboard-style user experiences.',
+      'Shows product thinking for data-heavy experiences and the ability to ship a polished analytics-style interface to production.',
+    gif: '',
+    screenshot: '',
+    codeSnippet: '',
+  },
+  {
+    title: 'Indie CRM',
+    description:
+      'A streamlined CRM experience for managing contacts, leads, and follow-ups with a workflow that feels lightweight for solo operators and small teams.',
+    tech: ['React', 'TypeScript', 'CRM', 'Vercel'],
+    github: '',
+    demo: 'https://indie-crm-two.vercel.app/login',
+    challenge: 'Create a CRM that covers essential relationship management tasks without feeling bulky or enterprise-heavy.',
+    solution:
+      'Focused the product on practical day-to-day workflows, clear navigation, and a straightforward interface that helps users move quickly.',
+    impact:
+      'Adds a business-focused product to the portfolio and highlights experience building tools around sales and customer management workflows.',
     gif: '',
     screenshot: '',
     codeSnippet: '',
