@@ -6,7 +6,7 @@ export const profile = {
   tagline: 'I build responsive websites and e-commerce experiences that help brands look credible, load fast, and convert better.',
   intro:
     'I work with startups, nonprofits, and growing businesses to turn ideas into clean, modern web experiences. My background spans product-minded frontend work, client delivery, and cloud-ready thinking.',
-  resumePath: '/Chiemelie_Ekezie_Resume.pdf',
+  resumePath: '/Chiemelie_Isaac_Ekezie_Resume.pdf',
   linkedin: 'https://www.linkedin.com/in/chiemelie-ekezie-21b029254/',
   github: 'https://github.com/Isaac-ek',
   x: 'https://x.com/thisaint_isaac',
