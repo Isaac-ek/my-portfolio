@@ -21,7 +21,7 @@ const Hero = (props: HTMLSectionProps) => (
         </h1>
         <div className="mt-5 text-2xl font-semibold text-slate-200 sm:text-3xl">
           <Typewriter
-            words={[profile.name, profile.role]}
+            words={[profile.name, profile.role, ...profile.titles]}
             loop
             cursor
             cursorStyle="_"

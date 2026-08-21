@@ -4,142 +4,190 @@ import { profile } from '../data/profile';
 const AboutPage = () => (
   <>
     <Navbar />
-    <div data-aos="zoom-in" data-aos-duration="1000">
+    <div data-aos="fade-up">
       <main className="container mx-auto min-h-[70vh] max-w-5xl px-4 py-28 sm:px-8 md:px-16">
-        <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">About</p>
-        <h1 className="mb-4 text-center text-5xl font-black text-white sm:text-6xl">
-          {profile.name}
-        </h1>
-        <h2 className="mb-2 text-center text-2xl font-semibold text-slate-200 sm:text-3xl">
-          {profile.role}
-        </h2>
-        <p className="mb-2 text-center text-slate-300">{profile.location}</p>
-        <p className="mb-2 text-center text-slate-300">{profile.email}</p>
-      <a
-        href={profile.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mb-10 block text-center text-cyan-300 underline"
-      >
-        LinkedIn: linkedin.com/in/chiemelie-ekezie-21b029254
-      </a>
-      <section className="mb-8 w-full">
-        <h3 className="mb-2 text-xl font-bold text-white">Summary</h3>
-        <p className="mb-4 leading-relaxed text-slate-200">
-          Web Developer with 3+ years of experience building and deploying websites for
-          nonprofits, startups, and growing businesses. I freelance with multiple
-          companies, delivering custom websites and e‑commerce solutions that help
-          businesses establish an online presence and sell web‑based products.
-          Recently, I earned the <a
-            href="https://www.credly.com/badges/1a0ca469-c7f7-4850-b13c-9459ffc24530/linked_in_profile"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-300 underline"
-          >
-            AWS Certified Solutions Architect (SAA‑C03)
-          </a>, which
-          strengthens my ability to design scalable, secure, cloud‑ready solutions.
-          I am open to new opportunities and collaborations.
-        </p>
-        <h3 className="mb-2 text-xl font-bold text-white">My Stack</h3>
-        <p className="mb-4 text-slate-200">
-          HTML, CSS, JavaScript, Python, MySQL, MongoDB, Git, GitHub, AWS
-        </p>
-        <h3 className="mb-2 text-xl font-bold text-white">Familiar With</h3>
-        <p className="mb-4 text-slate-200">
-          WordPress, UI/UX Design, Figma, REST APIs, <a
-            href="https://www.credly.com/badges/0fa81baf-1953-4c20-812e-7d1822152ad8/linked_in_profile"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-300 underline"
-          >
-            Cybersecurity Essentials
-          </a>, Cloud Computing, GitHub Pages,
-          Responsive Design
-        </p>
-        <h3 className="mb-2 text-xl font-bold text-white">Work Experience</h3>
-        <div className="mb-4">
-          <p className="font-semibold text-slate-100">Freelance Web Developer</p>
-          <p className="mb-1 text-sm text-slate-400">May 2020 – Present</p>
-          <ul className="mb-2 list-inside list-disc text-sm text-slate-200">
-            <li>Developed and deployed websites for non-profits and businesses.</li>
-            <li>Built e-commerce websites for small businesses with shopping cart and order management.</li>
-            <li>Delivered web solutions that supported product visibility and user engagement.</li>
-            <li>Consulted with clients to translate business goals into intuitive website designs.</li>
-          </ul>
+        {/* Header Hero */}
+        <div className="rounded-[2.5rem] border border-white/10 bg-slate-950/70 p-8 sm:p-12 shadow-[0_25px_80px_rgba(2,12,27,0.5)] backdrop-blur">
+          <div className="flex flex-col items-center text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
+              Professional Profile
+            </span>
+            <h1 className="mt-4 text-4xl font-black text-white sm:text-6xl">
+              {profile.name}
+            </h1>
+            <h2 className="mt-3 text-xl font-semibold text-slate-200 sm:text-2xl max-w-3xl">
+              {profile.role}
+            </h2>
+
+            {/* Contact Badges */}
+            <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm text-slate-300">
+              <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5">
+                📍 {profile.location}
+              </span>
+              <a
+                href={`mailto:${profile.email}`}
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 hover:border-cyan-400/40 hover:text-cyan-300 transition"
+              >
+                ✉️ {profile.email}
+              </a>
+              <a
+                href={`tel:${profile.phone}`}
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 hover:border-cyan-400/40 hover:text-cyan-300 transition"
+              >
+                📞 {profile.phone}
+              </a>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-cyan-200 hover:bg-cyan-400/20 transition"
+              >
+                🔗 LinkedIn
+              </a>
+              <a
+                href={profile.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-1.5 text-fuchsia-200 hover:bg-fuchsia-400/20 transition"
+              >
+                🌐 Portfolio Website
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <a
+                href={profile.resumePath}
+                download
+                className="rounded-full bg-cyan-400 px-8 py-3.5 text-base font-bold text-slate-950 shadow-lg shadow-cyan-400/20 transition hover:bg-cyan-300"
+              >
+                Download Resume PDF
+              </a>
+            </div>
+          </div>
         </div>
-        <div className="mb-4">
-          <p className="font-semibold text-slate-100">Chuga Rex Limited - Web Designer</p>
-          <p className="mb-1 text-sm text-slate-400">March 2024 - August 2024 (6 months)</p>
-          <ul className="mb-2 list-inside list-disc text-sm text-slate-200">
-            <li>Designed, customised, and managed WordPress-based websites for corporate needs.</li>
-            <li>Worked on UI consistency, plugin integration, and SEO improvements.</li>
-            <li>Collaborated with technical teams on updates, fixes, and client customizations.</li>
-          </ul>
+
+        {/* Professional Summary */}
+        <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
+          <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span className="text-cyan-400">✦</span> Professional Summary
+          </h3>
+          <p className="mt-4 leading-relaxed text-slate-200 text-lg">
+            {profile.intro}
+          </p>
+
+          {/* Top Skills */}
+          <div className="mt-8">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Top Skills & Focus Areas</h4>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {profile.topSkills.map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-200"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Experience Section */}
+        <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
+          <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span className="text-cyan-400">💼</span> Experience
+          </h3>
+
+          <div className="mt-8 space-y-8">
+            {profile.experience.map((exp) => (
+              <div
+                key={exp.role}
+                className="relative pl-6 border-l-2 border-cyan-400/30 space-y-3"
+              >
+                <div className="absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-cyan-400 bg-slate-950" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h4 className="text-xl font-bold text-white">{exp.role}</h4>
+                  <span className="inline-block text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full w-fit">
+                    {exp.period}
+                  </span>
+                </div>
+                <p className="text-sm font-medium text-slate-300">
+                  <span className="text-cyan-200 font-semibold">{exp.company}</span> • {exp.location}
+                </p>
+                <p className="text-slate-300 text-sm leading-relaxed">{exp.summary}</p>
+                {exp.highlights && exp.highlights.length > 0 && (
+                  <ul className="mt-3 space-y-2 text-sm text-slate-200">
+                    {exp.highlights.map((highlight, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5">
+                        <span className="text-cyan-400 mt-1 text-xs">▫</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Education & Certifications Grid */}
+        <div className="mt-12 grid gap-8 md:grid-cols-2">
+          {/* Education */}
+          <section className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
+            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+              <span className="text-cyan-400">🎓</span> Education
+            </h3>
+            <div className="mt-6 space-y-6">
+              {profile.education.map((edu) => (
+                <div key={edu.institution} className="rounded-2xl border border-white/5 bg-white/5 p-5">
+                  <span className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">{edu.period}</span>
+                  <h4 className="mt-1 text-lg font-bold text-white">{edu.institution}</h4>
+                  <p className="text-sm font-medium text-slate-200">{edu.degree}</p>
+                  <p className="mt-1 text-xs text-slate-400">{edu.location}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Certifications */}
+          <section className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
+            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+              <span className="text-fuchsia-400">📜</span> Certifications
+            </h3>
+            <div className="mt-6 space-y-4">
+              {profile.certifications.map((cert) => (
+                <div
+                  key={cert.label}
+                  className={`rounded-2xl border p-5 ${
+                    cert.highlight
+                      ? 'border-fuchsia-400/40 bg-fuchsia-400/10'
+                      : 'border-white/10 bg-white/5'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h4 className="text-base font-bold text-white">{cert.label}</h4>
+                      {cert.issuer && <p className="text-xs text-slate-300 mt-1">{cert.issuer}</p>}
+                    </div>
+                    {cert.url && (
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-semibold text-cyan-300 hover:underline shrink-0"
+                      >
+                        Verify ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
-        <h3 className="mb-2 text-xl font-bold text-white">Education</h3>
-        <ul className="mb-4 list-inside list-disc text-sm text-slate-200">
-          <li>
-            <span className="font-semibold">Covenant University, Ota, Nigeria</span>
-            <br />
-            Bachelor's Degree, Computer Science
-            <br />
-            November 2021 – July 2025
-          </li>
-          <li>
-            <span className="font-semibold">Babington Macaulay Junior Seminary</span>
-            <br />
-            SSCE – Technical Focus
-            <br />
-            September 2015 – October 2021
-          </li>
-        </ul>
-        <h3 className="mb-2 text-xl font-bold text-white">Certifications</h3>
-        <ul className="mb-4 list-inside list-disc text-sm text-slate-200">
-          <li>
-            <a
-              href="https://www.credly.com/badges/1a0ca469-c7f7-4850-b13c-9459ffc24530/linked_in_profile"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-300 underline"
-            >
-              AWS Certified Solutions Architect – SAA-C03 (Credly)
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.credly.com/badges/0fa81baf-1953-4c20-812e-7d1822152ad8/linked_in_profile"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-300 underline"
-            >
-              Cybersecurity Essentials (Cisco) (Credly)
-            </a>
-          </li>
-          <li>Introduction to Python Programming</li>
-          <li>Introduction to HTML5</li>
-          <li>Data Analysis Using Python</li>
-        </ul>
-        <h3 className="mb-2 text-xl font-bold text-white">Top Skills</h3>
-        <p className="mb-4 text-slate-200">
-          Amazon Web Services (AWS), Cloud Computing, User Experience (UX), Web Design and Development,
-          Frontend and Backend Integration
-        </p>
-        <h3 className="mb-2 text-xl font-bold text-white">Hobbies</h3>
-        <p className="mb-4 text-slate-200">
-          Reading novels, video gaming and continuous learning through coding challenges.
-        </p>
-      </section>
-      <a
-        href={profile.resumePath}
-        download
-        className="inline-block rounded-full bg-cyan-400 px-6 py-3 font-bold text-slate-950 shadow-lg transition hover:bg-cyan-300"
-      >
-        Download Resume
-      </a>
       </main>
     </div>
   </>
 );
 
 export default AboutPage;
+
