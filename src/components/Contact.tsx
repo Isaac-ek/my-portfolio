@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { profile } from '../data/profile';
 
-const initialForm = { name: '', email: '', message: '' };
+const initialForm = { name: '', email: '', message: '', _honey: '' };
 
 const Contact = () => {
   const [form, setForm] = useState(initialForm);
