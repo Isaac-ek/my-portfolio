@@ -18,7 +18,7 @@ const Contact = () => {
     setStatus('idle');
     // Example: Use Formspree (replace with your own endpoint)
     try {
-      const res = await fetch('https://formspree.io/f/manbpgbp', {
+      const res = await fetch('https://formsubmit.co/ajax/ekezie.chiemelie@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -64,6 +64,7 @@ const Contact = () => {
 
         <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-8">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            <input type="text" name="_honey" style={{ display: 'none' }} onChange={handleChange} value={form._honey || ''} />
             <div>
               <label htmlFor="name" className="mb-2 block font-semibold text-slate-200">Name</label>
               <input
