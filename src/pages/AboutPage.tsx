@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import { profile } from '../data/profile';
+import { motion } from 'framer-motion';
 
 const AboutPage = () => (
   <>
@@ -10,7 +11,7 @@ const AboutPage = () => (
         <div className="rounded-[2.5rem] border border-white/10 bg-slate-950/70 p-8 sm:p-12 shadow-[0_25px_80px_rgba(2,12,27,0.5)] backdrop-blur">
           <div className="flex flex-col items-center text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
-              Professional Profile
+              Curriculum Vitae &amp; Professional Profile
             </span>
             <h1 className="mt-4 text-4xl font-black text-white sm:text-6xl">
               {profile.name}
@@ -31,18 +32,12 @@ const AboutPage = () => (
                 ✉️ {profile.email}
               </a>
               <a
-                href={`tel:${profile.phone}`}
-                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 hover:border-cyan-400/40 hover:text-cyan-300 transition"
-              >
-                📞 {profile.phone}
-              </a>
-              <a
                 href={profile.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-cyan-200 hover:bg-cyan-400/20 transition"
               >
-                🔗 LinkedIn
+                💼 LinkedIn Profile
               </a>
               <a
                 href={profile.website}
@@ -57,47 +52,74 @@ const AboutPage = () => (
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
                 href={profile.resumePath}
-                download
-                className="rounded-full bg-cyan-400 px-8 py-3.5 text-base font-bold text-slate-950 shadow-lg shadow-cyan-400/20 transition hover:bg-cyan-300"
+                download="Ekezie_Chiemelie_Isaac_Resume.pdf"
+                className="rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 px-8 py-3.5 text-base font-bold text-slate-950 shadow-lg shadow-cyan-400/20 transition hover:from-cyan-300 hover:to-cyan-400"
               >
-                Download Resume PDF
+                Download Master Resume PDF ↓
+              </a>
+              <a
+                href={profile.resumePath}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-white/20 bg-white/5 px-8 py-3.5 text-base font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-200"
+              >
+                View PDF in Browser ↗
               </a>
             </div>
           </div>
         </div>
 
-        {/* Professional Summary */}
+        {/* Executive Profile */}
         <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
           <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-cyan-400">✦</span> Professional Summary
+            <span className="text-cyan-400">✦</span> Executive Profile
           </h3>
           <p className="mt-4 leading-relaxed text-slate-200 text-lg">
             {profile.intro}
           </p>
+        </section>
 
-          {/* Top Skills */}
-          <div className="mt-8">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Top Skills & Focus Areas</h4>
-            <div className="mt-4 flex flex-wrap gap-2.5">
-              {profile.topSkills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-200"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+        {/* Core Competency Matrix */}
+        <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+              <span className="text-fuchsia-400">❖</span> Core Competency Matrix
+            </h3>
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+              From Master CV
+            </span>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {profile.skillGroups.map((group) => (
+              <motion.div
+                key={group.title}
+                className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-cyan-400/30"
+                whileHover={{ scale: 1.01 }}
+              >
+                <h4 className="text-lg font-bold text-cyan-200 mb-4">{group.title}</h4>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-medium text-slate-200"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-        {/* Experience Section */}
+        {/* Professional Experience */}
         <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
-          <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-cyan-400">💼</span> Experience
+          <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-8">
+            <span className="text-cyan-400">💼</span> Professional Experience
           </h3>
 
-          <div className="mt-8 space-y-8">
+          <div className="space-y-10">
             {profile.experience.map((exp) => (
               <div
                 key={exp.role}
@@ -106,7 +128,7 @@ const AboutPage = () => (
                 <div className="absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-cyan-400 bg-slate-950" />
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                   <h4 className="text-xl font-bold text-white">{exp.role}</h4>
-                  <span className="inline-block text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full w-fit">
+                  <span className="inline-block text-xs font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full w-fit">
                     {exp.period}
                   </span>
                 </div>
@@ -129,7 +151,7 @@ const AboutPage = () => (
           </div>
         </section>
 
-        {/* Education & Certifications Grid */}
+        {/* Education & Certifications */}
         <div className="mt-12 grid gap-8 md:grid-cols-2">
           {/* Education */}
           <section className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
@@ -190,4 +212,3 @@ const AboutPage = () => (
 );
 
 export default AboutPage;
-

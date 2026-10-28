@@ -1,8 +1,8 @@
-import Projects from '../components/Projects';
+import Works from '../components/Works';
 
 const ProjectsPage = () => (
-  <main>
-    <Projects />
+  <main className="pt-24">
+    <Works />
   </main>
 );
 

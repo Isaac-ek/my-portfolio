@@ -31,16 +31,19 @@ function App() {
 
       {/* 🖱️ Animated Cursor */}
       <AnimatedCursor
-        innerSize={10}
-        outerSize={40}
-        color="59,130,246"
-        outerAlpha={0.4}
-        innerScale={1.5}
-        outerScale={2}
-        trailingSpeed={5}
+        innerSize={8}
+        outerSize={36}
+        color="6,182,212"
+        outerAlpha={0.25}
+        innerScale={1.3}
+        outerScale={1.9}
+        trailingSpeed={6}
         clickables={[
           'a',
           'button',
+          'input',
+          'textarea',
+          '[role="button"]',
           '.link',
           '.btn',
           '.nav-link',

@@ -1,49 +1,80 @@
 import { profile } from '../data/profile';
+import { motion } from 'framer-motion';
 
 const SocialLinks = () => (
-  <div className="mx-auto mb-8 mt-4 flex max-w-6xl flex-col items-stretch gap-4 px-4 sm:flex-row sm:px-8 md:px-16 lg:px-24">
-    <a
+  <div className="mx-auto mb-14 mt-4 flex items-center justify-center gap-4 px-4 flex-wrap">
+    {/* Email */}
+    <motion.a
       href={`mailto:${profile.email}`}
-      className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-base font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
+      className="inline-flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-base font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_24px_rgba(6,182,212,0.25)]"
       aria-label="Email"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
-      <span className="font-bold">Email:</span> {profile.email}
-    </a>
-    <a
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.8}
+        stroke="currentColor"
+        className="w-5 h-5 text-cyan-300"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+        />
+      </svg>
+      <span>Email</span>
+    </motion.a>
+
+    {/* LinkedIn */}
+    <motion.a
       href={profile.linkedin}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-base font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
-      aria-label="Connect on LinkedIn"
+      className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4 text-white transition hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_24px_rgba(6,182,212,0.25)]"
+      aria-label="LinkedIn"
+      title="LinkedIn"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
       <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.968v5.699h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2 3.6 4.594v5.602z" />
       </svg>
-      Connect on LinkedIn
-    </a>
-    <a
+    </motion.a>
+
+    {/* GitHub */}
+    <motion.a
       href={profile.github}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-base font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
-      aria-label="View GitHub Profile"
+      className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4 text-white transition hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_24px_rgba(6,182,212,0.25)]"
+      aria-label="GitHub"
+      title="GitHub"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
         <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.606-2.665-.305-5.466-1.334-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.984-.399 3.003-.404 1.018.005 2.046.138 3.006.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.804 5.624-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 21.796 24 17.299 24 12c0-6.627-5.373-12-12-12z" />
       </svg>
-      View GitHub
-    </a>
-    <a
+    </motion.a>
+
+    {/* X (Twitter) */}
+    <motion.a
       href={profile.x}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white transition hover:border-cyan-300 hover:text-cyan-200"
+      className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4 text-white transition hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_24px_rgba(6,182,212,0.25)]"
       aria-label="X (Twitter)"
+      title="X"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
-      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+      <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="w-5 h-5">
         <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
       </svg>
-    </a>
+    </motion.a>
   </div>
 );
 
