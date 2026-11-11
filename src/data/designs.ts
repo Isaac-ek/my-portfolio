@@ -5,6 +5,17 @@ export type DesignCategory =
   | 'Print & Packaging'
   | 'Marketing';
 
+export type DesignVariant = {
+  id: string;
+  name: string;
+  subtitle: string;
+  actives: string;
+  accent: string;
+  image: string;
+  palette: string[];
+  description: string;
+};
+
 export type Design = {
   id: string;
   title: string;
@@ -18,136 +29,122 @@ export type Design = {
   accent: string;
   gradient: string;
   image?: string;
+  gallery?: string[];
+  variants?: DesignVariant[];
   link?: string;
 };
 
 export const designs: Design[] = [
   {
-    id: 'bakangizo-brand',
-    title: 'Bakangizo Brand Identity',
+    id: 'dr-kayla-skincare-system',
+    title: 'Dr Kayla® Clinical Soap Packaging (7 Formulas)',
     description:
-      'Complete visual identity system for Bakangizo — logo suite, typography hierarchy, clinical color palette, and brand governance rules for physical and digital touchpoints.',
-    category: 'Brand Identity',
-    client: 'Bakan Gizo Pharmacy & Stores Ltd',
-    year: '2026',
-    tools: ['Figma', 'Adobe Illustrator', 'Canva Pro'],
-    deliverables: [
-      'Primary & Secondary Logo Suite',
-      'Typography & Hierarchy Guidelines',
-      'Clinical Color System & Swatches',
-      'Executive Stationery & Business Assets',
-      'Digital Storefront Brand Guidelines',
-    ],
-    palette: ['#06B6D4', '#0F172A', '#38BDF8', '#F8FAFC'],
-    accent: '#06b6d4',
-    gradient: 'from-cyan-500/30 via-blue-600/20 to-slate-900',
-    image: '',
-    link: '',
-  },
-  {
-    id: 'social-media-pack',
-    title: 'Social Media Campaign Pack',
-    description:
-      'High-resolution creative campaign assets — Instagram carousel templates, reels covers, and story layouts designed for maximum brand recognition and visual polish.',
-    category: 'Social Media',
-    client: 'Healthcare & Retail Marketing',
-    year: '2026',
-    tools: ['Canva Pro', 'Adobe Photoshop'],
-    deliverables: [
-      '10+ High-Conversion Carousel Slides',
-      'Instagram Story & Reel Cover Kits',
-      'Promotional Discount Banners',
-      'Vector Iconography & Stickers',
-    ],
-    palette: ['#A855F7', '#EC4899', '#3B82F6', '#020617'],
-    accent: '#a855f7',
-    gradient: 'from-purple-500/30 via-fuchsia-600/20 to-slate-900',
-    image: '',
-    link: '',
-  },
-  {
-    id: 'finance-dashboard-ui',
-    title: 'Finance Dashboard UI',
-    description:
-      'Clean, data-rich dashboard interface design for tracking financial metrics — balances, transactions, and category insights. Converted into production React components.',
-    category: 'UI/UX',
-    client: 'FinTech Analytics Module',
-    year: '2026',
-    tools: ['Figma', 'React', 'Tailwind CSS', 'Recharts'],
-    deliverables: [
-      'Figma Component Library & Design System',
-      'High-Fidelity Desktop & Mobile Views',
-      'Interactive Chart & Telemetry Prototypes',
-      'Dark/Light Theme Accessible Tokens',
-    ],
-    palette: ['#10B981', '#06B6D4', '#0F172A', '#1E293B'],
-    accent: '#10b981',
-    gradient: 'from-emerald-500/30 via-teal-600/20 to-slate-900',
-    image: '',
-    link: 'https://finance-dashboard-ui-orcin-iota.vercel.app/',
-  },
-  {
-    id: 'executive-pitch-deck',
-    title: 'Executive Pitch Deck',
-    description:
-      'Polished presentation deck designed directly for executive-level stakeholders and company leadership — combining cinematic slides with rigorous data visualization.',
+      'Comprehensive packaging suite and die-cut production mechanicals for Dr Kayla® dermatological soap line. Engineered 7 specialized product formulas with custom botanical color systems, regulatory INCI compliance, scannable barcodes, and 20.8cm x 21.4cm folding carton dielines.',
     category: 'Print & Packaging',
-    client: 'Executive Management',
+    client: 'Dr Kayla Ltd (Manchester, UK)',
     year: '2026',
-    tools: ['PowerPoint', 'Canva Pro', 'Figma'],
+    tools: ['Adobe Illustrator', 'Adobe Photoshop', 'Print Production Dielines', 'CMYK Pre-press'],
     deliverables: [
-      '20+ Custom Executive Slide Layouts',
-      'Corporate Narrative & Growth Charts',
-      'Print-Ready & Screen-Optimized PDFs',
-      'Editable Master Template System',
+      '7x Folding Box Production Dielines (20.8 x 21.4 cm, 130g / 4.6 oz)',
+      'Custom Botanical & Clinical Color Systems for Each Formula',
+      'INCI Regulatory Ingredient Hierarchy, Directional Panels & Warnings',
+      'Scannable EAN-13 Barcodes & UK / Thailand Manufacturer Badges',
+      'Dermatologically Tested Certification Seals & Vector Crests',
+      'Full CMYK Press Mechanicals with Bleeds & Tuck-in Flap Geometry',
     ],
-    palette: ['#F59E0B', '#D97706', '#1E293B', '#FFFFFF'],
-    accent: '#f59e0b',
-    gradient: 'from-amber-500/30 via-orange-600/20 to-slate-900',
-    image: '',
+    palette: ['#15803D', '#EA580C', '#DB2777', '#7E22CE', '#16A34A', '#0284C7', '#0D9488'],
+    accent: '#15803D',
+    gradient: 'from-emerald-500/20 via-teal-600/10 to-slate-900',
+    image: '/assets/designs/dr-kayla-detox.jpg',
+    gallery: [
+      '/assets/designs/dr-kayla-detox.jpg',
+      '/assets/designs/dr-kayla-bright.jpg',
+      '/assets/designs/dr-kayla-beauty.jpg',
+      '/assets/designs/dr-kayla-renew.jpg',
+      '/assets/designs/dr-kayla-acne.png',
+      '/assets/designs/dr-kayla-men.jpg',
+      '/assets/designs/dr-kayla-barrier.jpg',
+    ],
+    variants: [
+      {
+        id: 'detox',
+        name: 'DETOX+',
+        subtitle: 'Purifying & Oil Control Face & Body Soap',
+        actives: 'Activated Charcoal • Tea Tree Oil • Niacinamide • Coconut Oil & Green Tea Extract',
+        accent: '#15803D',
+        image: '/assets/designs/dr-kayla-detox.jpg',
+        palette: ['#15803D', '#22C55E', '#052E16', '#FFFFFF'],
+        description:
+          'Deep-cleansing purifying bar formulated with Activated Charcoal and Tea Tree Oil to unclog pores, eliminate excess sebum, and prevent breakouts with an emerald botanical profile.',
+      },
+      {
+        id: 'bright',
+        name: 'BRIGHT+',
+        subtitle: 'Vitamin C Brightening Face & Body Soap',
+        actives: 'Vitamin C • Niacinamide • Alpha Arbutin • Natural Coconut Oil',
+        accent: '#EA580C',
+        image: '/assets/designs/dr-kayla-bright.jpg',
+        palette: ['#EA580C', '#F97316', '#FFF7ED', '#7C2D12'],
+        description:
+          'High-radiance brightening soap engineered with Vitamin C, Niacinamide, and Alpha Arbutin to fade hyperpigmentation, even skin tone, and deliver vibrant citrus-amber shelf impact.',
+      },
+      {
+        id: 'beauty',
+        name: 'BEAUTY+',
+        subtitle: 'Radiance & Even Skin Tone Soap',
+        actives: 'Niacinamide • Vitamin C • Alpha Arbutin • Natural Coconut Oil & Vitamins',
+        accent: '#DB2777',
+        image: '/assets/designs/dr-kayla-beauty.jpg',
+        palette: ['#DB2777', '#EC4899', '#FDF2F8', '#831843'],
+        description:
+          'Nourishing radiance formulation with intense magenta color grading, botanical droplet graphics, and triple-action skin tone evening actives.',
+      },
+      {
+        id: 'renew',
+        name: 'RENEW+',
+        subtitle: 'Skin Renewing Face & Body Soap',
+        actives: 'Bakuchiol • Vitamin E • Marine Collagen • Natural Coconut Oil',
+        accent: '#7E22CE',
+        image: '/assets/designs/dr-kayla-renew.jpg',
+        palette: ['#7E22CE', '#9333EA', '#FAF5FF', '#3B0764'],
+        description:
+          'Anti-aging luxury purple carton layout featuring Bakuchiol (retinol alternative), Marine Collagen, and Vitamin E for cell renewal and dermal elasticity.',
+      },
+      {
+        id: 'acne',
+        name: 'ACNE+',
+        subtitle: 'Acne Clearing Face & Body Soap',
+        actives: 'Salicylic Acid (BHA) • Activated Charcoal • Tea Tree Oil • Sulphur • Zinc PCA',
+        accent: '#16A34A',
+        image: '/assets/designs/dr-kayla-acne.png',
+        palette: ['#16A34A', '#4ADE80', '#052E16', '#FFFFFF'],
+        description:
+          'Clinical targeted blemish-control dieline with clean-room pharmaceutical green styling, pore-clearing callouts, and multi-active acne control matrix.',
+      },
+      {
+        id: 'men',
+        name: 'MEN+',
+        subtitle: 'Refreshing Face & Body Soap',
+        actives: 'Menthol • Niacinamide • Vitamin E • Cooling Coconut & Mint',
+        accent: '#0284C7',
+        image: '/assets/designs/dr-kayla-men.jpg',
+        palette: ['#0284C7', '#0369A1', '#082F49', '#F0F9FF'],
+        description:
+          'Ice-blue masculine grooming carton with cooling menthol crystals, deodorant benefits, and crisp Arctic-inspired typography and badging.',
+      },
+      {
+        id: 'barrier',
+        name: 'BARRIER+',
+        subtitle: 'Skinbarrier Cleansing Bar',
+        actives: 'Ceramides • Niacinamide • Panthenol (Pro-Vitamin B5) • Coconut Oil',
+        accent: '#0D9488',
+        image: '/assets/designs/dr-kayla-barrier.jpg',
+        palette: ['#0D9488', '#14B8A6', '#042F2C', '#F0FDFA'],
+        description:
+          'Teal derm-defense cleansing bar packaging dedicated to barrier repair, trans-epidermal water loss prevention, and soothing irritated sensitive skin.',
+      },
+    ],
     link: '',
-  },
-  {
-    id: 'chugabags-banners',
-    title: 'E-Commerce Product Banners',
-    description:
-      'Promotional banners, product feature cards, and catalog imagery for chugabags.com — optimized for conversion, high CTR, and consistent brand luxury.',
-    category: 'Marketing',
-    client: 'Chuga Rex Retail Storefront',
-    year: '2024',
-    tools: ['Adobe Photoshop', 'Canva Pro', 'WordPress'],
-    deliverables: [
-      'Homepage Hero Carousel Banners',
-      'Category Header Artwork',
-      'Seasonal Flash Sale Promo Creatives',
-      'Retargeting Web Ad Displays',
-    ],
-    palette: ['#EC4899', '#BE185D', '#0F172A', '#FCE7F3'],
-    accent: '#ec4899',
-    gradient: 'from-pink-500/30 via-rose-600/20 to-slate-900',
-    image: '',
-    link: 'https://chugabags.com/',
-  },
-  {
-    id: 'indiecrm-ui',
-    title: 'IndieCRM Interface Design',
-    description:
-      'Lightweight CRM product UI designed for solo operators and agile teams — intuitive contact pipelines, lead stages, and a rapid, zero-friction daily workflow.',
-    category: 'UI/UX',
-    client: 'SaaS Product Concept',
-    year: '2026',
-    tools: ['Figma', 'React 19', 'Next.js 15'],
-    deliverables: [
-      'Kanban Lead Stage Pipeline Mockups',
-      'Micro-Interactions & State Architecture',
-      'Customer Profile Drawer UI',
-      'Production-Ready SVG Iconography',
-    ],
-    palette: ['#6366F1', '#4F46E5', '#0B0F19', '#E0E7FF'],
-    accent: '#6366f1',
-    gradient: 'from-indigo-500/30 via-violet-600/20 to-slate-900',
-    image: '',
-    link: 'https://indie-crm-two.vercel.app/login',
   },
 ];
 
@@ -173,7 +170,7 @@ export const categoryColors: Record<
     border: 'border-emerald-400/40',
     bg: 'bg-emerald-400/10',
     text: 'text-emerald-300',
-    glow: '0 0 40px rgba(16,185,129,0.25)',
+    glow: '0 0 40px rgba(160,185,129,0.25)',
     badge: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-200',
   },
   'Print & Packaging': {

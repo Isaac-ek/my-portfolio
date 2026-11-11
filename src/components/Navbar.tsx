@@ -1,43 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
-type NavLink = { label: string; href: string; designTab?: boolean };
+type NavLink = { id: string; label: string; href: string; designTab?: boolean };
 
 const navLinks: NavLink[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Work', href: '/#projects' },
-  { label: 'Design', href: '/#projects', designTab: true },
-  { label: 'Skills', href: '/#skills' },
+  { id: '01', label: 'SELECTED WORK', href: '/#projects' },
+  { id: '02', label: 'GRAPHIC DESIGN', href: '/#projects', designTab: true },
+  { id: '03', label: 'DOSSIER / CV', href: '/about' },
+  { id: '04', label: 'CONTACT', href: '/#contact' },
 ];
 
 const Navbar = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const [active, setActive] = useState('Home');
+  const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  useEffect(() => {
-    const current = navLinks.find((link) => {
-      if (link.href === '/') return location.pathname === '/';
-      return location.pathname.startsWith(link.href.replace('/#', '/'));
-    });
-    setActive(current ? current.label : '');
-    setMenuOpen(false);
-  }, [location]);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -51,131 +36,143 @@ const Navbar = () => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
 
-        // If clicking "Design", fire a custom event so Works tab can switch
         if (link.designTab) {
           window.dispatchEvent(new CustomEvent('nav-design-tab'));
         }
-      }, 120);
+      }, 100);
     }
     setMenuOpen(false);
   };
 
   return (
-    <nav
-      className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
+    <header
+      className={`fixed left-0 top-0 z-50 w-full transition-colors duration-300 ${
         scrolled
-          ? 'border-b border-white/5 bg-slate-950/85 shadow-[0_0_40px_rgba(0,0,0,0.4)] backdrop-blur-xl'
-          : 'bg-[#0f172a]/95 backdrop-blur'
+          ? 'bg-[#08080a]/90 backdrop-blur-md border-b border-white/10'
+          : 'bg-[#08080a]/70 backdrop-blur-sm border-b border-white/5'
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-8">
-        {/* Brand */}
-        <Link
-          to="/"
-          className="group relative font-black text-2xl md:text-3xl"
-          aria-label="Home"
-        >
-          <span className="bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent transition-all duration-300 group-hover:from-fuchsia-400 group-hover:to-cyan-400">
-            Chiemelie.
-          </span>
-          {/* Glow under brand */}
-          <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-cyan-400 to-fuchsia-400 opacity-70 transition-all duration-300 group-hover:w-full" />
-        </Link>
-
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-1 sm:flex">
-          {navLinks.map((link) => {
-            const isActive = active === link.label;
-            const isDesign = link.designTab;
-
-            return (
-              <Link
-                key={link.label}
-                to={link.href}
-                onClick={(e) => handleNavClick(e, link)}
-                aria-current={isActive ? 'page' : undefined}
-                className={`relative px-4 py-2 rounded-xl text-base font-semibold transition-all duration-200 ${
-                  isDesign
-                    ? isActive
-                      ? 'bg-fuchsia-400/15 text-fuchsia-200 shadow-[0_0_18px_rgba(217,70,239,0.3)]'
-                      : 'text-fuchsia-300/70 hover:bg-fuchsia-400/10 hover:text-fuchsia-200'
-                    : isActive
-                    ? 'bg-cyan-400/12 text-cyan-200 shadow-[0_0_18px_rgba(6,182,212,0.25)]'
-                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                }`}
-              >
-                {link.label}
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-indicator"
-                    className={`absolute bottom-0 left-1/2 h-[2px] w-6 -translate-x-1/2 rounded-full ${
-                      isDesign ? 'bg-fuchsia-400' : 'bg-cyan-400'
-                    }`}
-                    transition={{ type: 'spring', bounce: 0.25, duration: 0.4 }}
-                  />
-                )}
-              </Link>
-            );
-          })}
+      {/* Top micro-meta running ticker bar */}
+      <div className="hidden md:flex items-center justify-between px-6 py-1.5 border-b border-white/5 text-[10px] font-mono tracking-widest text-[#8e8e93] uppercase">
+        <div className="flex items-center gap-4">
+          <span>PORTFOLIO VOL. 26</span>
+          <span className="text-white/20">/</span>
+          <span>NIGERIA [09.0765° N, 07.3986° E]</span>
         </div>
-
-        {/* Mobile hamburger */}
-        <button
-          className="flex items-center rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-slate-300 transition hover:border-white/25 hover:text-white sm:hidden"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          <svg className="h-5 w-5 fill-current" viewBox="0 0 20 20">
-            <title>Menu</title>
-            {menuOpen ? (
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            ) : (
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            )}
-          </svg>
-        </button>
+        <div className="flex items-center gap-4">
+          <span className="inline-flex items-center gap-1.5 text-emerald-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            AVAILABLE FOR HIRE &amp; COMMISSIONS
+          </span>
+          <span className="text-white/20">/</span>
+          <span>AWS CERTIFIED ARCHITECT</span>
+        </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Main Masthead Nav */}
+      <div className="mx-auto flex h-16 md:h-20 max-w-7xl items-center justify-between px-4 sm:px-8">
+        {/* Brand Masthead */}
+        <Link
+          to="/"
+          className="group flex flex-col leading-none"
+          aria-label="Home"
+        >
+          <span className="font-syne font-extrabold text-xl sm:text-2xl tracking-tighter text-[#f4f4f2] group-hover:text-white transition">
+            CHIEMELIE EKEZIE
+          </span>
+          <span className="font-mono text-[9px] tracking-widest text-[#8e8e93] uppercase mt-1">
+            SOFTWARE ENGINEER &amp; VISUAL DESIGNER
+          </span>
+        </Link>
+
+        {/* Desktop Links & Theme Toggle */}
+        <div className="hidden lg:flex items-center gap-8">
+          <nav className="flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.id}
+                to={link.href}
+                onClick={(e) => handleNavClick(e, link)}
+                className="group flex items-baseline gap-2 font-mono text-xs font-medium tracking-wider text-[#a1a1aa] hover:text-white transition"
+              >
+                <span className="text-[10px] text-[#71717a] group-hover:text-white">
+                  [{link.id}]
+                </span>
+                <span className="border-b border-transparent group-hover:border-white transition-all pb-0.5">
+                  {link.label}
+                </span>
+              </Link>
+            ))}
+          </nav>
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-2 border border-white/20 bg-white/5 hover:border-white hover:bg-white hover:text-black px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[#d4d4d8] transition-all"
+            aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+          >
+            <span className="text-xs">{theme === 'dark' ? '☀' : '☾'}</span>
+            <span>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+          </button>
+        </div>
+
+        {/* Mobile menu and theme toggle */}
+        <div className="lg:hidden flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center p-2 text-xs font-mono border border-white/15 rounded text-[#f4f4f2]"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            {theme === 'dark' ? '☀' : '☾'}
+          </button>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="flex items-center justify-center p-2 text-xs font-mono tracking-widest border border-white/15 rounded text-[#f4f4f2]"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? 'CLOSE ✕' : 'MENU [≡]'}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="border-t border-white/5 bg-slate-950/95 px-4 pb-4 backdrop-blur-xl sm:hidden"
+            className="lg:hidden border-b border-white/10 bg-[#08080a] px-6 py-6 font-mono text-sm"
           >
-            {navLinks.map((link) => {
-              const isActive = active === link.label;
-              const isDesign = link.designTab;
-              return (
+            <div className="flex flex-col gap-4">
+              {navLinks.map((link) => (
                 <Link
-                  key={link.label}
+                  key={link.id}
                   to={link.href}
                   onClick={(e) => handleNavClick(e, link)}
-                  className={`block rounded-xl px-4 py-3 text-base font-semibold transition ${
-                    isDesign
-                      ? isActive
-                        ? 'bg-fuchsia-400/12 text-fuchsia-200'
-                        : 'text-fuchsia-300/70 hover:bg-fuchsia-400/8 hover:text-fuchsia-200'
-                      : isActive
-                      ? 'bg-cyan-400/10 text-cyan-200'
-                      : 'text-slate-200 hover:bg-white/5'
-                  }`}
+                  className="flex items-center justify-between border-b border-white/5 py-2.5 text-[#d4d4d8] hover:text-white"
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span className="text-xs text-[#71717a]">[{link.id}]</span>
                 </Link>
-              );
-            })}
+              ))}
+
+              <div className="pt-2 flex items-center justify-between">
+                <span className="text-xs text-[#71717a] uppercase tracking-wider">APPEARANCE</span>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-2 border border-white/20 px-3 py-1.5 text-xs text-[#d4d4d8] hover:border-white hover:text-white transition"
+                >
+                  <span>{theme === 'dark' ? '☀ LIGHT MODE' : '☾ DARK MODE'}</span>
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   );
 };
 

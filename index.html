@@ -1,48 +1,65 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#020818" />
-    <title>Ekezie Chiemelie Isaac | Full-Stack Software Engineer &amp; Graphic Designer</title>
-    
+    <meta name="theme-color" content="#08080a" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          if (saved === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+          }
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <title>Ekezie Chiemelie Isaac — Full-Stack Engineer &amp; Visual Designer</title>
+
     <meta
       name="description"
-      content="Full-Stack Software Engineer &amp; Digital Infrastructure Specialist with 4+ years architecting high-performance web applications, cloud infrastructure, and bold visual branding systems."
+      content="Portfolio of Ekezie Chiemelie Isaac. Full-Stack Software Engineer &amp; Visual Designer. Living between strict backend architecture and expressive graphic design."
     />
-    <meta name="keywords" content="Software Engineer, Full-Stack Developer, Graphic Designer, Next.js, React, Python, AWS Solutions Architect, UI/UX, Nigeria" />
+    <meta name="keywords" content="Software Engineer, Graphic Designer, Next.js, React, Python, AWS, Brand Identity, UI/UX, Editorial Portfolio" />
     <meta name="author" content="Ekezie Chiemelie Isaac" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ekezie-chiemelie.vercel.app" />
-    <meta property="og:site_name" content="Ekezie Chiemelie Isaac Portfolio" />
-    <meta property="og:title" content="Ekezie Chiemelie Isaac | Full-Stack Engineer &amp; Graphic Designer" />
+    <meta property="og:site_name" content="Chiemelie Isaac — Portfolio" />
+    <meta property="og:title" content="Ekezie Chiemelie Isaac — Full-Stack Engineer &amp; Visual Designer" />
     <meta
       property="og:description"
-      content="Full-Stack Software Engineer &amp; Digital Infrastructure Specialist architecting high-performance web applications, intuitive visual systems, and resilient enterprise IT infrastructure."
+      content="Full-Stack Software Engineer &amp; Visual Designer. Living between strict backend architecture and expressive graphic design."
     />
     <meta property="og:image" content="/assets/x-logo-black-bg.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:creator" content="@Ydk_isaac" />
-    <meta name="twitter:title" content="Ekezie Chiemelie Isaac | Full-Stack Engineer &amp; Graphic Designer" />
+    <meta name="twitter:title" content="Ekezie Chiemelie Isaac — Full-Stack Engineer &amp; Visual Designer" />
     <meta
       name="twitter:description"
-      content="Full-Stack Software Engineer &amp; Digital Infrastructure Specialist architecting high-performance web applications, intuitive visual systems, and resilient enterprise IT infrastructure."
+      content="Full-Stack Software Engineer &amp; Visual Designer. Living between strict backend architecture and expressive graphic design."
     />
     <meta name="twitter:image" content="/assets/x-logo-black-bg.png" />
 
     <link rel="icon" type="image/jpeg" href="/assets/x-logo.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Editorial Display, Serif, and Mono Typography -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Pacifico&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="bg-[#08080a] text-[#f4f4f2] antialiased selection:bg-[#f4f4f2] selection:text-[#08080a]">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

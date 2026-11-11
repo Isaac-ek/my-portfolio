@@ -1,33 +1,32 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        mono: ['Fira Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-        jetbrains: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-        fun: ['Pacifico', 'cursive'],
-        sans: ['system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+        syne: ['Syne', 'sans-serif'],
+        serif: ['Instrument Serif', 'Georgia', 'serif'],
+        space: ['Space Grotesk', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        jetbrains: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
-        primary: '#0f172a',
-        neonBlue: '#3b82f6',
-        neonPurple: '#9333ea',
-        darkSpace: '#020617',
-        softGlow: '#60a5fa',
-      },
-      animation: {
-        'pulse-slow': 'pulse 6s infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-      },
-      keyframes: {
-        glow: {
-          '0%': { boxShadow: '0 0 5px #3b82f6' },
-          '100%': { boxShadow: '0 0 20px #9333ea' },
+        editorial: {
+          bg: '#08080a',
+          surface: '#111114',
+          subtle: '#18181c',
+          bone: '#f4f4f2',
+          muted: '#8e8e93',
+          faint: 'rgba(255, 255, 255, 0.08)',
+          line: 'rgba(255, 255, 255, 0.14)',
+          accent: '#ffffff',
         },
       },
-      dropShadow: {
-        neon: ['0 0 10px #3b82f6', '0 0 20px #9333ea'],
+      letterSpacing: {
+        tighter: '-0.05em',
+        widest: '0.25em',
+        mega: '0.35em',
       },
     },
   },

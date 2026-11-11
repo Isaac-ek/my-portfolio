@@ -86,22 +86,4 @@ export const projects: Project[] = [
     screenshot: '',
     codeSnippet: '',
   },
-  {
-    title: 'Personal Portfolio',
-    description:
-      'A modern, galaxy-themed portfolio site built with React, TypeScript, Tailwind CSS, and Framer Motion.',
-    tech: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    category: 'Full-Stack',
-    github: 'https://github.com/Isaac-ek/my-portfolio',
-    demo: 'https://ekezie-chiemelie.vercel.app/',
-    challenge:
-      'Create a standout, creative portfolio highlighting both engineering depth and visual graphic design craft.',
-    solution:
-      'Constructed with custom interactive starfields, dual-discipline tabbed works, and smooth micro-animations.',
-    impact:
-      'Effectively communicates full-stack capabilities, cloud architecture, and brand design competencies.',
-    gif: '',
-    screenshot: '',
-    codeSnippet: '',
-  },
 ];

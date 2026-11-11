@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
@@ -7,6 +7,7 @@ import Fab from './components/Fab';
 import ScrollToTop from './components/ScrollToTop';
 import Starfield from './components/Starfield';
 import AnimatedCursor from 'react-animated-cursor';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
 import './App.css';
 
@@ -16,28 +17,26 @@ const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
 const SkillsPage = lazy(() => import('./pages/SkillsPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-function App() {
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('gradient-bg');
-  }, []);
+function AppContent() {
+  const { theme } = useTheme();
 
   return (
     <>
-      {/* 🌌 Starfield Galaxy Effect */}
+      {/* 🏛️ Editorial Architectural Backdrop */}
       <div className="fixed inset-0 -z-30 pointer-events-none">
         <Starfield />
       </div>
 
-      {/* 🖱️ Animated Cursor */}
+      {/* 🖱️ Minimalist Precision Cursor */}
       <AnimatedCursor
-        innerSize={8}
-        outerSize={36}
-        color="6,182,212"
-        outerAlpha={0.25}
-        innerScale={1.3}
-        outerScale={1.9}
-        trailingSpeed={6}
+        key={theme}
+        innerSize={6}
+        outerSize={32}
+        color={theme === 'dark' ? '244,244,242' : '18,18,20'}
+        outerAlpha={theme === 'dark' ? 0.2 : 0.15}
+        innerScale={1.2}
+        outerScale={1.6}
+        trailingSpeed={7}
         clickables={[
           'a',
           'button',
@@ -72,6 +71,14 @@ function App() {
         </div>
       </Router>
     </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

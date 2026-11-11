@@ -1,628 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '../data/projects';
 import {
   designs,
-  categoryColors,
   type Design,
-  type DesignCategory,
+  type DesignVariant,
 } from '../data/designs';
 
-/* ── helpers ─────────────────────────────────────────── */
-const allTechs = Array.from(new Set(projects.flatMap((p) => p.tech)));
-const allCategories = Array.from(new Set(designs.map((d) => d.category)));
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 48, scale: 0.94 },
-  visible: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: -24, scale: 0.96 },
-};
-
-/* ── Category badge color map for Web & Software projects ── */
-const projectCategoryStyles: Record<
-  string,
-  { border: string; bg: string; text: string }
-> = {
-  'Full-Stack': {
-    border: 'border-cyan-400/40',
-    bg: 'bg-cyan-400/10',
-    text: 'text-cyan-300',
-  },
-  'Security/UI': {
-    border: 'border-emerald-400/40',
-    bg: 'bg-emerald-400/10',
-    text: 'text-emerald-300',
-  },
-  'Graphic/Interactive': {
-    border: 'border-fuchsia-400/40',
-    bg: 'bg-fuchsia-400/10',
-    text: 'text-fuchsia-300',
-  },
-  'Web Architecture': {
-    border: 'border-violet-400/40',
-    bg: 'bg-violet-400/10',
-    text: 'text-violet-300',
-  },
-  'UI/UX': {
-    border: 'border-amber-400/40',
-    bg: 'bg-amber-400/10',
-    text: 'text-amber-300',
-  },
-};
-
-/* ── Tab Button ──────────────────────────────────────── */
-const TabBtn = ({
-  active,
-  onClick,
-  children,
-  color,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-  color: 'cyan' | 'fuchsia';
-}) => {
-  const glowMap = {
-    cyan: 'rgba(6,182,212,0.45)',
-    fuchsia: 'rgba(217,70,239,0.45)',
-  };
-  const activeClasses =
-    color === 'cyan'
-      ? 'bg-cyan-400/15 border-cyan-400/60 text-cyan-200 shadow-[0_0_24px_rgba(6,182,212,0.35)]'
-      : 'bg-fuchsia-400/15 border-fuchsia-400/60 text-fuchsia-200 shadow-[0_0_24px_rgba(217,70,239,0.35)]';
-
-  return (
-    <button
-      onClick={onClick}
-      style={active ? { boxShadow: `0 0 28px ${glowMap[color]}` } : {}}
-      className={`relative flex items-center gap-2.5 rounded-2xl border px-7 py-3.5 text-base font-bold transition-all duration-300 ${
-        active
-          ? activeClasses
-          : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:text-white'
-      }`}
-    >
-      {children}
-      {active && (
-        <motion.span
-          layoutId="tab-pill"
-          className={`absolute inset-0 rounded-2xl ${
-            color === 'cyan' ? 'bg-cyan-400/5' : 'bg-fuchsia-400/5'
-          }`}
-          transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
-        />
-      )}
-    </button>
-  );
-};
-
-/* ── Web Projects Grid ───────────────────────────────── */
-const WebProjects: React.FC = () => {
-  const [filter, setFilter] = useState<string | null>(null);
-  const filtered = filter ? projects.filter((p) => p.tech.includes(filter)) : projects;
-
-  return (
-    <div>
-      {/* Filter chips */}
-      <div className="mb-8 flex flex-wrap justify-center gap-2">
-        <button
-          onClick={() => setFilter(null)}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-            !filter
-              ? 'bg-cyan-400 text-slate-950 shadow-[0_0_18px_rgba(6,182,212,0.5)]'
-              : 'border border-white/10 bg-white/5 text-slate-300 hover:border-cyan-400/30 hover:text-cyan-200'
-          }`}
-        >
-          All
-        </button>
-        {allTechs.map((tech) => (
-          <button
-            key={tech}
-            onClick={() => setFilter(tech)}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-              filter === tech
-                ? 'bg-cyan-400 text-slate-950 shadow-[0_0_18px_rgba(6,182,212,0.5)]'
-                : 'border border-white/10 bg-white/5 text-slate-300 hover:border-cyan-400/30 hover:text-cyan-200'
-            }`}
-          >
-            {tech}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <AnimatePresence mode="popLayout">
-          {filtered.map((project, idx) => {
-            const catStyle = project.category
-              ? projectCategoryStyles[project.category] || {
-                  border: 'border-cyan-400/30',
-                  bg: 'bg-cyan-400/10',
-                  text: 'text-cyan-300',
-                }
-              : null;
-
-            return (
-              <motion.div
-                key={project.title}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                layout
-                className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/70 p-6 shadow-[0_24px_70px_rgba(15,23,42,0.4)] backdrop-blur"
-                transition={{ duration: 0.45, delay: idx * 0.07, ease: 'easeOut' }}
-                whileHover={{
-                  scale: 1.018,
-                  borderColor: 'rgba(6,182,212,0.45)',
-                  boxShadow:
-                    '0 0 60px rgba(6,182,212,0.15), 0 24px 70px rgba(15,23,42,0.5)',
-                }}
-              >
-                {/* Glow blob on hover */}
-                <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-cyan-400/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-
-                {/* Top Badge Row: Category + Live Status */}
-                <div className="mb-4 flex items-center justify-between gap-2 flex-wrap">
-                  {catStyle && (
-                    <span
-                      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider ${catStyle.border} ${catStyle.bg} ${catStyle.text}`}
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                      {project.category}
-                    </span>
-                  )}
-                  {project.demo && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-semibold text-emerald-300">
-                      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-                      Live
-                    </span>
-                  )}
-                </div>
-
-                {project.gif && (
-                  <img
-                    src={project.gif}
-                    alt="Project demo"
-                    className="mb-5 max-h-56 w-full rounded-2xl object-cover"
-                  />
-                )}
-                {project.screenshot && !project.gif && (
-                  <img
-                    src={project.screenshot}
-                    alt="Screenshot"
-                    className="mb-5 max-h-56 w-full rounded-2xl object-cover"
-                  />
-                )}
-
-                <h3 className="mb-2 text-2xl font-black text-white sm:text-3xl">
-                  {project.title}
-                </h3>
-                <p className="mb-4 text-base leading-7 text-slate-300">
-                  {project.description}
-                </p>
-
-                {project.challenge && (
-                  <p className="mb-1 text-sm text-cyan-300">
-                    <span className="font-bold">Challenge:</span> {project.challenge}
-                  </p>
-                )}
-                {project.solution && (
-                  <p className="mb-1 text-sm text-emerald-300">
-                    <span className="font-bold">Solution:</span> {project.solution}
-                  </p>
-                )}
-                {project.impact && (
-                  <p className="mb-4 text-sm text-amber-300">
-                    <span className="font-bold">Impact:</span> {project.impact}
-                  </p>
-                )}
-                {project.codeSnippet && (
-                  <pre className="mb-3 overflow-x-auto rounded-2xl bg-[#17203a] p-3 text-xs text-blue-100">
-                    <code>{project.codeSnippet}</code>
-                  </pre>
-                )}
-
-                <div className="mb-6 flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-200"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-auto flex flex-wrap gap-3">
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full bg-cyan-400 px-5 py-2 font-bold text-slate-950 transition hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.6)]"
-                    >
-                      Live Demo ↗
-                    </a>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-white/15 px-5 py-2 font-semibold text-slate-100 transition hover:border-cyan-400/50 hover:text-cyan-200"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-};
-
-/* ── Design Case Study Lightbox Modal ─────────────────── */
-const DesignModal: React.FC<{
-  design: Design | null;
-  onClose: () => void;
-}> = ({ design, onClose }) => {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    if (design) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [design, onClose]);
-
-  if (!design) return null;
-
-  const colors = categoryColors[design.category];
-
-  return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
-        />
-
-        {/* Modal Window */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.92, y: 20 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          className={`relative z-10 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-[2rem] border bg-slate-950 p-6 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.8)] ${colors.border}`}
-          style={{ boxShadow: colors.glow }}
-        >
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:bg-white/15 hover:text-white"
-            aria-label="Close modal"
-          >
-            ✕
-          </button>
-
-          {/* Header */}
-          <div className="pr-12">
-            <span
-              className={`inline-flex rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider ${colors.border} ${colors.bg} ${colors.text}`}
-            >
-              {design.category}
-            </span>
-            <h2 className="mt-3 text-3xl font-black text-white sm:text-4xl">
-              {design.title}
-            </h2>
-            {design.client && (
-              <p className="mt-1 text-sm font-medium text-slate-400">
-                Client / Project: <span className="text-white">{design.client}</span> • {design.year}
-              </p>
-            )}
-          </div>
-
-          {/* Visual Showcase Banner */}
-          <div
-            className={`mt-6 relative flex h-60 w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${design.gradient} border ${colors.border}`}
-          >
-            {design.image ? (
-              <img
-                src={design.image}
-                alt={design.title}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex flex-col items-center gap-3 px-6 text-center">
-                <div
-                  className={`flex h-20 w-20 items-center justify-center rounded-2xl border text-4xl ${colors.border} ${colors.bg}`}
-                  style={{ boxShadow: colors.glow }}
-                >
-                  {design.category === 'Brand Identity' && '✦'}
-                  {design.category === 'Social Media' && '◈'}
-                  {design.category === 'UI/UX' && '⬡'}
-                  {design.category === 'Print & Packaging' && '▣'}
-                  {design.category === 'Marketing' && '◉'}
-                </div>
-                <p className={`text-sm font-semibold uppercase tracking-widest ${colors.text}`}>
-                  {design.category} Visual Board
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Content Grid */}
-          <div className="mt-8 grid gap-8 md:grid-cols-[1.2fr_0.8fr]">
-            {/* Left: Overview & Deliverables */}
-            <div>
-              <h4 className="text-base font-bold uppercase tracking-wider text-slate-400">
-                Design Overview
-              </h4>
-              <p className="mt-2 text-base leading-relaxed text-slate-200">
-                {design.description}
-              </p>
-
-              <h4 className="mt-6 text-base font-bold uppercase tracking-wider text-slate-400">
-                Scope &amp; Deliverables
-              </h4>
-              <ul className="mt-3 space-y-2">
-                {design.deliverables.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-slate-200">
-                    <span className={`mt-0.5 text-xs font-bold ${colors.text}`}>✦</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Right: Palette & Tools */}
-            <div className="space-y-6">
-              {/* Color Palette Swatches */}
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">
-                  Color Palette Swatches
-                </h4>
-                <div className="mt-3 flex flex-wrap gap-2.5">
-                  {design.palette.map((hex) => (
-                    <div key={hex} className="flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/60 px-3 py-1.5">
-                      <span
-                        className="h-4 w-4 rounded-full border border-white/20 shadow-sm"
-                        style={{ backgroundColor: hex }}
-                      />
-                      <span className="font-mono text-xs text-slate-300">{hex}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tools & Environment */}
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">
-                  Tools &amp; Software
-                </h4>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {design.tools.map((tool) => (
-                    <span
-                      key={tool}
-                      className="rounded-full border border-white/10 bg-slate-900/60 px-3 py-1 text-xs text-slate-200"
-                    >
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="pt-2 flex flex-col gap-3">
-                {design.link && (
-                  <a
-                    href={design.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex w-full items-center justify-center gap-2 rounded-full bg-cyan-400 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
-                  >
-                    View Live Deployment ↗
-                  </a>
-                )}
-                <a
-                  href="#contact"
-                  onClick={onClose}
-                  className="flex w-full items-center justify-center gap-2 rounded-full border border-fuchsia-400/40 bg-fuchsia-400/10 py-3 text-sm font-bold text-fuchsia-200 transition hover:bg-fuchsia-400/20"
-                >
-                  Request Similar Design Asset →
-                </a>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
-  );
-};
-
-/* ── Design Gallery Grid ─────────────────────────────── */
-const DesignGallery: React.FC = () => {
-  const [filter, setFilter] = useState<DesignCategory | null>(null);
-  const [activeModalDesign, setActiveModalDesign] = useState<Design | null>(null);
-
-  const filtered = filter ? designs.filter((d) => d.category === filter) : designs;
-
-  return (
-    <div>
-      {/* Category chips */}
-      <div className="mb-8 flex flex-wrap justify-center gap-2">
-        <button
-          onClick={() => setFilter(null)}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-            !filter
-              ? 'bg-fuchsia-400 text-slate-950 shadow-[0_0_18px_rgba(217,70,239,0.5)]'
-              : 'border border-white/10 bg-white/5 text-slate-300 hover:border-fuchsia-400/30 hover:text-fuchsia-200'
-          }`}
-        >
-          All Work
-        </button>
-        {allCategories.map((cat) => {
-          const colors = categoryColors[cat as DesignCategory];
-          const isActive = filter === cat;
-          return (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat as DesignCategory)}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition border ${
-                isActive
-                  ? `${colors.bg} ${colors.border} ${colors.text}`
-                  : 'border-white/10 bg-white/5 text-slate-300 hover:text-white'
-              }`}
-              style={isActive ? { boxShadow: colors.glow } : {}}
-            >
-              {cat}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence mode="popLayout">
-          {filtered.map((design, idx) => {
-            const colors = categoryColors[design.category];
-            return (
-              <motion.div
-                key={design.title}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                layout
-                onClick={() => setActiveModalDesign(design)}
-                className={`group relative flex flex-col overflow-hidden rounded-[1.75rem] border bg-slate-950/70 backdrop-blur cursor-pointer transition-all duration-300 ${colors.border}`}
-                transition={{ duration: 0.45, delay: idx * 0.07, ease: 'easeOut' }}
-                whileHover={{ scale: 1.025, boxShadow: colors.glow }}
-              >
-                {/* Visual preview area with mini swatch bar */}
-                <div
-                  className={`relative flex h-48 flex-col items-center justify-center overflow-hidden bg-gradient-to-br ${design.gradient}`}
-                >
-                  {design.image ? (
-                    <img
-                      src={design.image}
-                      alt={design.title}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center gap-2.5 px-6 text-center">
-                      <div
-                        className={`flex h-14 w-14 items-center justify-center rounded-2xl border ${colors.border} ${colors.bg} text-2xl`}
-                        style={{ boxShadow: colors.glow }}
-                      >
-                        {design.category === 'Brand Identity' && '✦'}
-                        {design.category === 'Social Media' && '◈'}
-                        {design.category === 'UI/UX' && '⬡'}
-                        {design.category === 'Print & Packaging' && '▣'}
-                        {design.category === 'Marketing' && '◉'}
-                      </div>
-                      <p
-                        className={`text-xs font-semibold uppercase tracking-widest ${colors.text}`}
-                      >
-                        {design.category}
-                      </p>
-
-                      {/* Mini color swatches on card */}
-                      <div className="flex items-center gap-1.5 mt-1">
-                        {design.palette.slice(0, 4).map((c) => (
-                          <span
-                            key={c}
-                            className="h-2.5 w-2.5 rounded-full border border-white/20"
-                            style={{ backgroundColor: c }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Hover "Click to Inspect" pill */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                    <span className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-bold text-white shadow-lg">
-                      View Case Study ↗
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card body */}
-                <div className="flex flex-1 flex-col p-6">
-                  <span
-                    className={`mb-3 inline-flex w-fit rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider ${colors.border} ${colors.bg} ${colors.text}`}
-                  >
-                    {design.category}
-                  </span>
-
-                  <h3 className="mb-2 text-xl font-black text-white">{design.title}</h3>
-                  <p className="mb-4 flex-1 text-sm leading-7 text-slate-300 line-clamp-3">
-                    {design.description}
-                  </p>
-
-                  {/* Tools */}
-                  <div className="mb-5 flex flex-wrap gap-1.5">
-                    {design.tools.map((tool) => (
-                      <span
-                        key={tool}
-                        className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-300"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto flex items-center justify-between pt-2">
-                    <span className={`text-xs font-bold ${colors.text}`}>
-                      Case Study Details →
-                    </span>
-                    {design.link && (
-                      <span className="text-xs text-slate-400">Live ↗</span>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-
-      {/* Lightbox Modal */}
-      <DesignModal
-        design={activeModalDesign}
-        onClose={() => setActiveModalDesign(null)}
-      />
-
-      {/* CTA */}
-      <div className="mt-12 flex justify-center">
-        <a
-          href="#contact"
-          className="group relative overflow-hidden rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-8 py-4 text-base font-bold text-fuchsia-200 transition-all hover:border-fuchsia-400/60 hover:shadow-[0_0_32px_rgba(217,70,239,0.3)]"
-        >
-          <span className="relative z-10">
-            Want to see full design portfolio? Let&apos;s talk →
-          </span>
-          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-fuchsia-400/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-        </a>
-      </div>
-    </div>
-  );
-};
-
-/* ── Main Works Component ────────────────────────────── */
+/* ── Editorial Works Component ────────────────────────────── */
 const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
-  const [tab, setTab] = useState<'web' | 'design'>('web');
+  const [tab, setTab] = useState<'software' | 'design'>('software');
+  const [activeDesignModal, setActiveDesignModal] = useState<Design | null>(null);
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState<string>('');
+  const [selectedVariantId, setSelectedVariantId] = useState<string>('');
 
   // Listen for the navbar "Design" link click
   useEffect(() => {
@@ -631,68 +21,556 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
     return () => window.removeEventListener('nav-design-tab', handler);
   }, []);
 
+  const openDesignModal = (design: Design) => {
+    setActiveDesignModal(design);
+    if (design.variants && design.variants.length > 0) {
+      setSelectedVariantId(design.variants[0].id);
+      setSelectedGalleryImage(design.variants[0].image);
+    } else {
+      setSelectedVariantId('');
+      setSelectedGalleryImage(design.image || '');
+    }
+  };
+
+  const currentVariant: DesignVariant | undefined =
+    activeDesignModal?.variants?.find((v) => v.id === selectedVariantId) ||
+    activeDesignModal?.variants?.[0];
+
   return (
     <section
       {...props}
       id="projects"
-      className="container mx-auto max-w-6xl px-4 py-20 sm:px-8 md:px-16 lg:px-24"
-      data-aos="fade-up"
+      className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-24 border-t border-white/10"
     >
-      {/* Section header */}
-      <div className="mb-12 text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
-          Selected Work
-        </p>
-        <h2 className="mt-4 text-4xl font-black text-white sm:text-5xl">
-          Code &amp;{' '}
-          <span className="bg-gradient-to-r from-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-            Design
+      {/* Editorial Section Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 mb-12 gap-6">
+        <div>
+          <span className="font-mono text-[11px] tracking-widest text-[#71717a] uppercase block mb-2">
+            [INDEX / 01] • ARCHIVE OF RECENT COMMISSIONS
           </span>
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-300">
-          Two disciplines, one creator. I build products and I brand them.
-        </p>
+          <h2 className="font-syne font-extrabold text-4xl sm:text-6xl text-[#f4f4f2] tracking-tight uppercase">
+            SELECTED WORK
+          </h2>
+        </div>
 
-        {/* Decorative divider */}
-        <div className="mx-auto mt-6 flex items-center justify-center gap-3">
-          <span className="h-px w-20 bg-gradient-to-r from-transparent to-cyan-400/50" />
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-400/60" />
-          <span className="h-px w-20 bg-gradient-to-l from-transparent to-fuchsia-400/50" />
+        {/* Editorial Tab Switcher */}
+        <div className="flex items-center gap-2 font-mono text-xs">
+          <button
+            onClick={() => setTab('software')}
+            className={`px-5 py-3 border transition-colors ${
+              tab === 'software'
+                ? 'border-white bg-white text-black font-semibold'
+                : 'border-white/10 text-[#a1a1aa] hover:border-white/30 hover:text-white'
+            }`}
+          >
+            [01] SOFTWARE &amp; SYSTEMS
+          </button>
+          <button
+            onClick={() => setTab('design')}
+            className={`px-5 py-3 border transition-colors ${
+              tab === 'design'
+                ? 'border-white bg-white text-black font-semibold'
+                : 'border-white/10 text-[#a1a1aa] hover:border-white/30 hover:text-white'
+            }`}
+          >
+            [02] GRAPHIC DESIGN &amp; BRAND
+          </button>
         </div>
       </div>
 
-      {/* Tab switcher */}
-      <div className="mb-10 flex justify-center gap-4">
-        <TabBtn active={tab === 'web'} onClick={() => setTab('web')} color="cyan">
-          <span className="text-lg">⚡</span> Web &amp; Software
-        </TabBtn>
-        <TabBtn active={tab === 'design'} onClick={() => setTab('design')} color="fuchsia">
-          <span className="text-lg">🎨</span> Graphic Design
-        </TabBtn>
-      </div>
+      {/* Tab 1: Software & Systems */}
+      {tab === 'software' && (
+        <div className="space-y-12">
+          {projects.map((project, idx) => {
+            const indexStr = String(idx + 1).padStart(2, '0');
+            return (
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                className="border border-white/10 bg-[#0e0e11] p-6 sm:p-10 transition-colors duration-300 hover:border-white/30"
+              >
+                {/* Meta Header */}
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#71717a]">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[#f4f4f2]">[{indexStr}]</span>
+                    <span className="uppercase text-[#d4d4d8] tracking-wider">
+                      {project.category || 'FULL-STACK'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="border border-white/10 px-2 py-0.5 text-[11px] text-[#a1a1aa]">
+                      PRODUCTION
+                    </span>
+                  </div>
+                </div>
 
-      {/* Tab content */}
-      <AnimatePresence mode="wait">
-        {tab === 'web' ? (
-          <motion.div
-            key="web"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35 }}
-          >
-            <WebProjects />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="design"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35 }}
-          >
-            <DesignGallery />
-          </motion.div>
+                {/* Main Content Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  {/* Left Column: Title & Description */}
+                  <div className="lg:col-span-8 space-y-4">
+                    <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#f4f4f2] tracking-tight">
+                      {project.title}
+                    </h3>
+                    <p className="font-space text-sm sm:text-base text-[#a1a1aa] leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* System Impact & Architecture */}
+                    {project.impact && (
+                      <div className="pt-2 border-l border-white/20 pl-4 font-mono text-xs text-[#d4d4d8]">
+                        <span className="text-[#71717a] block text-[10px] uppercase tracking-wider mb-1">
+                          SYSTEM IMPACT &amp; ARCHITECTURE
+                        </span>
+                        <p>{project.impact}</p>
+                      </div>
+                    )}
+
+                    {/* Problem / Solution Narrative */}
+                    {(project.challenge || project.solution) && (
+                      <div className="pt-2 grid sm:grid-cols-2 gap-4 text-xs font-mono text-[#8e8e93]">
+                        {project.challenge && (
+                          <div className="border-l border-white/10 pl-3">
+                            <span className="text-[#a1a1aa] block uppercase text-[10px]">CHALLENGE</span>
+                            <span className="text-[#d4d4d8] leading-relaxed mt-1 block">
+                              {project.challenge}
+                            </span>
+                          </div>
+                        )}
+                        {project.solution && (
+                          <div className="border-l border-white/10 pl-3">
+                            <span className="text-[#a1a1aa] block uppercase text-[10px]">SOLUTION</span>
+                            <span className="text-[#d4d4d8] leading-relaxed mt-1 block">
+                              {project.solution}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right Column: Stack & Action Links */}
+                  <div className="lg:col-span-4 flex flex-col justify-between h-full border-t lg:border-t-0 lg:border-l border-white/5 pt-6 lg:pt-0 lg:pl-8 space-y-6">
+                    <div>
+                      <span className="font-mono text-[10px] tracking-widest text-[#71717a] uppercase block mb-3">
+                        TECHNOLOGIES EMPLOYED
+                      </span>
+                      <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
+                        {project.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="border border-white/10 bg-white/5 px-2.5 py-1 text-[#d4d4d8]"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Links */}
+                    <div className="flex flex-wrap gap-3 font-mono text-xs">
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border border-white/20 bg-white text-black font-semibold px-4 py-2 hover:bg-[#d4d4d8] transition"
+                        >
+                          VISIT PLATFORM ↗
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border border-white/10 px-4 py-2 text-[#a1a1aa] hover:border-white/40 hover:text-white transition"
+                        >
+                          SOURCE CODE →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Tab 2: Graphic Design & Brand Identity */}
+      {tab === 'design' && (
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {designs.map((design, idx) => {
+              const indexStr = String(idx + 1).padStart(2, '0');
+              const hasVariants = design.variants && design.variants.length > 0;
+              return (
+                <motion.div
+                  key={design.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  onClick={() => openDesignModal(design)}
+                  className="group cursor-pointer border border-white/10 bg-[#0e0e11] flex flex-col transition-all duration-300 hover:border-white/40"
+                >
+                  {/* Poster Header */}
+                  <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 font-mono text-xs text-[#71717a]">
+                    <span>[{indexStr}]</span>
+                    <div className="flex items-center gap-2">
+                      {hasVariants && (
+                        <span className="border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-[#f4f4f2]">
+                          {design.variants!.length} FORMULAS
+                        </span>
+                      )}
+                      <span className="uppercase text-[11px] tracking-wider text-[#d4d4d8]">
+                        {design.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Visual Specimen Area */}
+                  <div className="h-72 border-b border-white/10 bg-[#121216] relative flex flex-col items-center justify-center overflow-hidden">
+                    {design.image ? (
+                      <div className="relative w-full h-full p-4 flex items-center justify-center bg-white/[0.02] group-hover:bg-white/[0.06] transition duration-300">
+                        <img
+                          src={design.image}
+                          alt={design.title}
+                          className="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    ) : (
+                      <div className="p-6 text-center">
+                        <div className="font-syne font-extrabold text-4xl text-[#f4f4f2] tracking-tighter opacity-80 group-hover:scale-105 transition duration-300">
+                          Aa
+                        </div>
+                        <div className="font-serif italic text-lg text-[#a1a1aa] mt-1">
+                          {design.title}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Multi-variant formula pill teaser */}
+                    {hasVariants && (
+                      <div className="absolute top-3 left-3 bg-[#08080a]/90 backdrop-blur border border-white/15 px-2 py-1 font-mono text-[10px] text-[#d4d4d8]">
+                        ✦ CLICK TO INSPECT ALL {design.variants!.length} DIELINES
+                      </div>
+                    )}
+
+                    {/* Color Swatch Dot Strip */}
+                    <div className="absolute bottom-3 left-4 flex items-center gap-1.5 z-10 bg-[#08080a]/80 px-2 py-1 rounded backdrop-blur border border-white/10">
+                      {design.palette.map((color) => (
+                        <span
+                          key={color}
+                          className="h-2.5 w-2.5 rounded-full border border-white/20"
+                          style={{ backgroundColor: color }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Hover Inspect Stamp */}
+                    <div className="absolute inset-0 bg-[#08080a]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center font-mono text-xs tracking-widest text-white border border-white/40 m-4 z-20">
+                      [VIEW CASE DOSSIER ↗]
+                    </div>
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <h4 className="font-syne font-bold text-xl text-[#f4f4f2] tracking-tight group-hover:text-white transition">
+                        {design.title}
+                      </h4>
+                      <p className="font-space text-xs text-[#a1a1aa] leading-relaxed mt-2 line-clamp-3">
+                        {design.description}
+                      </p>
+
+                      {/* Formula list badges for multi-variant design */}
+                      {hasVariants && (
+                        <div className="mt-3 flex flex-wrap gap-1 font-mono text-[10px] text-[#71717a]">
+                          {design.variants!.map((v) => (
+                            <span
+                              key={v.id}
+                              className="border border-white/10 px-1.5 py-0.5 text-[#d4d4d8] bg-white/[0.03]"
+                            >
+                              {v.name}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-[11px] text-[#71717a]">
+                      <span>{design.client || 'INDEPENDENT'}</span>
+                      <span className="text-[#f4f4f2] group-hover:underline">INSPECT →</span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Case Study Modal with Interactive Formula Switcher */}
+      <AnimatePresence>
+        {activeDesignModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-12">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveDesignModal(null)}
+              className="absolute inset-0 bg-[#08080a]/90 backdrop-blur-md"
+            />
+
+            {/* Modal Container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative z-10 max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-white/20 bg-[#0e0e11] p-6 sm:p-10 font-space text-[#f4f4f2]"
+            >
+              {/* Top Bar */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#71717a]">
+                <span>[CASE STUDY DOSSIER] • {activeDesignModal.category}</span>
+                <button
+                  onClick={() => setActiveDesignModal(null)}
+                  className="font-mono text-xs border border-white/20 px-3 py-1 hover:bg-white hover:text-black transition"
+                >
+                  CLOSE [✕]
+                </button>
+              </div>
+
+              {/* Title & Metadata */}
+              <div className="space-y-2">
+                <h3 className="font-syne font-extrabold text-3xl sm:text-5xl tracking-tight text-white">
+                  {activeDesignModal.title}
+                </h3>
+                {activeDesignModal.client && (
+                  <p className="font-mono text-xs text-[#a1a1aa]">
+                    CLIENT / ORG: <span className="text-white">{activeDesignModal.client}</span> • {activeDesignModal.year}
+                  </p>
+                )}
+              </div>
+
+              {/* Formula Switcher Tabs (if variants exist) */}
+              {activeDesignModal.variants && activeDesignModal.variants.length > 0 && (
+                <div className="mt-8 border-t border-b border-white/10 py-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-mono text-[10px] tracking-widest text-[#71717a] uppercase block">
+                      SELECT FORMULA TO INSPECT DIELINE ({activeDesignModal.variants.length} TOTAL)
+                    </span>
+                    {currentVariant && (
+                      <span className="font-mono text-xs text-white font-semibold">
+                        CURRENT: {currentVariant.name}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    {activeDesignModal.variants.map((v) => {
+                      const isSelected = (currentVariant?.id || activeDesignModal.variants![0].id) === v.id;
+                      return (
+                        <button
+                          key={v.id}
+                          onClick={() => {
+                            setSelectedVariantId(v.id);
+                            setSelectedGalleryImage(v.image);
+                          }}
+                          className={`flex items-center gap-2 px-3.5 py-2 font-mono text-xs border transition-all whitespace-nowrap ${
+                            isSelected
+                              ? 'border-white bg-white text-black font-bold shadow-lg'
+                              : 'border-white/10 bg-[#16161b] text-[#a1a1aa] hover:border-white/30 hover:text-white'
+                          }`}
+                        >
+                          <span
+                            className="h-2.5 w-2.5 rounded-full border border-black/20"
+                            style={{ backgroundColor: v.accent }}
+                          />
+                          <span>{v.name}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Visual Presentation Frame */}
+              <div className="mt-6 border border-white/10 bg-[#141418] p-4 sm:p-8 text-center">
+                {selectedGalleryImage ? (
+                  <div className="space-y-4">
+                    <div className="relative flex items-center justify-center max-h-[520px] bg-black/40 p-4 border border-white/5 rounded overflow-hidden">
+                      <img
+                        src={selectedGalleryImage}
+                        alt={currentVariant ? currentVariant.name : activeDesignModal.title}
+                        className="max-h-[480px] max-w-full object-contain mx-auto filter drop-shadow-2xl"
+                      />
+                    </div>
+
+                    {/* Formula Specs Banner under Image */}
+                    {currentVariant && (
+                      <div className="border border-white/10 bg-[#08080a] p-4 text-left font-mono text-xs">
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-2 mb-2">
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="h-3 w-3 rounded-full"
+                              style={{ backgroundColor: currentVariant.accent }}
+                            />
+                            <span className="font-syne font-bold text-sm text-white">
+                              {currentVariant.name} — {currentVariant.subtitle}
+                            </span>
+                          </div>
+                          <a
+                            href={selectedGalleryImage}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] text-white hover:bg-white hover:text-black transition"
+                          >
+                            OPEN FULL-RES DIELINE (20.8 x 21.4 cm) ↗
+                          </a>
+                        </div>
+                        <p className="text-[#a1a1aa] text-[11px] leading-relaxed mb-2">
+                          {currentVariant.description}
+                        </p>
+                        <div className="text-[11px] text-[#71717a]">
+                          <span className="text-[#d4d4d8] font-semibold">ACTIVE INGREDIENTS:</span> {currentVariant.actives}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="py-12">
+                    <div className="font-syne font-extrabold text-5xl sm:text-7xl text-white tracking-tighter">
+                      Aa Bb Gg
+                    </div>
+                    <div className="font-serif italic text-xl text-[#d4d4d8] mt-2">
+                      Typography Scale &amp; Visual Direction
+                    </div>
+                  </div>
+                )}
+
+                {/* Variant Switcher Thumbnails if Gallery Exists without variants, or as visual gallery */}
+                {activeDesignModal.gallery && activeDesignModal.gallery.length > 1 && (
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    <span className="font-mono text-[10px] tracking-widest text-[#71717a] uppercase block mb-3">
+                      ALL PACKAGING DIELINE SHEETS ({activeDesignModal.gallery.length})
+                    </span>
+                    <div className="flex items-center justify-center gap-2.5 flex-wrap">
+                      {activeDesignModal.gallery.map((imgUrl, i) => {
+                        const isSelected = selectedGalleryImage === imgUrl;
+                        const matchedVariant = activeDesignModal.variants?.[i];
+                        return (
+                          <button
+                            key={imgUrl}
+                            onClick={() => {
+                              setSelectedGalleryImage(imgUrl);
+                              if (matchedVariant) {
+                                setSelectedVariantId(matchedVariant.id);
+                              }
+                            }}
+                            className={`group relative h-20 w-20 border rounded p-1 overflow-hidden transition-all flex flex-col items-center justify-center ${
+                              isSelected
+                                ? 'border-white bg-white/20 scale-105 ring-2 ring-white'
+                                : 'border-white/15 bg-black/40 hover:border-white/40 opacity-70 hover:opacity-100'
+                            }`}
+                          >
+                            <img
+                              src={imgUrl}
+                              alt={`Formula ${i + 1}`}
+                              className="h-full w-full object-contain"
+                            />
+                            {matchedVariant && (
+                              <span className="absolute bottom-0 inset-x-0 bg-black/85 text-[8px] font-mono text-white py-0.5 text-center truncate px-0.5">
+                                {matchedVariant.name}
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Swatch chips */}
+                <div className="mt-6 flex items-center justify-center gap-3 flex-wrap font-mono text-xs">
+                  {(currentVariant?.palette || activeDesignModal.palette).map((hex) => (
+                    <div
+                      key={hex}
+                      className="flex items-center gap-2 border border-white/10 bg-[#08080a] px-3.5 py-1.5"
+                    >
+                      <span className="h-3.5 w-3.5 rounded-full" style={{ backgroundColor: hex }} />
+                      <span className="text-[#a1a1aa]">{hex}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Detailed Breakdown Grid */}
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-white/10 pt-8">
+                <div className="md:col-span-7 space-y-6">
+                  <div>
+                    <h5 className="font-mono text-xs text-[#71717a] uppercase tracking-wider mb-2">
+                      [DESIGN SUMMARY]
+                    </h5>
+                    <p className="text-sm leading-relaxed text-[#d4d4d8]">
+                      {activeDesignModal.description}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="font-mono text-xs text-[#71717a] uppercase tracking-wider mb-3">
+                      [DELIVERABLES &amp; PRODUCTION SPECS]
+                    </h5>
+                    <ul className="space-y-2 font-mono text-xs text-[#a1a1aa]">
+                      {activeDesignModal.deliverables.map((d) => (
+                        <li key={d} className="flex items-start gap-2">
+                          <span className="text-white">✦</span>
+                          <span>{d}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="md:col-span-5 space-y-6 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
+                  <div>
+                    <h5 className="font-mono text-xs text-[#71717a] uppercase tracking-wider mb-2">
+                      [SOFTWARE / TOOLS]
+                    </h5>
+                    <div className="flex flex-wrap gap-1.5 font-mono text-xs">
+                      {activeDesignModal.tools.map((tool) => (
+                        <span key={tool} className="border border-white/10 bg-white/5 px-2.5 py-1">
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 flex flex-col gap-3 font-mono text-xs">
+                    {activeDesignModal.link && (
+                      <a
+                        href={activeDesignModal.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-center border border-white/20 bg-white text-black font-semibold py-3 hover:bg-[#d4d4d8] transition"
+                      >
+                        VIEW PRODUCTION SITE ↗
+                      </a>
+                    )}
+                    <a
+                      href="#contact"
+                      onClick={() => setActiveDesignModal(null)}
+                      className="text-center border border-white/10 py-3 text-white hover:border-white transition"
+                    >
+                      COMMISSION PACKAGING DESIGN →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </section>

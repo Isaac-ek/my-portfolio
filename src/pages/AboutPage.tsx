@@ -1,213 +1,191 @@
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { profile } from '../data/profile';
-import { motion } from 'framer-motion';
 
 const AboutPage = () => (
   <>
     <Navbar />
-    <div data-aos="fade-up">
-      <main className="container mx-auto min-h-[70vh] max-w-5xl px-4 py-28 sm:px-8 md:px-16">
-        {/* Header Hero */}
-        <div className="rounded-[2.5rem] border border-white/10 bg-slate-950/70 p-8 sm:p-12 shadow-[0_25px_80px_rgba(2,12,27,0.5)] backdrop-blur">
-          <div className="flex flex-col items-center text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
-              Curriculum Vitae &amp; Professional Profile
-            </span>
-            <h1 className="mt-4 text-4xl font-black text-white sm:text-6xl">
-              {profile.name}
-            </h1>
-            <h2 className="mt-3 text-xl font-semibold text-slate-200 sm:text-2xl max-w-3xl">
-              {profile.role}
-            </h2>
+    <main className="max-w-5xl mx-auto px-4 sm:px-8 py-28 md:py-36 space-y-16">
+      {/* Dossier Masthead */}
+      <div className="border border-white/10 bg-[#0e0e11] p-8 sm:p-14 space-y-8">
+        <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[11px] text-[#71717a] uppercase tracking-widest">
+          <span>[DOSSIER MMXXVI]</span>
+          <span className="text-white">FULL-STACK ENGINEER &amp; VISUAL DESIGNER</span>
+        </div>
 
-            {/* Contact Badges */}
-            <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm text-slate-300">
-              <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5">
-                📍 {profile.location}
-              </span>
-              <a
-                href={`mailto:${profile.email}`}
-                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 hover:border-cyan-400/40 hover:text-cyan-300 transition"
-              >
-                ✉️ {profile.email}
-              </a>
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-cyan-200 hover:bg-cyan-400/20 transition"
-              >
-                💼 LinkedIn Profile
-              </a>
-              <a
-                href={profile.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-1.5 text-fuchsia-200 hover:bg-fuchsia-400/20 transition"
-              >
-                🌐 Portfolio Website
-              </a>
-            </div>
+        <div className="space-y-3">
+          <h1 className="font-syne font-extrabold text-4xl sm:text-6xl md:text-7xl text-white tracking-tighter uppercase leading-[0.9]">
+            {profile.name}
+          </h1>
+          <p className="font-serif italic text-2xl sm:text-3xl text-[#d4d4d8] font-normal">
+            &ldquo;Operating across deep backend architecture, cloud systems, and editorial visual craft.&rdquo;
+          </p>
+        </div>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a
-                href={profile.resumePath}
-                download="Ekezie_Chiemelie_Isaac_Resume.pdf"
-                className="rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 px-8 py-3.5 text-base font-bold text-slate-950 shadow-lg shadow-cyan-400/20 transition hover:from-cyan-300 hover:to-cyan-400"
-              >
-                Download Master Resume PDF ↓
-              </a>
-              <a
-                href={profile.resumePath}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-white/20 bg-white/5 px-8 py-3.5 text-base font-semibold text-white transition hover:border-cyan-400 hover:text-cyan-200"
-              >
-                View PDF in Browser ↗
-              </a>
-            </div>
+        {/* Quick Coordinates Matrix */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 border-y border-white/10 py-6 font-mono text-xs">
+          <div>
+            <span className="text-[#71717a] uppercase text-[10px] block">LOCATION</span>
+            <span className="text-[#f4f4f2] mt-0.5 block">{profile.location}</span>
+          </div>
+          <div>
+            <span className="text-[#71717a] uppercase text-[10px] block">EMAIL</span>
+            <a href={`mailto:${profile.email}`} className="text-[#f4f4f2] hover:underline mt-0.5 block truncate">
+              {profile.email}
+            </a>
+          </div>
+          <div>
+            <span className="text-[#71717a] uppercase text-[10px] block">LINKEDIN</span>
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#f4f4f2] hover:underline mt-0.5 block">
+              chiemelie-ekezie ↗
+            </a>
+          </div>
+          <div>
+            <span className="text-[#71717a] uppercase text-[10px] block">PORTFOLIO</span>
+            <a href={profile.website} target="_blank" rel="noopener noreferrer" className="text-[#f4f4f2] hover:underline mt-0.5 block">
+              ekezie-chiemelie ↗
+            </a>
           </div>
         </div>
 
-        {/* Executive Profile */}
-        <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
-          <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-cyan-400">✦</span> Executive Profile
-          </h3>
-          <p className="mt-4 leading-relaxed text-slate-200 text-lg">
-            {profile.intro}
-          </p>
-        </section>
+        {/* Master PDF Download Actions */}
+        <div className="flex flex-wrap gap-4 font-mono text-xs pt-2">
+          <a
+            href={profile.resumePath}
+            download="Ekezie_Chiemelie_Isaac_Resume.pdf"
+            className="border border-white bg-white text-black font-semibold px-6 py-3.5 hover:bg-[#d4d4d8] transition"
+          >
+            DOWNLOAD MASTER CV PDF [214KB] ↓
+          </a>
+          <a
+            href={profile.resumePath}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-white/20 px-6 py-3.5 text-white hover:border-white transition"
+          >
+            INSPECT PDF IN BROWSER ↗
+          </a>
+        </div>
+      </div>
 
-        {/* Core Competency Matrix */}
-        <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-              <span className="text-fuchsia-400">❖</span> Core Competency Matrix
-            </h3>
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-              From Master CV
-            </span>
-          </div>
+      {/* Executive Summary Narrative */}
+      <section className="border border-white/10 bg-[#0e0e11] p-8 sm:p-12 space-y-4">
+        <div className="font-mono text-xs text-[#71717a] uppercase tracking-wider mb-2">
+          [EXECUTIVE PROFILE]
+        </div>
+        <p className="font-space text-base sm:text-lg leading-relaxed text-[#d4d4d8]">
+          {profile.intro}
+        </p>
+      </section>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {profile.skillGroups.map((group) => (
-              <motion.div
-                key={group.title}
-                className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-cyan-400/30"
-                whileHover={{ scale: 1.01 }}
-              >
-                <h4 className="text-lg font-bold text-cyan-200 mb-4">{group.title}</h4>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-medium text-slate-200"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+      {/* Core Competency Matrix */}
+      <section className="border border-white/10 bg-[#0e0e11] p-8 sm:p-12 space-y-8">
+        <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-[#71717a]">
+          <span>[CORE COMPETENCY MATRIX]</span>
+          <span>TRANSCRIPTION FROM MASTER CURRICULUM VITAE</span>
+        </div>
 
-        {/* Professional Experience */}
-        <section className="mt-12 rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
-          <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-8">
-            <span className="text-cyan-400">💼</span> Professional Experience
-          </h3>
-
-          <div className="space-y-10">
-            {profile.experience.map((exp) => (
-              <div
-                key={exp.role}
-                className="relative pl-6 border-l-2 border-cyan-400/30 space-y-3"
-              >
-                <div className="absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-cyan-400 bg-slate-950" />
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                  <h4 className="text-xl font-bold text-white">{exp.role}</h4>
-                  <span className="inline-block text-xs font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full w-fit">
-                    {exp.period}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {profile.skillGroups.map((group, idx) => (
+            <div key={group.title} className="border border-white/5 bg-[#141418] p-6 space-y-3 font-mono text-xs">
+              <span className="text-white font-bold block text-sm">
+                0{idx + 1} // {group.title}
+              </span>
+              <div className="flex flex-wrap gap-1.5 pt-2">
+                {group.items.map((item) => (
+                  <span key={item} className="border border-white/10 bg-[#08080a] px-2.5 py-1 text-[#d4d4d8]">
+                    {item}
                   </span>
-                </div>
-                <p className="text-sm font-medium text-slate-300">
-                  <span className="text-cyan-200 font-semibold">{exp.company}</span> • {exp.location}
-                </p>
-                <p className="text-slate-300 text-sm leading-relaxed">{exp.summary}</p>
-                {exp.highlights && exp.highlights.length > 0 && (
-                  <ul className="mt-3 space-y-2 text-sm text-slate-200">
-                    {exp.highlights.map((highlight, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5">
-                        <span className="text-cyan-400 mt-1 text-xs">▫</span>
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Professional Experience Archive */}
+      <section className="border border-white/10 bg-[#0e0e11] p-8 sm:p-12 space-y-8">
+        <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-[#71717a]">
+          <span>[CHRONOLOGICAL RECORD]</span>
+          <span>ENTERPRISE &amp; INDEPENDENT PRACTICE</span>
+        </div>
+
+        <div className="divide-y divide-white/10">
+          {profile.experience.map((exp) => (
+            <div key={exp.role} className="py-8 space-y-4 first:pt-0 last:pb-0 group cursor-default">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-xs">
+                <span className="text-white font-bold text-lg font-syne group-hover:text-white transition-colors duration-200">{exp.role}</span>
+                <span className="border border-white/10 group-hover:border-white/30 px-3 py-1 text-[#a1a1aa] group-hover:text-[#d4d4d8] w-fit transition-all duration-200">
+                  {exp.period}
+                </span>
+              </div>
+
+              <div className="font-mono text-xs text-[#8e8e93] group-hover:text-[#a1a1aa] transition-colors duration-200">
+                {exp.company} • {exp.location}
+              </div>
+
+              <p className="font-space text-sm text-[#d4d4d8] group-hover:text-white leading-relaxed transition-colors duration-200">
+                {exp.summary}
+              </p>
+
+              {exp.highlights && exp.highlights.length > 0 && (
+                <ul className="space-y-2 pt-2 font-mono text-xs text-[#a1a1aa]">
+                  {exp.highlights.map((highlight, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 group-hover:text-[#d4d4d8] transition-colors duration-200">
+                      <span className="text-white">✦</span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Education & Industry Certifications */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Education */}
+        <section className="border border-white/10 bg-[#0e0e11] p-8 space-y-4 font-mono text-xs">
+          <div className="text-[#71717a] border-b border-white/10 pb-3 uppercase tracking-wider">
+            [ACADEMIC BACKGROUND]
+          </div>
+          {profile.education.map((edu) => (
+            <div key={edu.institution} className="space-y-1">
+              <span className="text-white font-bold block text-sm">{edu.institution}</span>
+              <p className="text-[#d4d4d8]">{edu.degree}</p>
+              <p className="text-[#71717a] text-[11px]">{edu.period} • {edu.location}</p>
+            </div>
+          ))}
+        </section>
+
+        {/* Certifications */}
+        <section className="border border-white/10 bg-[#0e0e11] p-8 space-y-4 font-mono text-xs">
+          <div className="text-[#71717a] border-b border-white/10 pb-3 uppercase tracking-wider">
+            [INDUSTRY CREDENTIALS]
+          </div>
+          <div className="space-y-3">
+            {profile.certifications.map((cert) => (
+              <div key={cert.label} className="border-b border-white/5 pb-2.5 last:border-none">
+                <span className="text-white font-medium block">{cert.label}</span>
+                {cert.issuer && <span className="text-[#71717a] text-[11px] block">{cert.issuer}</span>}
+                {cert.url && (
+                  <a
+                    href={cert.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] text-white underline hover:text-[#d4d4d8] inline-block mt-0.5"
+                  >
+                    VERIFY RECORD ↗
+                  </a>
                 )}
               </div>
             ))}
           </div>
         </section>
-
-        {/* Education & Certifications */}
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
-          {/* Education */}
-          <section className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
-            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-              <span className="text-cyan-400">🎓</span> Education
-            </h3>
-            <div className="mt-6 space-y-6">
-              {profile.education.map((edu) => (
-                <div key={edu.institution} className="rounded-2xl border border-white/5 bg-white/5 p-5">
-                  <span className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">{edu.period}</span>
-                  <h4 className="mt-1 text-lg font-bold text-white">{edu.institution}</h4>
-                  <p className="text-sm font-medium text-slate-200">{edu.degree}</p>
-                  <p className="mt-1 text-xs text-slate-400">{edu.location}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Certifications */}
-          <section className="rounded-[2rem] border border-white/10 bg-slate-950/60 p-8 backdrop-blur">
-            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-              <span className="text-fuchsia-400">📜</span> Certifications
-            </h3>
-            <div className="mt-6 space-y-4">
-              {profile.certifications.map((cert) => (
-                <div
-                  key={cert.label}
-                  className={`rounded-2xl border p-5 ${
-                    cert.highlight
-                      ? 'border-fuchsia-400/40 bg-fuchsia-400/10'
-                      : 'border-white/10 bg-white/5'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <h4 className="text-base font-bold text-white">{cert.label}</h4>
-                      {cert.issuer && <p className="text-xs text-slate-300 mt-1">{cert.issuer}</p>}
-                    </div>
-                    {cert.url && (
-                      <a
-                        href={cert.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-semibold text-cyan-300 hover:underline shrink-0"
-                      >
-                        Verify ↗
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
+    <Footer />
   </>
 );
 

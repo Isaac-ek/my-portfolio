@@ -1,100 +1,149 @@
-/* ══════════════════════════════════════════════════
-   Starfield — stars, nebulae, shooting stars
-   ══════════════════════════════════════════════════ */
-
-.hero-particles {
+/* 🌌 Multi-mode Interactive Particles & Coordinates */
+.editorial-backdrop {
   position: fixed;
   inset: 0;
-  z-index: -1;
-  overflow: hidden;
+  z-index: -10;
   pointer-events: none;
-  background: radial-gradient(ellipse at 20% 50%, rgba(2, 8, 30, 0.95) 0%, #020818 100%);
+  overflow: hidden;
 }
 
-/* ── Nebula blobs ──────────────────────────────── */
-.nebula {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.12;
-  animation: nebula-pulse 10s ease-in-out infinite;
-}
-
-.nebula-cyan {
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, #06b6d4 0%, transparent 70%);
-  top: -10%;
-  left: -5%;
-  animation-delay: 0s;
-}
-
-.nebula-fuchsia {
-  width: 500px;
-  height: 350px;
-  background: radial-gradient(ellipse, #d946ef 0%, transparent 70%);
-  bottom: 10%;
-  right: -5%;
-  animation-delay: 3s;
-}
-
-.nebula-violet {
-  width: 400px;
-  height: 300px;
-  background: radial-gradient(ellipse, #7c3aed 0%, transparent 70%);
-  top: 40%;
-  left: 40%;
-  animation-delay: 6s;
-}
-
-@keyframes nebula-pulse {
-  0%, 100% { opacity: 0.1; transform: scale(1); }
-  50%       { opacity: 0.18; transform: scale(1.08); }
-}
-
-/* ── Stars ──────────────────────────────────────── */
+/* 🌟 Dynamic Particle Dots */
 .particle {
   position: absolute;
   border-radius: 50%;
-  opacity: 0;
-  animation: twinkle 3s ease-in-out infinite;
-  transition: transform 0.15s ease-out;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 255, 255, 0.2);
+  animation-name: particle-twinkle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  /* NO transition — JS owns transform via rAF, CSS must not fight it */
   will-change: transform, opacity;
 }
 
-@keyframes twinkle {
-  0%   { opacity: 0;    transform: scale(0.7); }
-  30%  { opacity: 0.9;  transform: scale(1.15); }
-  60%  { opacity: 0.45; transform: scale(0.9); }
-  100% { opacity: 0;    transform: scale(0.7); }
+/* ☀️ Light Mode: crisp carbon/ink dots */
+html:not(.dark) .particle {
+  background-color: rgba(14, 14, 18, 0.72);
+  box-shadow: 0 0 6px rgba(14, 14, 18, 0.25), 0 0 12px rgba(14, 14, 18, 0.1);
 }
 
-/* ── Shooting Stars ─────────────────────────────── */
+/* Only animate opacity — JS owns transform exclusively */
+@keyframes particle-twinkle {
+  0%, 100% { opacity: 0.18; }
+  50%       { opacity: 1;    }
+}
+
+/* 🌠 Subtle Atmospheric Shooting Stars / Velocity Streaks */
 .shooting-star {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 180px;
+  top: 5%;
+  left: 10%;
+  width: 130px;
   height: 1.5px;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(165,243,252,0.6) 40%, transparent 100%);
-  box-shadow: 0 0 6px rgba(165,243,252,0.5), 0 0 12px rgba(165,243,252,0.2);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.75), transparent);
+  transform: rotate(45deg);
   opacity: 0;
-  transform: rotate(35deg) translate(-300px, -50px);
-  animation: shoot 7s linear infinite;
+  pointer-events: none;
 }
 
-/* Give each shooting star its own start position */
-.shooting-star:nth-child(5) { top: 8%;  left: 10%; }
-.shooting-star:nth-child(6) { top: 20%; left: 40%; }
-.shooting-star:nth-child(7) { top: 5%;  left: 65%; }
-.shooting-star:nth-child(8) { top: 35%; left: 20%; }
-.shooting-star:nth-child(9) { top: 15%; left: 80%; }
+html:not(.dark) .shooting-star {
+  background: linear-gradient(90deg, rgba(18, 18, 22, 0.65), transparent);
+}
 
-@keyframes shoot {
-  0%   { transform: rotate(35deg) translate(-300px, -80px); opacity: 0; }
-  5%   { opacity: 1; }
-  60%  { opacity: 0.6; }
-  80%  { transform: rotate(35deg) translate(110vw, 55vh); opacity: 0; }
-  100% { opacity: 0; }
+.shooting-star-1 {
+  top: 8%;
+  left: 15%;
+  animation: shoot-star 8s ease-in-out infinite 1s;
+}
+
+.shooting-star-2 {
+  top: 25%;
+  left: 55%;
+  animation: shoot-star 11s ease-in-out infinite 4.5s;
+}
+
+.shooting-star-3 {
+  top: 45%;
+  left: 5%;
+  animation: shoot-star 9.5s ease-in-out infinite 7s;
+}
+
+@keyframes shoot-star {
+  0% {
+    transform: translate(-150px, -150px) rotate(45deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+  }
+  30% {
+    transform: translate(60vw, 60vh) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(60vw, 60vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* 📐 Architectural Margin Stamps */
+.coord-stamp {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+html:not(.dark) .coord-stamp {
+  color: rgba(0, 0, 0, 0.28);
+}
+
+.coord-tl {
+  top: 28px;
+  left: 32px;
+}
+
+.coord-tr {
+  top: 28px;
+  right: 32px;
+}
+
+.coord-bl {
+  bottom: 28px;
+  left: 32px;
+}
+
+.coord-br {
+  bottom: 28px;
+  right: 32px;
+}
+
+/* Subtle crosshairs in grid intersections */
+.crosshair {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.15);
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+html:not(.dark) .crosshair {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.crosshair-1 { top: 25%; left: 15%; }
+.crosshair-2 { top: 35%; right: 18%; }
+.crosshair-3 { bottom: 30%; left: 22%; }
+.crosshair-4 { bottom: 20%; right: 25%; }
+
+@media (max-width: 768px) {
+  .coord-stamp,
+  .shooting-star {
+    display: none;
+  }
 }
