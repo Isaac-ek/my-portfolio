@@ -1,181 +1,141 @@
 import React from 'react';
-import { Typewriter } from 'react-simple-typewriter';
 import { motion } from 'framer-motion';
 import { profile } from '../data/profile';
 
 type HTMLSectionProps = React.HTMLAttributes<HTMLElement>;
 
-/* Floating orb blobs */
-const Orb = ({
-  className,
-  delay = 0,
-}: {
-  className: string;
-  delay?: number;
-}) => (
-  <motion.div
-    className={`pointer-events-none absolute rounded-full blur-3xl ${className}`}
-    animate={{
-      y: [0, -28, 0],
-      scale: [1, 1.08, 1],
-      opacity: [0.5, 0.75, 0.5],
-    }}
-    transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay }}
-  />
-);
-
 const Hero = (props: HTMLSectionProps) => (
   <section
     {...props}
     id="hero"
-    className="relative flex min-h-screen items-center overflow-hidden px-4 pb-16 pt-28 sm:px-8 md:px-16 lg:px-24"
+    className="relative pt-28 sm:pt-36 pb-20 px-4 sm:px-8 md:px-12 max-w-7xl mx-auto"
   >
-    {/* Floating ambient blobs */}
-    <Orb className="h-80 w-80 bg-cyan-500/20 -top-20 -left-20" delay={0} />
-    <Orb className="h-64 w-64 bg-fuchsia-500/20 top-1/3 right-0" delay={2} />
-    <Orb className="h-48 w-48 bg-violet-500/15 bottom-10 left-1/4" delay={4} />
+    {/* Editorial Issue Header Tag */}
+    <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-8 text-[11px] font-mono tracking-widest text-[#8e8e93] uppercase">
+      <div>[00 / INTRODUCTION]</div>
+      <div className="hidden sm:block">DEV &amp; DESIGN MONOGRAPH</div>
+      <div>EDITION MMXXVI</div>
+    </div>
 
-    <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
-      {/* Left col */}
-      <motion.div
-        className="relative z-10 text-left"
-        initial={{ opacity: 0, y: 40 }}
+    {/* Massive Editorial Masthead Title */}
+    <div className="space-y-2">
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.6 }}
+        className="font-syne font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tighter text-[#f4f4f2] leading-[0.88] uppercase"
       >
-        {/* Availability badge */}
-        <motion.span
-          className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200"
-          animate={{
-            boxShadow: [
-              '0 0 0px rgba(6,182,212,0)',
-              '0 0 18px rgba(6,182,212,0.35)',
-              '0 0 0px rgba(6,182,212,0)',
-            ],
-          }}
-          transition={{ duration: 3, repeat: Infinity }}
-        >
-          ✦ Available for freelance &amp; full-time roles
-        </motion.span>
+        EKEZIE <br />
+        <span className="font-serif italic font-normal text-[#d4d4d8] lowercase tracking-tight">
+          chiemelie
+        </span>{' '}
+        ISAAC
+      </motion.h1>
 
-        <h1 className="mt-6 max-w-4xl text-5xl font-black leading-tight text-white sm:text-6xl md:text-7xl">
-          Building products.{' '}
-          <span className="relative">
-            <span className="bg-gradient-to-r from-fuchsia-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-              Designing worlds.
-            </span>
-            <span className="absolute -bottom-1 left-0 h-px w-full bg-gradient-to-r from-fuchsia-400 to-cyan-400 opacity-60" />
-          </span>
-        </h1>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
+        className="font-mono text-xs sm:text-sm tracking-widest text-[#a1a1aa] uppercase pt-4"
+      >
+        FULL-STACK SOFTWARE ENGINEER &amp; DIGITAL INFRASTRUCTURE SPECIALIST
+      </motion.p>
+    </div>
 
-        <div className="mt-5 text-2xl font-semibold text-slate-200 sm:text-3xl">
-          <Typewriter
-            words={[profile.name, ...profile.titles]}
-            loop
-            cursor
-            cursorStyle="_"
-            typeSpeed={70}
-            deleteSpeed={45}
-            delaySpeed={1200}
-          />
-        </div>
+    {/* Asymmetrical 2-Column Poster Layout */}
+    <div className="mt-12 md:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-white/10 pt-10">
+      {/* Left Column: Human Manifesto & Narrative */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="lg:col-span-7 space-y-6"
+      >
+        <h2 className="font-serif italic text-2xl sm:text-4xl text-[#f4f4f2] font-normal leading-snug">
+          &ldquo;Software engineer with a typographer&rsquo;s eye and a systems-level obsession.&rdquo;
+        </h2>
 
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">
-          {profile.tagline}
+        <p className="font-space text-base sm:text-lg leading-relaxed text-[#a1a1aa] max-w-2xl">
+          I build high-performance web applications and design visual identities with actual character.
+          Whether architecting Next.js frontends, engineering resilient Python microservices, or creating
+          bespoke brand systems in Figma, I make sure the work is fast, bulletproof, and memorable.
         </p>
 
-        {/* Dual-discipline badges */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          {[
-            { label: '⚡ Full-Stack Dev', cls: 'border-cyan-400/30 bg-cyan-400/8 text-cyan-300' },
-            { label: '🎨 Graphic Designer', cls: 'border-fuchsia-400/30 bg-fuchsia-400/8 text-fuchsia-300' },
-            { label: '☁️ AWS Certified', cls: 'border-violet-400/30 bg-violet-400/8 text-violet-300' },
-            { label: '🔒 IT Analyst', cls: 'border-emerald-400/30 bg-emerald-400/8 text-emerald-300' },
-          ].map(({ label, cls }) => (
-            <span key={label} className={`rounded-full border px-3 py-1 text-xs font-semibold ${cls}`}>
-              {label}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-wrap gap-4">
-          <motion.a
+        {/* Action Link Rows styled as Editorial Index Footnotes */}
+        <div className="pt-6 flex flex-wrap gap-4 font-mono text-xs tracking-wider">
+          <a
             href="#projects"
-            className="relative overflow-hidden rounded-full bg-cyan-400 px-7 py-3 text-base font-bold text-slate-950"
-            whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(6,182,212,0.6)' }}
-            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2 border border-white/20 bg-white/5 hover:bg-white hover:text-black hover:border-white px-6 py-3.5 text-[#f4f4f2] transition duration-200"
           >
-            View My Work
-          </motion.a>
-          <motion.a
-            href="#contact"
-            className="rounded-full border border-white/20 bg-white/5 px-7 py-3 text-base font-semibold text-white"
-            whileHover={{
-              borderColor: 'rgba(217,70,239,0.6)',
-              boxShadow: '0 0 24px rgba(217,70,239,0.25)',
-              color: '#e879f9',
-            }}
-            whileTap={{ scale: 0.97 }}
+            <span>[01] EXPLORE SELECTED WORK ↓</span>
+          </a>
+          <a
+            href="/about"
+            className="inline-flex items-center gap-2 border border-white/10 hover:border-white/40 px-6 py-3.5 text-[#d4d4d8] hover:text-white transition duration-200"
           >
-            Let&apos;s Work Together
-          </motion.a>
-          <motion.a
+            <span>[02] READ CURRICULUM VITAE →</span>
+          </a>
+          <a
             href={profile.resumePath}
-            download
-            className="rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-7 py-3 text-base font-semibold text-fuchsia-100"
-            whileHover={{ boxShadow: '0 0 24px rgba(217,70,239,0.35)', scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+            download="Ekezie_Chiemelie_Isaac_Resume.pdf"
+            className="inline-flex items-center gap-2 border border-white/10 hover:border-white/40 px-6 py-3.5 text-[#8e8e93] hover:text-white transition duration-200"
           >
-            Download Resume
-          </motion.a>
+            <span>[03] DOWNLOAD RESUME PDF ↓</span>
+          </a>
         </div>
       </motion.div>
 
-      {/* Right col — Profile Snapshot card */}
+      {/* Right Column: Architectural Spec Sheet */}
       <motion.div
-        className="relative"
-        initial={{ opacity: 0, x: 40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="lg:col-span-5 border border-white/10 bg-[#0e0e11] p-6 sm:p-8 font-mono text-xs space-y-5"
       >
-        {/* Glow ring behind card */}
-        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-cyan-400/25 via-fuchsia-500/10 to-violet-500/20 blur-3xl" />
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <span className="text-[#71717a] uppercase tracking-widest">[SPECIFICATION SHEET]</span>
+          <span className="text-emerald-400 font-semibold">● ACTIVE</span>
+        </div>
 
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 shadow-[0_25px_80px_rgba(2,12,27,0.45)] backdrop-blur">
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Profile Snapshot</p>
-              <p className="mt-2 text-2xl font-bold text-white">{profile.name}</p>
+        <div className="space-y-4">
+          <div className="border-b border-white/5 pb-3">
+            <div className="text-[#71717a] uppercase tracking-wider text-[10px]">CURRENT STATION</div>
+            <div className="text-[#f4f4f2] font-medium text-sm mt-0.5">
+              IT Analyst &amp; Systems Specialist
             </div>
-            <motion.div
-              className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-200"
-              animate={{
-                boxShadow: [
-                  '0 0 0px rgba(52,211,153,0)',
-                  '0 0 14px rgba(52,211,153,0.3)',
-                  '0 0 0px rgba(52,211,153,0)',
-                ],
-              }}
-              transition={{ duration: 2.5, repeat: Infinity }}
-            >
-              Open to opportunities
-            </motion.div>
+            <div className="text-[#a1a1aa] text-[11px] mt-0.5">
+              Bakan Gizo Pharmacy &amp; Stores Ltd • Abuja
+            </div>
           </div>
 
-          <div className="space-y-3">
-            {profile.stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:border-cyan-400/30 hover:bg-white/[0.07]"
-              >
-                <p className="text-3xl font-black text-white">{stat.value}</p>
-                <p className="mt-1 text-sm text-slate-300">{stat.label}</p>
-              </div>
-            ))}
-            {/* Developer + Designer */}
-            <div className="rounded-2xl border border-fuchsia-400/20 bg-fuchsia-400/5 px-5 py-4 transition hover:border-fuchsia-400/40 hover:bg-fuchsia-400/10">
-              <p className="text-3xl font-black text-white">2-in-1</p>
-              <p className="mt-1 text-sm text-slate-300">Developer + Designer</p>
+          <div className="border-b border-white/5 pb-3">
+            <div className="text-[#71717a] uppercase tracking-wider text-[10px]">CORE ENGINEERING</div>
+            <div className="text-[#f4f4f2] text-xs mt-0.5 leading-relaxed">
+              Next.js 15, React 19, TypeScript, Python/Flask, Node.js, PostgreSQL/Prisma, Redis
+            </div>
+          </div>
+
+          <div className="border-b border-white/5 pb-3">
+            <div className="text-[#71717a] uppercase tracking-wider text-[10px]">DESIGN &amp; IDENTITY</div>
+            <div className="text-[#f4f4f2] text-xs mt-0.5 leading-relaxed">
+              Brand Systems, Figma UI/UX, Typography, Adobe Suite, Micro-animations
+            </div>
+          </div>
+
+          <div className="border-b border-white/5 pb-3">
+            <div className="text-[#71717a] uppercase tracking-wider text-[10px]">EDUCATION &amp; CERTIFICATION</div>
+            <div className="text-[#f4f4f2] text-xs mt-0.5">
+              B.Sc. Computer Science • Covenant University
+            </div>
+            <div className="text-[#a1a1aa] text-[11px] mt-0.5">
+              AWS Certified Solutions Architect (SAA-C03)
+            </div>
+          </div>
+
+          <div>
+            <div className="text-[#71717a] uppercase tracking-wider text-[10px]">COORDINATES</div>
+            <div className="text-[#f4f4f2] text-xs mt-0.5">
+              Lagos &amp; Abuja, Nigeria • Remote Globally
             </div>
           </div>
         </div>

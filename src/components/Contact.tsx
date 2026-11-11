@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { profile } from '../data/profile';
 
 const initialForm = { name: '', email: '', message: '', _honey: '' };
@@ -38,102 +37,86 @@ const Contact = () => {
 
   return (
     <section
-      className="container mx-auto max-w-6xl px-4 py-20 sm:px-8 md:px-16 lg:px-24"
+      className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-24 border-t border-white/10"
       id="contact"
-      data-aos="fade-up"
     >
-      <div className="mb-12 text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Get In Touch</p>
-        <h2 className="mt-4 text-4xl font-black text-white sm:text-5xl">
-          Let&apos;s build{' '}
-          <span className="bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">
-            something real.
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 mb-12 gap-4">
+        <div>
+          <span className="font-mono text-[11px] tracking-widest text-[#71717a] uppercase block mb-2">
+            [INDEX / 04] • DIRECT TRANSMISSION
           </span>
-        </h2>
-
-        {/* Divider */}
-        <div className="mx-auto mt-6 flex items-center justify-center gap-3">
-          <span className="h-px w-20 bg-gradient-to-r from-transparent to-cyan-400/50" />
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-400/60" />
-          <span className="h-px w-20 bg-gradient-to-l from-transparent to-fuchsia-400/50" />
+          <h2 className="font-syne font-extrabold text-4xl sm:text-6xl text-[#f4f4f2] tracking-tight uppercase">
+            GET IN TOUCH
+          </h2>
+        </div>
+        <div className="font-mono text-xs text-[#8e8e93]">
+          [OPEN FOR CONTRACTS &amp; POSITIONS]
         </div>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
-        {/* Left — info */}
-        <div className="flex flex-col gap-6">
-          <div className="rounded-[1.75rem] border border-white/10 bg-slate-950/65 p-8 backdrop-blur">
-            <h3 className="text-2xl font-black text-white">
-              Got a project in mind?
-            </h3>
-            <p className="mt-4 text-slate-300 leading-7">
-              Whether it&apos;s a website, brand identity, cloud setup, or all three — I&apos;m ready to make it happen.
-            </p>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Left: Coordinates */}
+        <div className="lg:col-span-5 space-y-6">
+          <h3 className="font-serif italic text-3xl sm:text-4xl text-[#f4f4f2] font-normal leading-snug">
+            &ldquo;Have an engineering build or a brand system to bring to life?&rdquo;
+          </h3>
+          <p className="font-space text-sm text-[#a1a1aa] leading-relaxed">
+            I respond promptly to thoughtful inquiries. Whether you need full-stack web architecture,
+            enterprise systems automation, or bespoke brand assets, send a transmission below.
+          </p>
 
-            <div className="mt-8 space-y-3">
-              <motion.a
+          <div className="border border-white/10 bg-[#0e0e11] p-6 space-y-4 font-mono text-xs">
+            <div className="border-b border-white/5 pb-3">
+              <span className="text-[#71717a] uppercase text-[10px] block">DIRECT EMAIL</span>
+              <a
                 href={`mailto:${profile.email}`}
-                className="flex items-center gap-3 rounded-2xl border border-cyan-400/15 bg-cyan-400/5 px-4 py-3.5 text-sm font-semibold text-cyan-200 transition hover:bg-cyan-400/10"
-                whileHover={{ x: 4 }}
-                transition={{ duration: 0.15 }}
+                className="text-white hover:underline mt-0.5 inline-block text-sm font-medium"
               >
-                <span className="text-lg">✉️</span> {profile.email}
-              </motion.a>
-              <motion.a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/20 hover:text-cyan-200"
-                whileHover={{ x: 4 }}
-                transition={{ duration: 0.15 }}
-              >
-                <span className="text-lg">🔗</span> LinkedIn
-              </motion.a>
-              <motion.a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/20 hover:text-cyan-200"
-                whileHover={{ x: 4 }}
-                transition={{ duration: 0.15 }}
-              >
-                <span className="text-lg">💻</span> GitHub
-              </motion.a>
+                {profile.email}
+              </a>
             </div>
-          </div>
 
-          {/* Available services teaser */}
-          <div className="rounded-[1.75rem] border border-fuchsia-400/20 bg-fuchsia-400/5 p-6 backdrop-blur">
-            <p className="text-xs font-semibold uppercase tracking-wider text-fuchsia-300">I can help with</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {['Web Dev', 'Brand Design', 'Cloud Setup', 'UI/UX', 'Social Media Assets', 'E-Commerce'].map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full border border-fuchsia-400/20 bg-fuchsia-400/8 px-3 py-1 text-xs font-medium text-fuchsia-200"
-                >
-                  {s}
-                </span>
-              ))}
+            <div className="border-b border-white/5 pb-3">
+              <span className="text-[#71717a] uppercase text-[10px] block">TELEPHONE</span>
+              <a
+                href={`tel:${profile.phone}`}
+                className="text-white hover:underline mt-0.5 inline-block"
+              >
+                {profile.phone}
+              </a>
+            </div>
+
+            <div>
+              <span className="text-[#71717a] uppercase text-[10px] block">LOCATION</span>
+              <span className="text-[#d4d4d8] mt-0.5 inline-block">
+                {profile.location} • Available Globally
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Right — form */}
-        <div className="relative rounded-[1.75rem] border border-white/10 bg-slate-950/65 p-8 backdrop-blur overflow-hidden">
-          {/* Subtle glow top-right */}
-          <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-cyan-400/8 blur-3xl" />
-
-          <form className="space-y-5 relative z-10" onSubmit={handleSubmit}>
-            <input type="text" name="_honey" style={{ display: 'none' }} onChange={handleChange} value={form._honey || ''} />
+        {/* Right: Clean Editorial Form */}
+        <div className="lg:col-span-7 border border-white/10 bg-[#0e0e11] p-6 sm:p-10">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="_honey"
+              style={{ display: 'none' }}
+              onChange={handleChange}
+              value={form._honey || ''}
+            />
 
             <div>
-              <label htmlFor="name" className="mb-2 block text-sm font-semibold text-slate-200">Your Name</label>
+              <label htmlFor="name" className="block font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
+                01 // SENDER IDENTIFIER (YOUR NAME)
+              </label>
               <input
                 id="name"
-                className="min-h-[52px] w-full rounded-2xl border border-white/10 bg-white/5 p-4 text-base text-white outline-none transition focus:border-cyan-400/60 focus:shadow-[0_0_0_3px_rgba(6,182,212,0.1)]"
+                className="w-full border border-white/10 bg-[#08080a] p-4 font-space text-sm text-white outline-none transition focus:border-white"
                 type="text"
                 name="name"
-                placeholder="What should I call you?"
+                placeholder="e.g. John Doe / Acme Corp"
                 value={form.name}
                 onChange={handleChange}
                 required
@@ -141,13 +124,15 @@ const Contact = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-200">Email Address</label>
+              <label htmlFor="email" className="block font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
+                02 // ELECTRONIC MAIL ADDRESS
+              </label>
               <input
                 id="email"
-                className="min-h-[52px] w-full rounded-2xl border border-white/10 bg-white/5 p-4 text-base text-white outline-none transition focus:border-cyan-400/60 focus:shadow-[0_0_0_3px_rgba(6,182,212,0.1)]"
+                className="w-full border border-white/10 bg-[#08080a] p-4 font-space text-sm text-white outline-none transition focus:border-white"
                 type="email"
                 name="email"
-                placeholder="Your email address"
+                placeholder="you@domain.com"
                 value={form.email}
                 onChange={handleChange}
                 required
@@ -155,37 +140,37 @@ const Contact = () => {
             </div>
 
             <div>
-              <label htmlFor="message" className="mb-2 block text-sm font-semibold text-slate-200">Project Details</label>
+              <label htmlFor="message" className="block font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
+                03 // PROJECT SCOPE OR INQUIRY
+              </label>
               <textarea
                 id="message"
-                className="min-h-[150px] w-full rounded-2xl border border-white/10 bg-white/5 p-4 text-base text-white outline-none transition focus:border-cyan-400/60 focus:shadow-[0_0_0_3px_rgba(6,182,212,0.1)] resize-none"
+                className="w-full border border-white/10 bg-[#08080a] p-4 font-space text-sm text-white outline-none transition focus:border-white resize-none"
                 name="message"
-                placeholder="Tell me what you're building — or what you want to build."
-                rows={6}
+                placeholder="Briefly describe the product, system, or brand assets you are looking to build."
+                rows={5}
                 value={form.message}
                 onChange={handleChange}
                 required
               />
             </div>
 
-            <motion.button
+            <button
               type="submit"
-              className="w-full rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 py-4 text-base font-black text-slate-950 transition disabled:opacity-50"
               disabled={loading}
-              whileHover={{ scale: 1.02, boxShadow: '0 0 36px rgba(6,182,212,0.45)' }}
-              whileTap={{ scale: 0.98 }}
+              className="w-full border border-white bg-white py-4 font-mono text-xs font-bold uppercase tracking-widest text-black transition hover:bg-[#d4d4d8] disabled:opacity-50"
             >
-              {loading ? 'Sending…' : 'Send Message →'}
-            </motion.button>
+              {loading ? 'TRANSMITTING...' : 'TRANSMIT MESSAGE [→]'}
+            </button>
 
             {status === 'success' && (
-              <p className="text-center text-base font-semibold text-emerald-400">
-                ✓ Message sent — I&apos;ll get back to you soon!
+              <p className="font-mono text-xs text-emerald-400 text-center">
+                ✓ TRANSMISSION RECEIVED. I WILL REPLY SHORTLY.
               </p>
             )}
             {status === 'error' && (
-              <p className="text-center text-base font-semibold text-red-400">
-                Something went wrong. Try again or email me directly.
+              <p className="font-mono text-xs text-red-400 text-center">
+                FAILED TO TRANSMIT. PLEASE DISPATCH DIRECTLY TO EKEZIE.CHIEMELIE@GMAIL.COM
               </p>
             )}
           </form>
