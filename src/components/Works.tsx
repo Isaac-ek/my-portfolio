@@ -12,21 +12,34 @@ import {
 const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [tab, setTab] = useState<'featured' | 'software' | 'design'>('featured');
+  
+  // Design Case Study Modal State
   const [activeDesignModal, setActiveDesignModal] = useState<Design | null>(null);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState<string>('');
   const [selectedVariantId, setSelectedVariantId] = useState<string>('');
+  const [viewMode, setViewMode] = useState<'assembled' | 'dieline'>('assembled');
+
+  // Engineering Case Study Modal State (Indie CRM)
+  const [activeProjectModal, setActiveProjectModal] = useState<Project | null>(null);
+  const [crmActiveTab, setCrmActiveTab] = useState<'pipeline' | 'vector' | 'telemetry' | 'command'>('pipeline');
+  const [copiedLink, setCopiedLink] = useState(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
-  // Synchronize modal state with URL search param "?case=<id>" for shareable URLs
+  // Synchronize modal state with URL search params:
+  // ?case=<id> for design case studies
+  // ?project=<id> for engineering case studies
   useEffect(() => {
     const caseId = searchParams.get('case');
+    const projectId = searchParams.get('project');
+
     if (caseId) {
       const match = designs.find((d) => d.id === caseId);
       if (match) {
         setActiveDesignModal(match);
+        setActiveProjectModal(null);
         if (match.variants && match.variants.length > 0) {
           setSelectedVariantId(match.variants[0].id);
           setSelectedGalleryImage(match.variants[0].image);
@@ -35,8 +48,14 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
           setSelectedGalleryImage(match.image || '');
         }
       }
+    } else if (projectId) {
+      if (projectId === 'indie-crm' || projectId === 'indie-crm-saas-platform') {
+        setActiveProjectModal(projects[0]);
+        setActiveDesignModal(null);
+      }
     } else {
       setActiveDesignModal(null);
+      setActiveProjectModal(null);
     }
   }, [searchParams]);
 
@@ -50,10 +69,13 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
   const closeModal = useCallback(() => {
     const newParams = new URLSearchParams(searchParams);
     newParams.delete('case');
+    newParams.delete('project');
     setSearchParams(newParams, { replace: false });
     setActiveDesignModal(null);
+    setActiveProjectModal(null);
+    setCopiedLink(false);
 
-    // Return focus to trigger button
+    // Return focus to triggering button
     setTimeout(() => {
       lastFocusedElementRef.current?.focus();
     }, 50);
@@ -63,14 +85,33 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
     if (triggerElement) {
       lastFocusedElementRef.current = triggerElement;
     }
+    setViewMode('assembled');
     const newParams = new URLSearchParams(searchParams);
+    newParams.delete('project');
     newParams.set('case', design.id);
     setSearchParams(newParams, { replace: false });
   };
 
+  const openProjectModal = (project: Project, triggerElement?: HTMLElement) => {
+    if (triggerElement) {
+      lastFocusedElementRef.current = triggerElement;
+    }
+    setActiveProjectModal(project);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('case');
+    newParams.set('project', 'indie-crm');
+    setSearchParams(newParams, { replace: false });
+  };
+
+  const copyShareableLink = (url: string) => {
+    navigator.clipboard.writeText(url);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2500);
+  };
+
   // Manage accessibility focus & escape key when modal opens/closes
   useEffect(() => {
-    if (activeDesignModal) {
+    if (activeDesignModal || activeProjectModal) {
       closeBtnRef.current?.focus();
 
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -82,7 +123,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
       window.addEventListener('keydown', handleKeyDown);
       return () => window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [activeDesignModal, closeModal]);
+  }, [activeDesignModal, activeProjectModal, closeModal]);
 
   const currentVariant: DesignVariant | undefined =
     activeDesignModal?.variants?.find((v) => v.id === selectedVariantId) ||
@@ -143,7 +184,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
         </div>
       </div>
 
-      {/* ── Tab 0: Featured Dual Spotlight (Priority 1: Software + Packaging Side by Side) ── */}
+      {/* ── Tab 0: Featured Dual Spotlight ── */}
       {tab === 'featured' && (
         <div className="space-y-16">
           <div className="border border-white/10 bg-white/[0.02] p-4 sm:p-6 font-mono text-xs text-[#a1a1aa] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -185,19 +226,24 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   {flagshipProject.description}
                 </p>
 
-                {/* Walkthrough Architecture Steps */}
+                {/* Walkthrough Architecture Preview */}
                 {flagshipProject.walkthrough && (
                   <div className="mt-6 border-t border-white/10 pt-5 space-y-3">
-                    <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block">
-                      CORE ARCHITECTURE &amp; WORKFLOW WALKTHROUGH
-                    </span>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block">
+                        PUBLIC SYSTEM WALKTHROUGH &amp; SIMULATOR
+                      </span>
+                      <span className="font-mono text-[10px] text-emerald-400">
+                        INSPECTABLE WORKFLOWS
+                      </span>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                       {flagshipProject.walkthrough.map((step) => (
                         <div
                           key={step.step}
                           className="border border-white/5 bg-[#141418] p-3 font-mono text-xs"
                         >
-                          <span className="text-[#a1a1aa] font-bold block text-[11px] mb-1">
+                          <span className="text-[#d4d4d8] font-bold block text-[11px] mb-1">
                             {step.step} // {step.title}
                           </span>
                           <p className="text-[#71717a] text-[11px] leading-relaxed">
@@ -230,20 +276,22 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   </p>
                 )}
                 <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    aria-haspopup="dialog"
+                    onClick={(e) => openProjectModal(flagshipProject, e.currentTarget)}
+                    className="border border-white bg-white text-black font-semibold px-5 py-2.5 hover:bg-[#d4d4d8] transition inline-flex items-center gap-2"
+                  >
+                    <span>INSPECT CASE STUDY &amp; WALKTHROUGH →</span>
+                  </button>
                   <a
                     href={flagshipProject.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border border-white bg-white text-black font-semibold px-5 py-2.5 hover:bg-[#d4d4d8] transition inline-flex items-center gap-2"
+                    className="border border-white/15 px-4 py-2.5 text-[#a1a1aa] hover:border-white/40 hover:text-white transition inline-flex items-center gap-1.5"
                   >
-                    <span>OPEN LIVE INSTANCE ↗</span>
+                    <span>LIVE INSTANCE ↗</span>
                   </a>
-                  <button
-                    onClick={() => setTab('software')}
-                    className="border border-white/15 px-4 py-2.5 text-[#a1a1aa] hover:border-white/40 hover:text-white transition"
-                  >
-                    INSPECT SYSTEM SPECS →
-                  </button>
                 </div>
               </div>
             </article>
@@ -254,7 +302,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4 font-mono text-xs text-[#71717a]">
                   <span className="text-amber-400 font-medium">● 02 / PRINT &amp; PACKAGING</span>
                   <span className="border border-white/10 px-2 py-0.5 text-[11px] text-[#a1a1aa]">
-                    7 FORMULAS • CMYK DIELINES
+                    7 FORMULAS • ASSEMBLED RETAIL CARTONS
                   </span>
                 </div>
 
@@ -265,16 +313,20 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   {flagshipDesign.description}
                 </p>
 
-                {/* Visual Specimen Preview */}
+                {/* Finished Assembled Packaging Specimen (Priority 2) */}
                 <div className="mt-5 border border-white/10 bg-[#121216] p-4 relative overflow-hidden group/specimen">
+                  <div className="flex items-center justify-between font-mono text-[10px] text-[#a1a1aa] pb-2 mb-2 border-b border-white/5">
+                    <span className="text-white font-semibold">FINISHED RETAIL CARTON SPECIMEN</span>
+                    <span>130g / 4.6 oz</span>
+                  </div>
                   <img
                     src={flagshipDesign.image}
-                    alt={flagshipDesign.title}
-                    className="max-h-52 w-full object-contain filter drop-shadow-md mx-auto"
+                    alt={`${flagshipDesign.title} Assembled Packaging`}
+                    className="max-h-56 w-full object-contain filter drop-shadow-2xl mx-auto transition-transform duration-300 group-hover/specimen:scale-105"
                   />
                   <div className="mt-3 flex items-center justify-between font-mono text-[11px] text-[#71717a] pt-2 border-t border-white/5">
                     <span>Client: {flagshipDesign.client}</span>
-                    <span className="text-[#d4d4d8]">Folding Carton (20.8 x 21.4 cm)</span>
+                    <span className="text-[#d4d4d8]">Assembled 3D View + Production Dielines</span>
                   </div>
                 </div>
 
@@ -306,7 +358,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   onClick={(e) => openDesignModal(flagshipDesign, e.currentTarget)}
                   className="w-full border border-white/20 bg-white/10 hover:border-white hover:bg-white hover:text-black py-3 text-center text-[#f4f4f2] font-semibold transition"
                 >
-                  View case study →
+                  View case study &amp; dieline viewer →
                 </button>
               </div>
             </article>
@@ -319,6 +371,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
         <div className="space-y-12">
           {projects.map((project, idx) => {
             const indexStr = String(idx + 1).padStart(2, '0');
+            const isCrm = project.title.includes('Indie CRM');
             return (
               <motion.article
                 key={project.title}
@@ -437,12 +490,22 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                         </p>
                       )}
                       <div className="flex flex-wrap gap-3">
+                        {isCrm && (
+                          <button
+                            type="button"
+                            aria-haspopup="dialog"
+                            onClick={(e) => openProjectModal(project, e.currentTarget)}
+                            className="border border-white bg-white text-black font-semibold px-4 py-2 hover:bg-[#d4d4d8] transition"
+                          >
+                            CASE STUDY &amp; WALKTHROUGH →
+                          </button>
+                        )}
                         {project.demo && (
                           <a
                             href={project.demo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="border border-white/20 bg-white text-black font-semibold px-4 py-2 hover:bg-[#d4d4d8] transition"
+                            className="border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-white hover:text-black transition"
                           >
                             VISIT PLATFORM ↗
                           </a>
@@ -494,14 +557,14 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                     </div>
                   </div>
 
-                  {/* Visual Specimen Area */}
+                  {/* Visual Specimen Area: Leads with Assembled Packaging */}
                   <div className="h-72 border-b border-white/10 bg-[#121216] relative flex flex-col items-center justify-center overflow-hidden">
                     {design.image ? (
                       <div className="relative w-full h-full p-4 flex items-center justify-center bg-white/[0.02] group-hover:bg-white/[0.06] transition duration-300">
                         <img
                           src={design.image}
                           alt={design.title}
-                          className="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+                          className="max-h-full max-w-full object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                     ) : (
@@ -518,7 +581,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                     {/* Multi-variant formula pill teaser */}
                     {hasVariants && (
                       <div className="absolute top-3 left-3 bg-[#08080a]/90 backdrop-blur border border-white/15 px-2 py-1 font-mono text-[10px] text-[#d4d4d8]">
-                        ✦ {design.variants!.length} DIELINES READY TO INSPECT
+                        ✦ {design.variants!.length} ASSEMBLED CARTONS &amp; DIELINES
                       </div>
                     )}
 
@@ -578,7 +641,351 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
         </div>
       )}
 
-      {/* ── Case Study Modal with Shareable URL & Focus Trap (Priority 5) ── */}
+      {/* ── Engineering Case Study & Public Walkthrough Modal (Indie CRM) ── */}
+      <AnimatePresence>
+        {activeProjectModal && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-case-title"
+            ref={modalRef}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-12"
+          >
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeModal}
+              className="absolute inset-0 bg-[#08080a]/90 backdrop-blur-md"
+            />
+
+            {/* Modal Container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative z-10 max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-white/20 bg-[#0e0e11] p-6 sm:p-10 font-space text-[#f4f4f2] shadow-2xl"
+            >
+              {/* Top Bar with Shareable URL Indicator & Close Button */}
+              <div className="flex flex-wrap items-center justify-between border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#71717a] gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">● [ENGINEERING CASE STUDY]</span>
+                  <span className="text-[#a1a1aa]">• STABLE URL: /?project=indie-crm</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => copyShareableLink(`${window.location.origin}/?project=indie-crm`)}
+                    className="border border-white/15 px-3 py-1 text-[11px] text-[#d4d4d8] hover:border-white hover:text-white transition"
+                  >
+                    {copiedLink ? '✓ LINK COPIED' : 'COPY SHAREABLE LINK ↗'}
+                  </button>
+                  <button
+                    ref={closeBtnRef}
+                    onClick={closeModal}
+                    aria-label="Close project dialog"
+                    className="border border-white/20 px-3 py-1 text-white hover:bg-white hover:text-black transition"
+                  >
+                    CLOSE [✕]
+                  </button>
+                </div>
+              </div>
+
+              {/* Title & Masthead */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 font-mono text-xs text-[#a1a1aa]">
+                  <span className="border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 px-2.5 py-0.5">
+                    FLAGSHIP SAAS
+                  </span>
+                  <span>PRODUCTION DEPLOYMENT • ARCHITECTURE DOSSIER</span>
+                </div>
+                <h3 id="project-case-title" className="font-syne font-extrabold text-3xl sm:text-5xl tracking-tight text-white">
+                  {activeProjectModal.title}
+                </h3>
+                <p className="font-space text-base text-[#d4d4d8] max-w-3xl leading-relaxed">
+                  {activeProjectModal.description}
+                </p>
+              </div>
+
+              {/* Notice regarding Live Instance Auth Gate */}
+              <div className="mt-6 border border-white/15 bg-white/[0.03] p-4 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="text-amber-400 font-bold">LIVE INSTANCE ACCESS:</span> The production application runs active multi-tenant SSO / JWT auth at <code className="text-white">/login</code>. Use the interactive walkthrough console below to inspect all platform features directly.
+                </div>
+                <a
+                  href={activeProjectModal.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whitespace-nowrap border border-white bg-white text-black font-semibold px-4 py-2 hover:bg-[#d4d4d8] transition text-center"
+                >
+                  OPEN LIVE /LOGIN ↗
+                </a>
+              </div>
+
+              {/* Interactive Public Walkthrough Console */}
+              <div className="mt-8 border border-white/15 bg-[#141418] p-6 sm:p-8 space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+                  <div>
+                    <span className="font-mono text-xs text-white font-bold block">
+                      [PUBLIC WORKSPACE SIMULATOR]
+                    </span>
+                    <span className="font-mono text-[11px] text-[#71717a]">
+                      Interactive architectural views of the platform workflows
+                    </span>
+                  </div>
+
+                  {/* Walkthrough Switcher Buttons */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none font-mono text-xs">
+                    <button
+                      onClick={() => setCrmActiveTab('pipeline')}
+                      className={`px-3 py-1.5 border transition ${
+                        crmActiveTab === 'pipeline'
+                          ? 'border-white bg-white text-black font-bold'
+                          : 'border-white/10 bg-[#08080a] text-[#a1a1aa] hover:text-white'
+                      }`}
+                    >
+                      01 / Opportunity Pipeline
+                    </button>
+                    <button
+                      onClick={() => setCrmActiveTab('vector')}
+                      className={`px-3 py-1.5 border transition ${
+                        crmActiveTab === 'vector'
+                          ? 'border-white bg-white text-black font-bold'
+                          : 'border-white/10 bg-[#08080a] text-[#a1a1aa] hover:text-white'
+                      }`}
+                    >
+                      02 / Vector Search
+                    </button>
+                    <button
+                      onClick={() => setCrmActiveTab('telemetry')}
+                      className={`px-3 py-1.5 border transition ${
+                        crmActiveTab === 'telemetry'
+                          ? 'border-white bg-white text-black font-bold'
+                          : 'border-white/10 bg-[#08080a] text-[#a1a1aa] hover:text-white'
+                      }`}
+                    >
+                      03 / Redis Streaming
+                    </button>
+                    <button
+                      onClick={() => setCrmActiveTab('command')}
+                      className={`px-3 py-1.5 border transition ${
+                        crmActiveTab === 'command'
+                          ? 'border-white bg-white text-black font-bold'
+                          : 'border-white/10 bg-[#08080a] text-[#a1a1aa] hover:text-white'
+                      }`}
+                    >
+                      04 / ⌘K Command Palette
+                    </button>
+                  </div>
+                </div>
+
+                {/* Walkthrough Tab 1: Pipeline Kanban */}
+                {crmActiveTab === 'pipeline' && (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between font-mono text-xs text-[#a1a1aa]">
+                      <span>STAGE BOARDS • ACTIVE VALUE: $234,000</span>
+                      <span className="text-emerald-400">● REAL-TIME DRAG &amp; DROP ACTIVE</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 font-mono text-xs">
+                      <div className="border border-white/10 bg-[#08080a] p-3 space-y-2">
+                        <div className="flex items-center justify-between text-[#71717a] border-b border-white/5 pb-1">
+                          <span>LEAD INGESTED (3)</span>
+                          <span className="text-white">$38k</span>
+                        </div>
+                        <div className="border border-white/10 bg-[#121216] p-2.5 rounded space-y-1">
+                          <span className="text-white font-bold block text-[11px]">Apex Logistics</span>
+                          <span className="text-[#a1a1aa] text-[10px] block">$16,000 • 35 Seats</span>
+                          <span className="border border-emerald-500/30 text-emerald-400 text-[9px] px-1 py-0.2 inline-block">High Intent</span>
+                        </div>
+                        <div className="border border-white/10 bg-[#121216] p-2.5 rounded space-y-1">
+                          <span className="text-white font-bold block text-[11px]">Solaria Cloud</span>
+                          <span className="text-[#a1a1aa] text-[10px] block">$22,000 • Enterprise</span>
+                        </div>
+                      </div>
+
+                      <div className="border border-white/10 bg-[#08080a] p-3 space-y-2">
+                        <div className="flex items-center justify-between text-[#71717a] border-b border-white/5 pb-1">
+                          <span>DISCOVERY (2)</span>
+                          <span className="text-white">$64k</span>
+                        </div>
+                        <div className="border border-white/10 bg-[#121216] p-2.5 rounded space-y-1">
+                          <span className="text-white font-bold block text-[11px]">Veloce FinTech</span>
+                          <span className="text-[#a1a1aa] text-[10px] block">$48,000 • Annual Contract</span>
+                          <span className="border border-amber-500/30 text-amber-300 text-[9px] px-1 py-0.2 inline-block">Demo Scheduled</span>
+                        </div>
+                      </div>
+
+                      <div className="border border-white/10 bg-[#08080a] p-3 space-y-2">
+                        <div className="flex items-center justify-between text-[#71717a] border-b border-white/5 pb-1">
+                          <span>PROPOSAL (1)</span>
+                          <span className="text-white">$85k</span>
+                        </div>
+                        <div className="border border-white/10 bg-[#121216] p-2.5 rounded space-y-1">
+                          <span className="text-white font-bold block text-[11px]">Nexus BioHealth</span>
+                          <span className="text-[#a1a1aa] text-[10px] block">$85,000 • Custom SLA</span>
+                          <span className="border border-purple-500/30 text-purple-300 text-[9px] px-1 py-0.2 inline-block">Legal Review</span>
+                        </div>
+                      </div>
+
+                      <div className="border border-emerald-500/20 bg-emerald-950/10 p-3 space-y-2">
+                        <div className="flex items-center justify-between text-emerald-400 border-b border-emerald-500/20 pb-1">
+                          <span>CLOSED WON (2)</span>
+                          <span className="text-white font-bold">$120k</span>
+                        </div>
+                        <div className="border border-emerald-500/30 bg-[#121216] p-2.5 rounded space-y-1">
+                          <span className="text-white font-bold block text-[11px]">OmniRetail UK</span>
+                          <span className="text-[#a1a1aa] text-[10px] block">$120,000 • Signed</span>
+                          <span className="text-emerald-400 text-[9px] block">✓ Provisioned in Odoo</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Walkthrough Tab 2: Vector Search */}
+                {crmActiveTab === 'vector' && (
+                  <div className="space-y-4 font-mono text-xs">
+                    <div className="border border-white/15 bg-[#08080a] p-3.5 flex items-center gap-3">
+                      <span className="text-emerald-400 font-bold">QUERY &gt;</span>
+                      <span className="text-white">&quot;Find enterprise accounts requesting PostgreSQL vector migration&quot;</span>
+                    </div>
+
+                    <div className="border border-white/10 bg-[#08080a] p-4 space-y-3">
+                      <div className="flex items-center justify-between border-b border-white/5 pb-2 text-[#71717a] text-[11px]">
+                        <span>HYBRID COSINE SIMILARITY MATCHES (POSTGRESQL PGVECTOR)</span>
+                        <span className="text-emerald-400">LATENCY: 38ms</span>
+                      </div>
+
+                      <div className="p-3 border border-emerald-500/30 bg-white/[0.02] space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-white font-bold">Solaria Cloud • Technical Discovery Transcript</span>
+                          <span className="text-emerald-400 font-bold">98.4% Match</span>
+                        </div>
+                        <p className="text-[#a1a1aa] text-[11px]">
+                          &quot;...client evaluating migration from legacy MySQL to managed PostgreSQL. Must support vector embeddings for 2.4M customer support logs...&quot;
+                        </p>
+                      </div>
+
+                      <div className="p-3 border border-white/10 bg-white/[0.01] space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-white font-bold">Nexus BioHealth • Requirements Spec</span>
+                          <span className="text-[#d4d4d8] font-bold">92.1% Match</span>
+                        </div>
+                        <p className="text-[#71717a] text-[11px]">
+                          &quot;...security compliance mandates dedicated tenant database schema with semantic search capabilities...&quot;
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Walkthrough Tab 3: Redis Streaming */}
+                {crmActiveTab === 'telemetry' && (
+                  <div className="space-y-3 font-mono text-xs">
+                    <div className="flex items-center justify-between text-[#a1a1aa] text-[11px]">
+                      <span>EVENT BROKER: REDIS PUB/SUB &amp; PRISMA MIDDLEWARE</span>
+                      <span className="text-emerald-400">● 4 SESSIONS LISTENING</span>
+                    </div>
+
+                    <div className="border border-white/10 bg-black p-4 font-mono text-[11px] text-[#a1a1aa] space-y-1.5 overflow-x-auto">
+                      <div className="text-emerald-400">[17:24:02.108] EVT: deal.stage_transition -&gt; &quot;Proposal Out&quot; [tenant_id: acme_corp]</div>
+                      <div className="text-cyan-400">[17:24:02.115] REDIS: cache_invalidation -&gt; key &quot;pipeline:active_deals:acme&quot; [ttl: 300s]</div>
+                      <div className="text-white">[17:24:02.122] WS: broadcast -&gt; 4 connected team sessions [payload: 420B]</div>
+                      <div className="text-[#71717a]">[17:24:02.130] PRISMA: audit_log_write -&gt; user &quot;isaac@acme&quot; [latency: 4.2ms]</div>
+                      <div className="text-emerald-400">[17:24:03.450] EVT: note.vector_embedded -&gt; dim: 1536 [cosine_indexed: true]</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Walkthrough Tab 4: Command Palette */}
+                {crmActiveTab === 'command' && (
+                  <div className="space-y-4 font-mono text-xs">
+                    <div className="border border-white/20 bg-[#08080a] p-4 max-w-xl mx-auto space-y-3 shadow-2xl">
+                      <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+                        <span className="text-emerald-400">⌘K</span>
+                        <span className="text-white">Type a command or jump to workspace...</span>
+                      </div>
+                      <div className="space-y-1.5 text-[11px]">
+                        <div className="flex items-center justify-between p-2 bg-white/10 text-white rounded">
+                          <span>+ Create New Opportunity</span>
+                          <span className="text-[#a1a1aa]">N</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 hover:bg-white/5 text-[#d4d4d8] rounded">
+                          <span>→ Switch Tenant: Bakan Gizo Abuja</span>
+                          <span className="text-[#a1a1aa]">T</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 hover:bg-white/5 text-[#d4d4d8] rounded">
+                          <span>⤓ Export Pipeline Summary (CSV)</span>
+                          <span className="text-[#a1a1aa]">E</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Engineering Specs & Architectural Narrative */}
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-white/10 pt-8 font-space">
+                <div className="md:col-span-7 space-y-6">
+                  <div>
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2 font-bold">
+                      [ARCHITECTURAL CHALLENGE &amp; SOLUTION]
+                    </h5>
+                    <p className="text-sm leading-relaxed text-[#d4d4d8]">
+                      {activeProjectModal.challenge} {activeProjectModal.solution}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2 font-bold">
+                      [VERIFIED SYSTEM OUTCOMES]
+                    </h5>
+                    <p className="text-sm leading-relaxed text-[#d4d4d8]">
+                      {activeProjectModal.impact}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="md:col-span-5 space-y-6 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 font-mono text-xs">
+                  <div>
+                    <h5 className="text-[#a1a1aa] uppercase tracking-wider mb-2 font-bold">
+                      [TECHNOLOGIES EMPLOYED]
+                    </h5>
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeProjectModal.tech.map((t) => (
+                        <span key={t} className="border border-white/10 bg-white/5 px-2.5 py-1 text-[#d4d4d8]">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 flex flex-col gap-3">
+                    <a
+                      href={activeProjectModal.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-center border border-white bg-white text-black font-semibold py-3 hover:bg-[#d4d4d8] transition"
+                    >
+                      VISIT PRODUCTION APP (/LOGIN) ↗
+                    </a>
+                    <a
+                      href="#contact"
+                      onClick={closeModal}
+                      className="text-center border border-white/20 bg-white/5 py-3 text-white hover:bg-white hover:text-black transition"
+                    >
+                      COMMISSION SIMILAR ARCHITECTURE →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Graphic Design Case Study Modal (with Assembled / Dieline Toggle & Stable URL) ── */}
       <AnimatePresence>
         {activeDesignModal && (
           <div
@@ -604,20 +1011,28 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative z-10 max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-white/20 bg-[#0e0e11] p-6 sm:p-10 font-space text-[#f4f4f2] shadow-2xl"
             >
-              {/* Top Bar with Semantic Close Button */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#71717a]">
+              {/* Top Bar with Semantic Close Button & Stable URL */}
+              <div className="flex flex-wrap items-center justify-between border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#71717a] gap-2">
                 <div className="flex items-center gap-2">
-                  <span>[CASE STUDY DOSSIER] • {activeDesignModal.category}</span>
-                  <span className="text-[#a1a1aa]">• SHAREABLE URL ACTIVE</span>
+                  <span className="text-amber-400 font-bold">● [CASE STUDY DOSSIER]</span>
+                  <span className="text-[#a1a1aa]">• STABLE URL: /?case={activeDesignModal.id}</span>
                 </div>
-                <button
-                  ref={closeBtnRef}
-                  onClick={closeModal}
-                  aria-label="Close case study dialog"
-                  className="font-mono text-xs border border-white/20 px-3 py-1 text-white hover:bg-white hover:text-black transition"
-                >
-                  CLOSE [✕]
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => copyShareableLink(`${window.location.origin}/?case=${activeDesignModal.id}`)}
+                    className="border border-white/15 px-3 py-1 text-[11px] text-[#d4d4d8] hover:border-white hover:text-white transition"
+                  >
+                    {copiedLink ? '✓ LINK COPIED' : 'COPY SHAREABLE LINK ↗'}
+                  </button>
+                  <button
+                    ref={closeBtnRef}
+                    onClick={closeModal}
+                    aria-label="Close case study dialog"
+                    className="font-mono text-xs border border-white/20 px-3 py-1 text-white hover:bg-white hover:text-black transition"
+                  >
+                    CLOSE [✕]
+                  </button>
+                </div>
               </div>
 
               {/* Title & Metadata */}
@@ -635,12 +1050,12 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 )}
               </div>
 
-              {/* Formula Switcher Tabs (if variants exist) */}
+              {/* Formula Switcher Tabs */}
               {activeDesignModal.variants && activeDesignModal.variants.length > 0 && (
                 <div className="mt-8 border-t border-b border-white/10 py-4">
                   <div className="flex items-center justify-between mb-3">
                     <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block">
-                      SELECT FORMULA TO INSPECT DIELINE ({activeDesignModal.variants.length} TOTAL)
+                      SELECT FORMULA VARIANT ({activeDesignModal.variants.length} TOTAL)
                     </span>
                     {currentVariant && (
                       <span className="font-mono text-xs text-white font-semibold">
@@ -657,7 +1072,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                           type="button"
                           onClick={() => {
                             setSelectedVariantId(v.id);
-                            setSelectedGalleryImage(v.image);
+                            setSelectedGalleryImage(viewMode === 'assembled' ? v.image : (v.dielineImage || v.image));
                           }}
                           className={`flex items-center gap-2 px-3.5 py-2 font-mono text-xs border transition-all whitespace-nowrap ${
                             isSelected
@@ -677,15 +1092,54 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 </div>
               )}
 
+              {/* View Mode Toggle: Assembled Retail View vs Production Dieline (Priority 2) */}
+              <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-white/10 bg-[#08080a] p-3 font-mono text-xs">
+                <span className="text-[#a1a1aa] text-[11px]">
+                  DISPLAY MODE: Toggle between finished packaging render and technical production mechanical
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      setViewMode('assembled');
+                      if (currentVariant) {
+                        setSelectedGalleryImage(currentVariant.image);
+                      }
+                    }}
+                    className={`px-3 py-1.5 border transition ${
+                      viewMode === 'assembled'
+                        ? 'border-white bg-white text-black font-bold'
+                        : 'border-white/15 text-[#a1a1aa] hover:text-white'
+                    }`}
+                  >
+                    📦 Assembled Retail Carton
+                  </button>
+                  <button
+                    onClick={() => {
+                      setViewMode('dieline');
+                      if (currentVariant && currentVariant.dielineImage) {
+                        setSelectedGalleryImage(currentVariant.dielineImage);
+                      }
+                    }}
+                    className={`px-3 py-1.5 border transition ${
+                      viewMode === 'dieline'
+                        ? 'border-white bg-white text-black font-bold'
+                        : 'border-white/15 text-[#a1a1aa] hover:text-white'
+                    }`}
+                  >
+                    📐 Production Die-Cut Mechanical
+                  </button>
+                </div>
+              </div>
+
               {/* Visual Presentation Frame */}
-              <div className="mt-6 border border-white/10 bg-[#141418] p-4 sm:p-8 text-center">
+              <div className="mt-4 border border-white/10 bg-[#141418] p-4 sm:p-8 text-center">
                 {selectedGalleryImage ? (
                   <div className="space-y-4">
                     <div className="relative flex items-center justify-center max-h-[520px] bg-black/40 p-4 border border-white/5 rounded overflow-hidden">
                       <img
                         src={selectedGalleryImage}
                         alt={currentVariant ? currentVariant.name : activeDesignModal.title}
-                        className="max-h-[480px] max-w-full object-contain mx-auto filter drop-shadow-2xl"
+                        className="max-h-[480px] max-w-full object-contain mx-auto filter drop-shadow-2xl transition-all duration-300"
                       />
                     </div>
 
@@ -703,7 +1157,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                             </span>
                           </div>
                           <a
-                            href={selectedGalleryImage}
+                            href={currentVariant.dielineImage || selectedGalleryImage}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] text-white hover:bg-white hover:text-black transition"
@@ -731,49 +1185,6 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   </div>
                 )}
 
-                {/* Variant Switcher Thumbnails if Gallery Exists */}
-                {activeDesignModal.gallery && activeDesignModal.gallery.length > 1 && (
-                  <div className="mt-6 pt-4 border-t border-white/10">
-                    <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block mb-3">
-                      ALL PACKAGING DIELINE SHEETS ({activeDesignModal.gallery.length})
-                    </span>
-                    <div className="flex items-center justify-center gap-2.5 flex-wrap">
-                      {activeDesignModal.gallery.map((imgUrl, i) => {
-                        const isSelected = selectedGalleryImage === imgUrl;
-                        const matchedVariant = activeDesignModal.variants?.[i];
-                        return (
-                          <button
-                            key={imgUrl}
-                            type="button"
-                            onClick={() => {
-                              setSelectedGalleryImage(imgUrl);
-                              if (matchedVariant) {
-                                setSelectedVariantId(matchedVariant.id);
-                              }
-                            }}
-                            className={`group relative h-20 w-20 border rounded p-1 overflow-hidden transition-all flex flex-col items-center justify-center ${
-                              isSelected
-                                ? 'border-white bg-white/20 scale-105 ring-2 ring-white'
-                                : 'border-white/15 bg-black/40 hover:border-white/40 opacity-70 hover:opacity-100'
-                            }`}
-                          >
-                            <img
-                              src={imgUrl}
-                              alt={`Formula ${i + 1}`}
-                              className="h-full w-full object-contain"
-                            />
-                            {matchedVariant && (
-                              <span className="absolute bottom-0 inset-x-0 bg-black/85 text-[8px] font-mono text-white py-0.5 text-center truncate px-0.5">
-                                {matchedVariant.name}
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
                 {/* Swatch chips */}
                 <div className="mt-6 flex items-center justify-center gap-3 flex-wrap font-mono text-xs">
                   {(currentVariant?.palette || activeDesignModal.palette).map((hex) => (
@@ -792,7 +1203,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
               <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-white/10 pt-8">
                 <div className="md:col-span-7 space-y-6">
                   <div>
-                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2 font-bold">
                       [DESIGN SUMMARY]
                     </h5>
                     <p className="text-sm leading-relaxed text-[#d4d4d8]">
@@ -801,13 +1212,13 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   </div>
 
                   <div>
-                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-3">
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-3 font-bold">
                       [DELIVERABLES &amp; PRODUCTION SPECS]
                     </h5>
                     <ul className="space-y-2 font-mono text-xs text-[#d4d4d8]">
                       {activeDesignModal.deliverables.map((d) => (
                         <li key={d} className="flex items-start gap-2">
-                          <span className="text-white">✦</span>
+                          <span className="text-emerald-400 font-bold">✦</span>
                           <span>{d}</span>
                         </li>
                       ))}
@@ -815,12 +1226,12 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   </div>
                 </div>
 
-                <div className="md:col-span-5 space-y-6 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
+                <div className="md:col-span-5 space-y-6 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 font-mono text-xs">
                   <div>
-                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
+                    <h5 className="text-[#a1a1aa] uppercase tracking-wider mb-2 font-bold">
                       [SOFTWARE / TOOLS]
                     </h5>
-                    <div className="flex flex-wrap gap-1.5 font-mono text-xs">
+                    <div className="flex flex-wrap gap-1.5">
                       {activeDesignModal.tools.map((tool) => (
                         <span key={tool} className="border border-white/10 bg-white/5 px-2.5 py-1 text-[#d4d4d8]">
                           {tool}

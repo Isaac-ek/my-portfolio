@@ -12,6 +12,7 @@ export type DesignVariant = {
   actives: string;
   accent: string;
   image: string;
+  dielineImage?: string;
   palette: string[];
   description: string;
 };
@@ -29,6 +30,7 @@ export type Design = {
   accent: string;
   gradient: string;
   image?: string;
+  dielineImage?: string;
   gallery?: string[];
   variants?: DesignVariant[];
   link?: string;
@@ -55,15 +57,16 @@ export const designs: Design[] = [
     palette: ['#15803D', '#EA580C', '#DB2777', '#7E22CE', '#16A34A', '#0284C7', '#0D9488'],
     accent: '#15803D',
     gradient: 'from-emerald-500/20 via-teal-600/10 to-slate-900',
-    image: '/assets/designs/dr-kayla-detox.jpg',
+    image: '/assets/designs/dr-kayla-detox-assembled.png',
+    dielineImage: '/assets/designs/dr-kayla-detox.jpg',
     gallery: [
-      '/assets/designs/dr-kayla-detox.jpg',
-      '/assets/designs/dr-kayla-bright.jpg',
-      '/assets/designs/dr-kayla-beauty.jpg',
-      '/assets/designs/dr-kayla-renew.jpg',
-      '/assets/designs/dr-kayla-acne.png',
-      '/assets/designs/dr-kayla-men.jpg',
-      '/assets/designs/dr-kayla-barrier.jpg',
+      '/assets/designs/dr-kayla-detox-assembled.png',
+      '/assets/designs/dr-kayla-bright-assembled.png',
+      '/assets/designs/dr-kayla-beauty-assembled.png',
+      '/assets/designs/dr-kayla-renew-assembled.png',
+      '/assets/designs/dr-kayla-acne-assembled.png',
+      '/assets/designs/dr-kayla-men-assembled.png',
+      '/assets/designs/dr-kayla-barrier-assembled.png',
     ],
     variants: [
       {
@@ -72,7 +75,8 @@ export const designs: Design[] = [
         subtitle: 'Purifying & Oil Control Face & Body Soap',
         actives: 'Activated Charcoal • Tea Tree Oil • Niacinamide • Coconut Oil & Green Tea Extract',
         accent: '#15803D',
-        image: '/assets/designs/dr-kayla-detox.jpg',
+        image: '/assets/designs/dr-kayla-detox-assembled.png',
+        dielineImage: '/assets/designs/dr-kayla-detox.jpg',
         palette: ['#15803D', '#22C55E', '#052E16', '#FFFFFF'],
         description:
           'Deep-cleansing purifying bar formulated with Activated Charcoal and Tea Tree Oil to unclog pores, eliminate excess sebum, and prevent breakouts with an emerald botanical profile.',
@@ -83,7 +87,8 @@ export const designs: Design[] = [
         subtitle: 'Vitamin C Brightening Face & Body Soap',
         actives: 'Vitamin C • Niacinamide • Alpha Arbutin • Natural Coconut Oil',
         accent: '#EA580C',
-        image: '/assets/designs/dr-kayla-bright.jpg',
+        image: '/assets/designs/dr-kayla-bright-assembled.png',
+        dielineImage: '/assets/designs/dr-kayla-bright.jpg',
         palette: ['#EA580C', '#F97316', '#FFF7ED', '#7C2D12'],
         description:
           'High-radiance brightening soap engineered with Vitamin C, Niacinamide, and Alpha Arbutin to fade hyperpigmentation, even skin tone, and deliver vibrant citrus-amber shelf impact.',
@@ -94,7 +99,8 @@ export const designs: Design[] = [
         subtitle: 'Radiance & Even Skin Tone Soap',
         actives: 'Niacinamide • Vitamin C • Alpha Arbutin • Natural Coconut Oil & Vitamins',
         accent: '#DB2777',
-        image: '/assets/designs/dr-kayla-beauty.jpg',
+        image: '/assets/designs/dr-kayla-beauty-assembled.png',
+        dielineImage: '/assets/designs/dr-kayla-beauty.jpg',
         palette: ['#DB2777', '#EC4899', '#FDF2F8', '#831843'],
         description:
           'Nourishing radiance formulation with intense magenta color grading, botanical droplet graphics, and triple-action skin tone evening actives.',
@@ -105,7 +111,8 @@ export const designs: Design[] = [
         subtitle: 'Skin Renewing Face & Body Soap',
         actives: 'Bakuchiol • Vitamin E • Marine Collagen • Natural Coconut Oil',
         accent: '#7E22CE',
-        image: '/assets/designs/dr-kayla-renew.jpg',
+        image: '/assets/designs/dr-kayla-renew-assembled.png',
+        dielineImage: '/assets/designs/dr-kayla-renew.jpg',
         palette: ['#7E22CE', '#9333EA', '#FAF5FF', '#3B0764'],
         description:
           'Anti-aging luxury purple carton layout featuring Bakuchiol (retinol alternative), Marine Collagen, and Vitamin E for cell renewal and dermal elasticity.',
@@ -116,7 +123,8 @@ export const designs: Design[] = [
         subtitle: 'Acne Clearing Face & Body Soap',
         actives: 'Salicylic Acid (BHA) • Activated Charcoal • Tea Tree Oil • Sulphur • Zinc PCA',
         accent: '#16A34A',
-        image: '/assets/designs/dr-kayla-acne.png',
+        image: '/assets/designs/dr-kayla-acne-assembled.png',
+        dielineImage: '/assets/designs/dr-kayla-acne.png',
         palette: ['#16A34A', '#4ADE80', '#052E16', '#FFFFFF'],
         description:
           'Clinical targeted blemish-control dieline with clean-room pharmaceutical green styling, pore-clearing callouts, and multi-active acne control matrix.',
@@ -127,7 +135,8 @@ export const designs: Design[] = [
         subtitle: 'Refreshing Face & Body Soap',
         actives: 'Menthol • Niacinamide • Vitamin E • Cooling Coconut & Mint',
         accent: '#0284C7',
-        image: '/assets/designs/dr-kayla-men.jpg',
+        image: '/assets/designs/dr-kayla-men-assembled.png',
+        dielineImage: '/assets/designs/dr-kayla-men.jpg',
         palette: ['#0284C7', '#0369A1', '#082F49', '#F0F9FF'],
         description:
           'Ice-blue masculine grooming carton with cooling menthol crystals, deodorant benefits, and crisp Arctic-inspired typography and badging.',
@@ -138,7 +147,8 @@ export const designs: Design[] = [
         subtitle: 'Skinbarrier Cleansing Bar',
         actives: 'Ceramides • Niacinamide • Panthenol (Pro-Vitamin B5) • Coconut Oil',
         accent: '#0D9488',
-        image: '/assets/designs/dr-kayla-barrier.jpg',
+        image: '/assets/designs/dr-kayla-barrier-assembled.png',
+        dielineImage: '/assets/designs/dr-kayla-barrier.jpg',
         palette: ['#0D9488', '#14B8A6', '#042F2C', '#F0FDFA'],
         description:
           'Teal derm-defense cleansing bar packaging dedicated to barrier repair, trans-epidermal water loss prevention, and soothing irritated sensitive skin.',
