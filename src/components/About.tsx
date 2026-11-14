@@ -1,5 +1,6 @@
 import React from 'react';
 import { profile } from '../data/profile';
+import { Link } from 'react-router-dom';
 
 const About = (props: React.HTMLAttributes<HTMLElement>) => (
   <section
@@ -26,55 +27,16 @@ const About = (props: React.HTMLAttributes<HTMLElement>) => (
     </div>
 
     {/* Human Bio & Philosophy */}
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-      <div className="lg:col-span-7 space-y-6">
+    <div className="max-w-3xl space-y-6">
         <h3 className="font-serif italic text-3xl sm:text-4xl text-[#f4f4f2] font-normal leading-snug">
           &ldquo;Engineering rigorous software architectures without sacrificing aesthetic soul.&rdquo;
         </h3>
         <p className="font-space text-base text-[#a1a1aa] leading-relaxed">
-          I am a systems-focused software engineer and visual designer based in Nigeria. My day-to-day
-          spans deploying enterprise ERP solutions and network operations as an IT Analyst at Bakan Gizo,
-          while engineering modern web applications with Next.js, Python/Flask, and AWS.
+          Based in Nigeria, I combine an IT operations role at Bakan Gizo with independent software and
+          design projects. That work ranges from staff issue-tracking tools to client-facing applications
+          and coordinated packaging ranges.
         </p>
-        <p className="font-space text-base text-[#a1a1aa] leading-relaxed">
-          On the design side, I do not believe functional software has to look sterile. I build brand systems,
-          custom type treatments, and digital layouts that demand attention.
-        </p>
-      </div>
-
-      {/* Core Matrix Snapshot */}
-      <div className="lg:col-span-5 border border-white/10 bg-[#0e0e11] p-6 sm:p-8 space-y-5 font-mono text-xs">
-        <div className="border-b border-white/10 pb-3 text-[#71717a] uppercase tracking-wider text-[10px]">
-          [COMPETENCY DIVISIONS]
-        </div>
-
-        <div className="space-y-4">
-          <div>
-            <span className="text-white font-bold block mb-1">01 / FRONTEND &amp; UI ARCHITECTURE</span>
-            <span className="text-[#a1a1aa] text-[11px] leading-relaxed block">
-              React 19, Next.js 15, TypeScript, Tailwind CSS, Redux, Micro-animations
-            </span>
-          </div>
-          <div className="border-t border-white/5 pt-3">
-            <span className="text-white font-bold block mb-1">02 / BACKEND &amp; CLOUD INFRASTRUCTURE</span>
-            <span className="text-[#a1a1aa] text-[11px] leading-relaxed block">
-              Python / Flask, Node.js, PostgreSQL / Prisma, Redis, AWS (EC2, S3, IAM)
-            </span>
-          </div>
-          <div className="border-t border-white/5 pt-3">
-            <span className="text-white font-bold block mb-1">03 / ENTERPRISE &amp; SECURITY</span>
-            <span className="text-[#a1a1aa] text-[11px] leading-relaxed block">
-              Odoo ERP, PHP POS Systems, AES-256 Encryption, Network Administration
-            </span>
-          </div>
-          <div className="border-t border-white/5 pt-3">
-            <span className="text-white font-bold block mb-1">04 / GRAPHIC &amp; BRAND DESIGN</span>
-            <span className="text-[#a1a1aa] text-[11px] leading-relaxed block">
-              Brand Identity, Adobe Photoshop, Figma, Vector Graphics, Editorial
-            </span>
-          </div>
-        </div>
-      </div>
+        <Link to="/skills" className="inline-block font-mono text-xs text-[#d4d4d8] underline underline-offset-4 hover:text-white">Technical skills &amp; certifications →</Link>
     </div>
 
     {/* Ruled Experience Table */}

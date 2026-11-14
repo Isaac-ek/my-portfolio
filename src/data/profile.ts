@@ -17,7 +17,7 @@ export const profile = {
   tagline:
     'Systems-focused Software Engineer and UX Specialist architecting high-performance web applications, intuitive visual systems, and resilient enterprise IT infrastructure.',
   intro:
-    'Versatile, systems-focused Software Engineer and UX Specialist with extensive experience architecting high-performance web applications, designing intuitive visual systems, and administering enterprise IT infrastructure. Proven track record in converting complex design systems and wireframes into pixel-perfect responsive interfaces, while engineering resilient backend microservices, secure database architectures, and RESTful APIs across SaaS, FinTech, and corporate environments.',
+    'Full-stack engineer and visual designer building web applications, brand and packaging systems, and internal business tools. My work spans React and Next.js interfaces, PostgreSQL-backed applications, enterprise IT support, and print-ready artwork.',
   resumePath: '/Chiemelie_Isaac_Ekezie_Resume.pdf',
   linkedin: 'https://linkedin.com/in/chiemelie-ekezie-21b029254',
   github: 'https://github.com/Isaac-ek',
@@ -143,13 +143,11 @@ export const profile = {
       company: 'Bakan Gizo Pharmacy & Stores Ltd',
       location: 'Abuja, Nigeria',
       period: 'April 2026 – Present',
-      summary:
-        'Direct enterprise infrastructure, multi-branch ERP deployment, and POS operational integrity across corporate retail pharmacy locations.',
+      summary: 'IT operations and business systems support for a multi-branch retail pharmacy.',
       highlights: [
-        'Orchestrated multi-branch Odoo ERP integration across 3 retail outlets, connecting central inventory telemetry and reducing out-of-stock discrepancies by 34%.',
-        'Administered custom PHP Point-of-Sale (POS) instances, hardening MySQL database replication and user permission boundaries for 50+ daily staff terminals.',
-        'Engineered an internal web ticketing and provisioning portal with Python, cutting cross-departmental hardware/software support turnaround from 48 hours to under 4 hours.',
-        'Configured site-to-site branch VPN tunnels and enterprise firewall access control lists, maintaining 99.8% corporate network uptime.',
+        'Built an internal Python issue-tracking and provisioning portal so staff could record hardware and software requests in one place and follow their progress.',
+        'Deployed and supported Odoo ERP workflows for branch teams, connecting inventory operations with the central business system.',
+        'Administered PHP point-of-sale systems, database access, and branch connectivity to support daily retail operations.',
       ],
     },
     {
@@ -157,13 +155,11 @@ export const profile = {
       company: 'Zorvyn FinTech Pvt. Ltd.',
       location: 'Remote',
       period: 'April 2026 – October 2026',
-      summary:
-        'Engineered responsive user interfaces and modular client components for high-frequency financial tracking and portfolio analytics dashboards.',
+      summary: 'Frontend development for financial tracking and portfolio dashboards.',
       highlights: [
-        'Translated 30+ complex Figma design tokens into reusable, type-safe React 18/TypeScript dashboard widgets with zero unexpected layout shifts.',
-        'Refactored legacy transaction history tables using virtualized row rendering, accelerating page load speeds by 62% on low-bandwidth mobile connections.',
-        'Integrated real-time Zustand state slices to synchronize live multi-currency exchange rate feeds and balance reconciliations across active views.',
-        'Conducted automated accessibility audits and keyboard navigation passes, elevating Lighthouse Core Web Vitals to 95+ across all primary views.',
+        'Translated Figma layouts into reusable React and TypeScript dashboard components for balances, transactions, and portfolio views.',
+        'Refactored transaction tables with virtualized rendering to keep long histories usable without rendering every row at once.',
+        'Connected shared Zustand state across dashboard views and checked responsive layouts and keyboard navigation.',
       ],
     },
     {
@@ -171,13 +167,11 @@ export const profile = {
       company: 'Chuga Rex Limited',
       location: 'Lagos, Nigeria',
       period: 'March 2024 – August 2024',
-      summary:
-        'Led visual brand identity design and full-stack web storefront development for corporate retail and luxury accessories.',
+      summary: 'Brand design and storefront development for a retail accessories business.',
       highlights: [
-        'Created cohesive brand identities, typography guidelines, and complete desktop/mobile storefront wireframes in Figma.',
-        'Developed custom responsive WordPress/WooCommerce themes from scratch, integrating the Paystack inline checkout modal to eliminate off-site redirect drop-offs.',
-        'Hardened site security and configured Cloudflare edge caching, optimizing database queries to reduce average initial paint time from 4.2s to 1.3s.',
-        'Streamlined two-way inventory synchronization between warehouse floor stock and digital catalog listings, handling thousands of SKU updates seamlessly.',
+        'Created brand identity assets and desktop/mobile storefront layouts in Figma, then built the responsive WordPress/WooCommerce interface.',
+        'Integrated Paystack inline checkout and payment webhooks so customers could pay within the storefront and orders could record payment confirmations.',
+        'Configured Cloudflare caching and synchronized inventory between the warehouse stock records and online catalog.',
       ],
     },
     {
@@ -185,13 +179,11 @@ export const profile = {
       company: 'Independent Practice',
       location: 'Remote / Client Sites',
       period: 'May 2022 – Present',
-      summary:
-        'Contracted with startups and corporate clients to deliver production SaaS web apps, cloud infrastructure, and brand systems from concept to launch.',
+      summary: 'Independent software development, cloud setup, and visual design for client projects.',
       highlights: [
-        'Architected full-stack Next.js 15 applications backed by PostgreSQL, Prisma ORM, and Supabase Auth with automated GitHub Actions CI/CD pipelines.',
-        'Designed complete visual brand systems, corporate typography guidelines, and vector packaging dielines for FMCG and wellness product lines (e.g. Dr Kayla®).',
-        'Engineered resilient payment workflows with Stripe and Paystack webhooks, implementing idempotent database verification and automated receipt generation.',
-        'Provisioned and managed AWS cloud infrastructure (EC2, S3 asset buckets, CloudFront CDN, IAM policies), minimizing operational hosting overhead.',
+        'Built authenticated Next.js applications with PostgreSQL and Prisma, including the Indie CRM lead-management and conversation-memory workflows.',
+        'Designed brand systems, packaging copy, and print-ready carton artwork, including the Dr Kayla soap and honey-mixture ranges.',
+        'Implemented payment integrations and managed AWS application and asset infrastructure for client projects.',
       ],
     },
   ],

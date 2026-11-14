@@ -52,7 +52,7 @@ const AboutPage: React.FC = () => (
           download="Ekezie_Chiemelie_Isaac_Resume.pdf"
           className="border border-white bg-white text-black font-semibold px-6 py-3.5 hover:bg-[#d4d4d8] transition"
         >
-          DOWNLOAD MASTER CV PDF [214KB] ↓
+          DOWNLOAD CV PDF ↓
         </a>
         <a
           href={profile.resumePath}
@@ -78,38 +78,11 @@ const AboutPage: React.FC = () => (
       </p>
     </section>
 
-    {/* Core Competency Matrix */}
-    <section aria-labelledby="competency-heading" className="border border-white/10 bg-[#0e0e11] p-8 sm:p-12 space-y-8">
-      <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-[#a1a1aa]">
-        <h2 id="competency-heading" className="font-mono text-xs font-bold text-white uppercase tracking-wider">
-          [02 // CORE COMPETENCY MATRIX]
-        </h2>
-        <span>TRANSCRIPTION FROM MASTER CURRICULUM VITAE</span>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {profile.skillGroups.map((group, idx) => (
-          <div key={group.title} className="border border-white/5 bg-[#141418] p-6 space-y-3 font-mono text-xs">
-            <span className="text-white font-bold block text-sm">
-              0{idx + 1} // {group.title}
-            </span>
-            <div className="flex flex-wrap gap-1.5 pt-2">
-              {group.items.map((item) => (
-                <span key={item} className="border border-white/10 bg-[#08080a] px-2.5 py-1 text-[#d4d4d8]">
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
     {/* Professional Experience Archive */}
     <section aria-labelledby="experience-heading" className="border border-white/10 bg-[#0e0e11] p-8 sm:p-12 space-y-8">
       <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-[#a1a1aa]">
         <h2 id="experience-heading" className="font-mono text-xs font-bold text-white uppercase tracking-wider">
-          [03 // PROFESSIONAL EXPERIENCE ARCHIVE]
+          [02 // PROFESSIONAL EXPERIENCE]
         </h2>
         <span>ENTERPRISE &amp; INDEPENDENT PRACTICE</span>
       </div>
@@ -137,7 +110,7 @@ const AboutPage: React.FC = () => (
             {exp.highlights && exp.highlights.length > 0 && (
               <div className="pt-2">
                 <span className="font-mono text-[10px] text-[#a1a1aa] uppercase tracking-wider block mb-2 font-semibold">
-                  Key Technical Contributions:
+                  Selected contributions:
                 </span>
                 <ul className="space-y-2.5 font-space text-xs text-[#d4d4d8]">
                   {exp.highlights.map((highlight, idx) => (
@@ -152,6 +125,23 @@ const AboutPage: React.FC = () => (
           </article>
         ))}
       </div>
+    </section>
+
+    <section aria-labelledby="competency-heading" className="border border-white/10 bg-[#0e0e11] p-6 sm:p-8">
+      <details>
+        <summary className="cursor-pointer font-mono text-xs text-[#d4d4d8]">
+          <h2 id="competency-heading" className="inline font-bold uppercase tracking-wider text-white">[03 // TECHNICAL SKILLS &amp; TOOLS]</h2>
+          <span className="block mt-2 text-[11px] text-[#a1a1aa]">Expand to review the full skill set.</span>
+        </summary>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {profile.skillGroups.map((group) => (
+            <div key={group.title} className="space-y-2">
+              <h3 className="font-mono text-xs font-semibold text-white">{group.title}</h3>
+              <p className="font-space text-sm leading-relaxed text-[#a1a1aa]">{group.items.join(' · ')}</p>
+            </div>
+          ))}
+        </div>
+      </details>
     </section>
 
     {/* Education & Industry Certifications */}

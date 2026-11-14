@@ -44,7 +44,7 @@ const Contact = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 mb-12 gap-4">
         <div>
           <span className="font-mono text-[11px] tracking-widest text-[#71717a] uppercase block mb-2">
-            [INDEX / 04] • DIRECT TRANSMISSION
+            [INDEX / 03] • CONTACT
           </span>
           <h2 className="font-syne font-extrabold text-4xl sm:text-6xl text-[#f4f4f2] tracking-tight uppercase">
             GET IN TOUCH
@@ -62,8 +62,8 @@ const Contact = () => {
             &ldquo;Have an engineering build or a brand system to bring to life?&rdquo;
           </h3>
           <p className="font-space text-sm text-[#a1a1aa] leading-relaxed">
-            I respond promptly to thoughtful inquiries. Whether you need full-stack web architecture,
-            enterprise systems automation, or bespoke brand assets, send a transmission below.
+            Hiring for an engineering role or planning a design project? Share the role, brief, or
+            timeline below, or email me directly.
           </p>
 
           <div className="border border-white/10 bg-[#0e0e11] p-6 space-y-4 font-mono text-xs">

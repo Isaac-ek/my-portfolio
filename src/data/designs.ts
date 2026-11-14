@@ -39,19 +39,19 @@ export type Design = {
 export const designs: Design[] = [
   {
     id: 'dr-kayla-skincare-system',
-    title: 'Dr Kayla® Clinical Soap Packaging (7 Formulas)',
+    title: 'Dr Kayla® Soap Packaging — Seven Variants',
     description:
-      'Comprehensive packaging suite and die-cut production mechanicals for Dr Kayla® dermatological soap line. Engineered 7 specialized product formulas with custom botanical color systems, regulatory INCI compliance, scannable barcodes, and 20.8cm x 21.4cm folding carton dielines.',
+      'Designed a coordinated folding-carton system for seven soap variants, including color differentiation, front-panel hierarchy, packaging copy, and print-ready dielines.',
     category: 'Print & Packaging',
     client: 'Dr Kayla Ltd (Manchester, UK)',
     year: '2026',
     tools: ['Adobe Illustrator', 'Adobe Photoshop', 'Print Production Dielines', 'CMYK Pre-press'],
     deliverables: [
       '7x Folding Box Production Dielines (20.8 x 21.4 cm, 130g / 4.6 oz)',
-      'Custom Botanical & Clinical Color Systems for Each Formula',
-      'INCI Regulatory Ingredient Hierarchy, Directional Panels & Warnings',
-      'Scannable EAN-13 Barcodes & UK / Thailand Manufacturer Badges',
-      'Dermatologically Tested Certification Seals & Vector Crests',
+      'Variant color system, botanical graphics, and shared typography',
+      'Packaging copy and layouts for ingredients, directions, and warnings',
+      'Barcode placement and manufacturer information panels',
+      'Badge artwork, vector crests, and front-panel graphics',
       'Full CMYK Press Mechanicals with Bleeds & Tuck-in Flap Geometry',
     ],
     palette: ['#15803D', '#EA580C', '#DB2777', '#7E22CE', '#16A34A', '#0284C7', '#0D9488'],
@@ -79,7 +79,7 @@ export const designs: Design[] = [
         dielineImage: '/assets/designs/dr-kayla-detox.jpg',
         palette: ['#15803D', '#22C55E', '#052E16', '#FFFFFF'],
         description:
-          'Deep-cleansing purifying bar formulated with Activated Charcoal and Tea Tree Oil to unclog pores, eliminate excess sebum, and prevent breakouts with an emerald botanical profile.',
+          'Emerald color coding, a bold product name, and botanical imagery establish the shared soap layout while distinguishing DETOX+.',
       },
       {
         id: 'bright',
@@ -91,7 +91,7 @@ export const designs: Design[] = [
         dielineImage: '/assets/designs/dr-kayla-bright.jpg',
         palette: ['#EA580C', '#F97316', '#FFF7ED', '#7C2D12'],
         description:
-          'High-radiance brightening soap engineered with Vitamin C, Niacinamide, and Alpha Arbutin to fade hyperpigmentation, even skin tone, and deliver vibrant citrus-amber shelf impact.',
+          'Orange and amber accents distinguish BRIGHT+, with the product name and ingredient line kept in the shared front-panel grid.',
       },
       {
         id: 'beauty',
@@ -103,7 +103,7 @@ export const designs: Design[] = [
         dielineImage: '/assets/designs/dr-kayla-beauty.jpg',
         palette: ['#DB2777', '#EC4899', '#FDF2F8', '#831843'],
         description:
-          'Nourishing radiance formulation with intense magenta color grading, botanical droplet graphics, and triple-action skin tone evening actives.',
+          'Magenta fields, a clear product-name hierarchy, and coconut imagery give BEAUTY+ a distinct place within the family.',
       },
       {
         id: 'renew',
@@ -115,7 +115,7 @@ export const designs: Design[] = [
         dielineImage: '/assets/designs/dr-kayla-renew.jpg',
         palette: ['#7E22CE', '#9333EA', '#FAF5FF', '#3B0764'],
         description:
-          'Anti-aging luxury purple carton layout featuring Bakuchiol (retinol alternative), Marine Collagen, and Vitamin E for cell renewal and dermal elasticity.',
+          'Purple color coding and a consistent typographic hierarchy connect RENEW+ to the range while making the variant easy to identify.',
       },
       {
         id: 'acne',
@@ -127,7 +127,7 @@ export const designs: Design[] = [
         dielineImage: '/assets/designs/dr-kayla-acne.png',
         palette: ['#16A34A', '#4ADE80', '#052E16', '#FFFFFF'],
         description:
-          'Clinical targeted blemish-control dieline with clean-room pharmaceutical green styling, pore-clearing callouts, and multi-active acne control matrix.',
+          'Green panels and a prominent ACNE+ wordmark carry the variant identity across the front, side, and information panels.',
       },
       {
         id: 'men',
@@ -139,7 +139,7 @@ export const designs: Design[] = [
         dielineImage: '/assets/designs/dr-kayla-men.jpg',
         palette: ['#0284C7', '#0369A1', '#082F49', '#F0F9FF'],
         description:
-          'Ice-blue masculine grooming carton with cooling menthol crystals, deodorant benefits, and crisp Arctic-inspired typography and badging.',
+          'Blue color coding and mint imagery distinguish MEN+ while retaining the range’s typography and panel structure.',
       },
       {
         id: 'barrier',
@@ -151,16 +151,16 @@ export const designs: Design[] = [
         dielineImage: '/assets/designs/dr-kayla-barrier.jpg',
         palette: ['#0D9488', '#14B8A6', '#042F2C', '#F0FDFA'],
         description:
-          'Teal derm-defense cleansing bar packaging dedicated to barrier repair, trans-epidermal water loss prevention, and soothing irritated sensitive skin.',
+          'Teal panels and a shared type system distinguish BARRIER+ without breaking the visual consistency of the soap family.',
       },
     ],
     link: '',
   },
   {
     id: 'dr-kayla-honey-mixture-system',
-    title: 'Dr Kayla® Natural Health — Honey Mixture Series (5 Formulas)',
+    title: 'Dr Kayla® Honey Mixture Packaging — Five Variants',
     description:
-      'Nutraceutical folding carton packaging collection and structural print mechanicals for Dr Kayla® herbal honey supplements. Formulated across 5 distinct holistic therapy vectors—respiratory relief, vocal wellness, deep relaxation, immune support, and gastrointestinal care—with European food supplement regulatory compliance (250g).',
+      'Designed five coordinated 250g honey-mixture cartons, from packaging copy and botanical graphics to front-panel hierarchy, nutrition-panel layout, and print-ready dielines.',
     category: 'Print & Packaging',
     client: 'Dr Kayla Ltd (Manchester, UK)',
     year: '2026',
@@ -168,12 +168,12 @@ export const designs: Design[] = [
     deliverables: [
       '5x Folding Carton Production Dielines (11.0 cm H × 6.8 cm W × 6.8 cm D, 250g)',
       'Custom Botanical Vector Graphics, Color Codes & Honeycomb Crests',
-      'EU/UK Food Supplement Compliance, Mandatory Warnings & INCI Specifications',
+      'Packaging copy, ingredient lists, directions, and warning-panel layouts',
       'Average Nutritional Information Panels (Energy, Carbs, Protein, Salt)',
       'Tamper-Evident Glue Flap Geometry & Production Bleed Margins',
-      'High-Fidelity 300-DPI Print-Ready Production Mechanicals',
+      'Print artwork and assembled presentation mockups',
     ],
-    palette: ['#D97706', '#059669', '#7C3AED', '#EAB308', '#EA580C'],
+    palette: ['#7E22CE', '#059669', '#123D75', '#F97316', '#075E59'],
     accent: '#D97706',
     gradient: 'from-amber-500/20 via-yellow-600/10 to-stone-900',
     image: '/assets/designs/honey-mixture-1.jpg',
@@ -190,11 +190,12 @@ export const designs: Design[] = [
         name: 'SALVIA',
         subtitle: 'Natural Salvation for the Voice & Throat (250g)',
         actives: '100% Raw Honey • Sage Extract (Salvia officinalis) • Propolis Extract',
-        accent: '#D97706',
+        accent: '#7E22CE',
         image: '/assets/designs/honey-mixture-1.jpg',
-        palette: ['#D97706', '#78350F', '#FEF3C7', '#065F46'],
+        dielineImage: '/assets/designs/honey-mixture-1.jpg',
+        palette: ['#7E22CE', '#581C87', '#F3E8FF', '#D97706'],
         description:
-          'Therapeutic vocal wellness formulation blending raw honey with sage and propolis to soothe sore throats, protect healthy vocal cords, relieve voice straining, and support respiratory mucosal defense.',
+          'Purple side panels, botanical imagery, and a large Salvia wordmark establish the front-panel hierarchy.',
       },
       {
         id: 'excelsa',
@@ -203,42 +204,46 @@ export const designs: Design[] = [
         actives: 'Raw Honey (78%) • Anise Fruit Extract • Thyme Leaf/Flower • Juniper Shoots',
         accent: '#059669',
         image: '/assets/designs/honey-mixture-2.jpg',
+        dielineImage: '/assets/designs/honey-mixture-2.jpg',
         palette: ['#059669', '#047857', '#064E3B', '#ECFDF5'],
         description:
-          'Deep respiratory botanical honey designed to loosen mucus, facilitate expectoration, relieve throat scratching, and support free breathing with alpine thyme and juniper.',
+          'Green and gold fields connect the Excelsa wordmark, botanical illustration, and supporting information panels.',
       },
       {
         id: 'mirosan',
         name: 'MIROSAN',
         subtitle: 'Relaxation, Calmness & Restful Sleep (250g)',
         actives: 'Raw Honey (78%) • Lemon Balm Extract (Melissa officinalis) • Chamomile Extract',
-        accent: '#7C3AED',
+        accent: '#123D75',
         image: '/assets/designs/honey-mixture-3.jpg',
-        palette: ['#7C3AED', '#5B21B6', '#EDE9FE', '#2E1065'],
+        dielineImage: '/assets/designs/honey-mixture-3.jpg',
+        palette: ['#123D75', '#082F49', '#FEF3C7', '#FFFFFF'],
         description:
-          'Nighttime herbal honey blend pairing raw honey with lemon balm and chamomile to calm the central nervous system, relieve daily stress, and promote gentle, restorative sleep.',
+          'Blue panels, moon imagery, and a white-and-gold front panel distinguish Mirosan within the honey-mixture range.',
       },
       {
         id: 'apipropol',
         name: 'APIPROPOL',
         subtitle: 'Immune Booster & Daily Metabolic Vitality (250g)',
         actives: 'Pure Natural Honey (85%) • Flower Pollen • Vitamin C (Ascorbic Acid)',
-        accent: '#EAB308',
+        accent: '#F97316',
         image: '/assets/designs/honey-mixture-4.jpg',
-        palette: ['#EAB308', '#A16207', '#FEFCE8', '#713F12'],
+        dielineImage: '/assets/designs/honey-mixture-4.jpg',
+        palette: ['#F97316', '#C2410C', '#FEF3C7', '#FFFFFF'],
         description:
-          'Nutrient-dense bee product powerhouse enriched with natural flower pollen (rich in B vitamins, potassium, calcium, iron) and Vitamin C to combat exhaustion, support immunity, and fuel physical endurance.',
+          'Orange and gold color coding, a large Apipropol wordmark, and botanical illustration create a distinct variant within the shared layout.',
       },
       {
         id: 'gastro',
         name: 'GASTRO',
         subtitle: 'Natural Digestive Support & Gut Comfort (250g)',
         actives: '100% Raw Honey • Ginger Extract • Peppermint Leaf • Fennel Seeds',
-        accent: '#EA580C',
+        accent: '#075E59',
         image: '/assets/designs/honey-mixture-5.jpg',
-        palette: ['#EA580C', '#9A3412', '#FFEDD5', '#15803D'],
+        dielineImage: '/assets/designs/honey-mixture-5.jpg',
+        palette: ['#075E59', '#134E4A', '#FEF3C7', '#D97706'],
         description:
-          'Holistic digestive wellness dieline uniting raw honey with ginger, peppermint, and fennel seeds to soothe gastrointestinal discomfort, ease bloating and nausea, and restore gut harmony.',
+          'Teal fields, ginger and mint imagery, and a large Gastro wordmark distinguish this carton while preserving the family’s panel structure.',
       },
     ],
     link: '',

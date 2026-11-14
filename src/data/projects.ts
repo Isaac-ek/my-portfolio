@@ -11,6 +11,7 @@ export type Project = {
   github: string;
   demo: string;
   demoNote?: string;
+  caseStudy?: string;
   category?: 'Full-Stack' | 'Security/UI' | 'Web Architecture' | 'UI/UX';
   challenge?: string;
   solution?: string;
@@ -25,38 +26,39 @@ export const projects: Project[] = [
   {
     title: 'Indie CRM SaaS Platform',
     description:
-      'Multi-tenant customer relationship portal with dark-mode UI, vector search indexing, real-time analytics, and streaming data layers.',
-    tech: ['Next.js 15', 'React 19', 'TypeScript', 'PostgreSQL', 'Prisma', 'Redis'],
+      'A workspace-based CRM for independent operators: capture a lead, keep the conversation in context, plan a follow-up, and search past client conversations.',
+    tech: ['Next.js 15', 'React 19', 'TypeScript', 'PostgreSQL', 'Prisma', 'Auth.js'],
     category: 'Full-Stack',
     github: '',
     demo: 'https://indie-crm-two.vercel.app/login',
-    demoNote: 'Production deployment with tenant auth gate (/login). Full architecture & UI walkthrough documented below.',
+    demoNote: 'The production app requires an account. Explore the public sample workflow first.',
+    caseStudy: '/projects/indie-crm',
     challenge:
-      'Architect a scalable multi-tenant CRM that balances rich relationship management features with lightning-fast streaming UI.',
+      'Keep inbound leads, conversation history, and follow-up decisions together while separating each workspace’s records.',
     solution:
-      'Engineered with Next.js 15 and React 19, backed by cloud PostgreSQL, Prisma ORM, and Redis for high-throughput caching.',
+      'Built the Next.js interface, authenticated workspace access, Prisma/PostgreSQL data model, lead actions, AI assistance, and searchable conversation memory.',
     impact:
-      'Delivers instant vector search indexing, live lead pipelines, and a polished dark-mode interface with zero-lag pipeline reactivity.',
+      'Lead edits persist to PostgreSQL and revalidate the affected dashboard, inbox, search, and detail pages. Search combines keyword matches with stored embeddings. Other sessions see saved changes when they refresh or navigate; no propagation-latency benchmark is published.',
     walkthrough: [
       {
         step: '01',
-        title: 'Multi-Tenant Lead Pipeline & Kanban',
-        description: 'Dynamic drag-and-drop opportunity tracking boards with per-seat role-based access control (RBAC), stage automations, and custom deal valuation metrics.',
+        title: 'Capture the inquiry',
+        description: 'A contact, conversation, and opportunity stay together in a workspace-scoped lead record.',
       },
       {
         step: '02',
-        title: 'Vector-Indexed Contact & Note Search',
-        description: 'Sub-50ms hybrid semantic search across customer communications, activity logs, and CRM tickets powered by PostgreSQL vector embeddings.',
+        title: 'Qualify and follow up',
+        description: 'Update the lead stage, add context, and save the next action without losing the original inquiry.',
       },
       {
         step: '03',
-        title: 'Real-Time Telemetry & Event Streaming',
-        description: 'Event-driven notification layer using Redis Pub/Sub and Prisma middleware to broadcast deal updates instantly across active team sessions.',
+        title: 'Find the conversation again',
+        description: 'Keyword and semantic retrieval return lead records with the messages and notes behind each match.',
       },
       {
         step: '04',
-        title: 'Command Palette & Keyboard-First UX',
-        description: 'Integrated ⌘K command center for frictionless contact creation, keyboard navigation, and fast context switching without leaving the primary workspace.',
+        title: 'Keep the evidence',
+        description: 'The lead timeline brings together messages, notes, and recorded AI generations with their provenance.',
       },
     ],
     gif: '',

@@ -1,0 +1,87 @@
+.case-study { max-width: 1180px; margin: 0 auto; padding: 155px 32px 80px; color: var(--text-body); font-family: 'Space Grotesk', sans-serif; }
+.case-back, .case-inline-link { color: var(--text-heading); text-decoration: underline; text-underline-offset: 5px; font-size: 13px; }
+.case-intro { max-width: 780px; margin: 45px 0 40px; }
+.case-eyebrow { font-family: 'Fira Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--text-muted); }
+.case-intro h1 { font-family: Syne, sans-serif; font-size: clamp(48px, 8vw, 88px); font-weight: 800; letter-spacing: -.06em; line-height: 1.1; margin: 12px 0; color: var(--text-heading); }
+.case-intro .case-deck { font-size: clamp(22px, 3vw, 34px); line-height: 1.25; color: var(--text-heading); margin: 18px 0; }
+.case-intro > p:not(.case-eyebrow) { max-width: 680px; }
+.case-intro > p, .case-ownership p, .case-production p { line-height: 1.7; margin-bottom: 16px; }
+.crm-walkthrough { scroll-margin-top: 130px; border: 1px solid var(--border-line); background: var(--bg-surface); }
+.case-section-bar { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 22px 26px; border-bottom: 1px solid var(--border-line); }
+.case-section-bar h2 { font-size: 20px; font-weight: 600; color: var(--text-heading); }
+.case-section-bar > span, .case-time { font: 11px 'Fira Mono', monospace; color: var(--text-muted); white-space: nowrap; }
+.walkthrough-disclosure { font-size: 12px; line-height: 1.6; color: var(--text-muted); margin: 18px 26px; }
+.walkthrough-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; padding: 0 26px 22px; }
+.case-primary, .case-secondary { display: inline-flex; justify-content: center; align-items: center; padding: 12px 17px; border-radius: 2px; font: 12px 'Fira Mono', monospace; line-height: 1.5; transition: opacity .2s; }
+.case-primary { border: 1px solid var(--text-heading); background: var(--text-heading); color: var(--bg-primary); }
+.case-secondary { border: 1px solid var(--border-line); background: transparent; color: var(--text-heading); }
+.case-primary:hover, .case-secondary:hover { opacity: .78; }
+.case-primary:disabled { opacity: .6; cursor: default; }
+.walkthrough-controls input { flex: 1; min-width: 100px; accent-color: #059669; }
+.walkthrough-next { padding: 0 26px 18px; font: 11px/1.6 'Fira Mono', monospace; color: var(--text-muted); }
+.walkthrough-chapters { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--border-line); }
+.walkthrough-chapters button { position: relative; overflow: hidden; text-align: left; padding: 14px 20px; font: 12px 'Fira Mono', monospace; border-right: 1px solid var(--border-line); border-radius: 0; color: var(--text-muted); }
+.walkthrough-chapters button > span:first-child { display: block; font-size: 10px; margin-bottom: 7px; }
+.chapter-progress { position: absolute; bottom: 0; left: 0; height: 3px; background: #059669; transition: width .25s linear; }
+.walkthrough-chapters button[aria-pressed=true] { color: var(--text-heading); background: var(--bg-subtle); box-shadow: inset 0 -2px #059669; }
+.walkthrough-body { display: grid; grid-template-columns: .8fr 1.2fr; gap: 30px; padding: 30px 26px; }
+.walkthrough-narrative h3 { margin: 16px 0; font: 700 clamp(24px, 3vw, 32px)/1.15 Syne, sans-serif; color: var(--text-heading); }
+.walkthrough-narrative > p { font-size: 14px; line-height: 1.8; color: var(--text-muted); }
+.crm-sample { min-width: 0; border: 1px solid var(--border-line); border-radius: 8px; overflow: hidden; background: var(--bg-primary); }
+.sample-top { display: flex; justify-content: space-between; gap: 8px; padding: 14px; background: var(--bg-subtle); font: 9px 'Fira Mono', monospace; color: var(--text-muted); }
+.sample-pipeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 12px; border-bottom: 1px solid var(--border-line); }
+.sample-stage { min-height: 82px; background: var(--bg-subtle); padding: 8px; border: 1px solid var(--border-line); border-radius: 3px; font-size: 10px; }
+.sample-stage.active { border-color: #059669; }
+.sample-stage strong { display: block; margin-top: 10px; font-size: 11px; color: var(--text-heading); }
+.sample-stage small { display: block; font-weight: 400; font-size: 8px; margin-top: 4px; color: var(--text-muted); }
+.sample-detail { padding: 22px; min-height: 320px; }
+.sample-record-heading { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 8px; }
+.sample-detail h4 { font-size: 21px; font-weight: 600; color: var(--text-heading); }
+.sample-status { font: 10px 'Fira Mono', monospace; padding: 5px 8px; border: 1px solid #059669; border-radius: 3px; }
+.sample-company { font-size: 11px; color: var(--text-muted); margin: 8px 0 18px; overflow-wrap: anywhere; }
+.sample-detail blockquote { font-size: 14px; line-height: 1.7; border-left: 2px solid #059669; padding-left: 14px; margin: 18px 0; }
+.sample-next p { margin: 8px 0 20px; font-size: 13px; line-height: 1.6; }
+.sample-saved { margin-top: 20px; font-size: 13px; line-height: 1.6; }
+.sample-search-row { display: flex; gap: 8px; margin-top: 10px; }
+.sample-detail label { font: 11px 'Fira Mono', monospace; }
+.sample-search-row input { min-width: 0; width: 100%; padding: 10px; font-size: 13px; background: var(--bg-surface); border: 1px solid var(--border-line); color: var(--text-heading); border-radius: 3px; }
+.sample-search-result { margin-top: 24px; font-size: 13px; }
+.sample-search-result h4 { margin-top: 10px; }
+.actual-screenshot { padding: 20px 26px; border-top: 1px solid var(--border-line); font-size: 13px; }
+.actual-screenshot summary { cursor: pointer; color: var(--text-heading); }
+.actual-screenshot figure { padding-top: 20px; }
+.actual-screenshot img { width: 100%; max-height: 560px; object-fit: cover; object-position: top; border: 1px solid var(--border-line); }
+.actual-screenshot figcaption { font-size: 11px; color: var(--text-muted); margin-top: 12px; }
+.case-ownership { display: grid; grid-template-columns: .8fr 1.2fr; gap: 32px; border-bottom: 1px solid var(--border-line); padding: 55px 0 40px; }
+.case-study h2:not(#walkthrough-title) { font: 700 clamp(25px, 4vw, 36px)/1.2 Syne, sans-serif; color: var(--text-heading); margin: 12px 0 20px; letter-spacing: -.02em; }
+.case-ownership p { font-size: 14px; }
+.case-muted { color: var(--text-muted); }
+.case-implementation { padding: 50px 0; border-bottom: 1px solid var(--border-line); }
+.case-notes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 32px; }
+.case-notes-grid article > span { font: 10px 'Fira Mono', monospace; color: var(--text-muted); }
+.case-notes-grid h3 { font-size: 20px; font-weight: 600; margin: 10px 0; color: var(--text-heading); }
+.case-notes-grid p, .case-evidence-note { font-size: 14px; line-height: 1.8; color: var(--text-muted); }
+.case-evidence-note { border: 1px solid var(--border-line); padding: 18px; margin-top: 30px; font-size: 12px; }
+.case-production { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 45px 0; }
+.case-production .case-secondary { flex-shrink: 0; }
+.case-study :focus-visible, .packaging-preview:focus-visible { outline: 2px solid #059669; outline-offset: 5px; }
+@media (max-width: 700px) {
+  .case-study { padding: 100px 18px 50px; }
+  .case-intro { margin: 35px 0 28px; }
+  .case-section-bar { padding: 18px; align-items: start; flex-direction: column; gap: 6px; }
+  .walkthrough-disclosure { margin-inline: 18px; }
+  .walkthrough-controls { padding: 0 18px 18px; gap: 12px; }
+  .walkthrough-next { padding-inline: 18px; }
+  .walkthrough-controls .case-primary { width: 100%; }
+  .walkthrough-chapters { grid-template-columns: repeat(2, 1fr); }
+  .walkthrough-chapters button { border-bottom: 1px solid var(--border-line); padding: 12px; }
+  .walkthrough-body, .case-ownership { grid-template-columns: 1fr; gap: 22px; }
+  .walkthrough-body { padding: 22px 16px; }
+  .sample-detail { padding: 16px; }
+  .case-notes-grid { grid-template-columns: 1fr; gap: 25px; }
+  .case-production { align-items: start; flex-direction: column; }
+  .case-section-bar h2 { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-study *, .packaging-preview { scroll-behavior: auto; transition: none; }
+}

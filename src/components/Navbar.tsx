@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
 type NavLink = { id: string; label: string; href: string; designTab?: boolean };
@@ -77,17 +76,17 @@ const Navbar = () => {
           className="group flex flex-col leading-none"
           aria-label="Home"
         >
-          <span className="font-syne font-extrabold text-xl sm:text-2xl tracking-tight text-[#f4f4f2] group-hover:text-white transition">
+          <span className="font-syne font-extrabold text-[11px] min-[380px]:text-[13px] sm:text-2xl whitespace-nowrap tracking-tight text-[#f4f4f2] group-hover:text-white transition">
             CHIEMELIE EKEZIE
           </span>
-          <span className="font-mono text-[10px] tracking-wider text-[#a1a1aa] uppercase mt-1">
+          <span className="font-mono text-[6px] min-[380px]:text-[7px] sm:text-[10px] whitespace-nowrap tracking-wider text-[#a1a1aa] uppercase mt-1">
             FULL-STACK ENGINEER &amp; VISUAL DESIGNER
           </span>
         </Link>
 
-        {/* Desktop Links & Theme Toggle */}
-        <div className="hidden lg:flex items-center gap-8">
-          <nav className="flex items-center gap-7">
+        {/* One navigation tree shared by desktop and the mobile drawer. */}
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:gap-8">
+          <nav id="primary-navigation" aria-label="Primary navigation" className={`${menuOpen ? 'flex' : 'hidden'} lg:flex absolute left-0 right-0 top-full lg:static flex-col lg:flex-row gap-4 lg:gap-7 bg-[#08080a] lg:bg-transparent border-b lg:border-0 border-white/10 p-6 lg:p-0`}>
             {navLinks.map((link) => (
               <Link
                 key={link.id}
@@ -108,70 +107,25 @@ const Navbar = () => {
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="flex items-center gap-2 border border-white/20 bg-white/5 hover:border-white hover:bg-white hover:text-black px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[#f4f4f2] transition-all"
+            className="flex items-center gap-2 border border-white/20 bg-white/5 hover:border-white hover:bg-white hover:text-black px-2 sm:px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[#f4f4f2] transition-all"
             aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
           >
             <span className="text-xs">{theme === 'dark' ? '☀' : '☾'}</span>
-            <span>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
-          </button>
-        </div>
-
-        {/* Mobile menu and theme toggle */}
-        <div className="lg:hidden flex items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center p-2 text-xs font-mono border border-white/15 rounded text-[#f4f4f2]"
-            aria-label="Toggle theme"
-            title="Toggle theme"
-          >
-            {theme === 'dark' ? '☀' : '☾'}
+            <span className="hidden sm:inline">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
           </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex items-center justify-center p-2 text-xs font-mono tracking-widest border border-white/15 rounded text-[#f4f4f2]"
+            className="lg:hidden flex items-center justify-center whitespace-nowrap p-2 text-xs font-mono tracking-widest border border-white/15 rounded text-[#f4f4f2]"
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            aria-controls="primary-navigation"
           >
             {menuOpen ? 'CLOSE ✕' : 'MENU [≡]'}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-b border-white/10 bg-[#08080a] px-6 py-6 font-mono text-sm"
-          >
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.id}
-                  to={link.href}
-                  onClick={(e) => handleNavClick(e, link)}
-                  className="flex items-center justify-between border-b border-white/5 py-2.5 text-[#d4d4d8] hover:text-white"
-                >
-                  <span>{link.label}</span>
-                  <span className="text-xs text-[#71717a]">[{link.id}]</span>
-                </Link>
-              ))}
-
-              <div className="pt-2 flex items-center justify-between">
-                <span className="text-xs text-[#71717a] uppercase tracking-wider">APPEARANCE</span>
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center gap-2 border border-white/20 px-3 py-1.5 text-xs text-[#d4d4d8] hover:border-white hover:text-white transition"
-                >
-                  <span>{theme === 'dark' ? '☀ LIGHT MODE' : '☾ DARK MODE'}</span>
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 };

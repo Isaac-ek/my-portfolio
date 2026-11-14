@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { profile } from '../data/profile';
 
 type HTMLSectionProps = React.HTMLAttributes<HTMLElement>;
@@ -56,31 +57,34 @@ const Hero = (props: HTMLSectionProps) => (
         </h2>
 
         <p className="font-space text-base sm:text-lg leading-relaxed text-[#d4d4d8] max-w-2xl">
-          I build high-performance web applications, resilient digital infrastructure, and visual identities with actual character.
-          Whether architecting Next.js frontends, engineering cloud microservices on AWS, or creating
-          bespoke brand systems in Figma, I make sure the work is fast, bulletproof, and memorable.
+          I build web applications and internal business tools, and design brand identities and packaging.
+          Explore a complete software workflow or inspect the carton artwork to see how I work.
         </p>
 
         {/* Action Link Rows styled as Editorial Index Footnotes */}
         <div className="pt-6 flex flex-wrap gap-4 font-mono text-xs tracking-wider">
-          <a
-            href="#projects"
+          <Link
+            to="/projects/indie-crm"
             className="inline-flex items-center gap-2 border border-white/20 bg-white/5 hover:bg-white hover:text-black hover:border-white px-6 py-3.5 text-[#f4f4f2] transition duration-200"
           >
-            <span>[01] EXPLORE SELECTED WORK ↓</span>
-          </a>
-          <a
-            href="/about"
+            <span>[01] EXPLORE SOFTWARE WORKFLOW →</span>
+          </Link>
+          <Link
+            to="/?case=dr-kayla-skincare-system"
+            aria-haspopup="dialog"
             className="inline-flex items-center gap-2 border border-white/10 hover:border-white/40 px-6 py-3.5 text-[#d4d4d8] hover:text-white transition duration-200"
           >
-            <span>[02] READ CURRICULUM VITAE →</span>
-          </a>
+            <span>[02] VIEW PACKAGING RANGE →</span>
+          </Link>
+        </div>
+        <div className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-[11px] text-[#a1a1aa]">
+          <Link to="/about" className="underline underline-offset-4 hover:text-white">Read curriculum vitae →</Link>
           <a
             href={profile.resumePath}
             download="Ekezie_Chiemelie_Isaac_Resume.pdf"
-            className="inline-flex items-center gap-2 border border-white/10 hover:border-white/40 px-6 py-3.5 text-[#8e8e93] hover:text-white transition duration-200"
+            className="underline underline-offset-4 hover:text-white"
           >
-            <span>[03] DOWNLOAD RESUME PDF ↓</span>
+            Download CV PDF ↓
           </a>
         </div>
       </motion.div>
@@ -93,7 +97,7 @@ const Hero = (props: HTMLSectionProps) => (
         className="lg:col-span-5 border border-white/10 bg-[#0e0e11] p-6 sm:p-8 font-mono text-xs space-y-5"
       >
         <div className="flex items-center justify-between border-b border-white/10 pb-3">
-          <span className="text-[#71717a] uppercase tracking-widest">[SPECIFICATION SHEET]</span>
+          <span className="text-[#71717a] uppercase tracking-widest">[AT A GLANCE]</span>
           <span className="text-emerald-400 font-semibold">● ACTIVE</span>
         </div>
 
@@ -105,20 +109,6 @@ const Hero = (props: HTMLSectionProps) => (
             </div>
             <div className="text-[#a1a1aa] text-[11px] mt-0.5">
               Bakan Gizo Pharmacy &amp; Stores Ltd • Abuja
-            </div>
-          </div>
-
-          <div className="border-b border-white/5 pb-3">
-            <div className="text-[#71717a] uppercase tracking-wider text-[10px]">CORE ENGINEERING</div>
-            <div className="text-[#f4f4f2] text-xs mt-0.5 leading-relaxed">
-              Next.js 15, React 19, TypeScript, Python/Flask, Node.js, PostgreSQL/Prisma, Redis
-            </div>
-          </div>
-
-          <div className="border-b border-white/5 pb-3">
-            <div className="text-[#71717a] uppercase tracking-wider text-[10px]">DESIGN &amp; IDENTITY</div>
-            <div className="text-[#f4f4f2] text-xs mt-0.5 leading-relaxed">
-              Brand Systems, Figma UI/UX, Typography, Adobe Suite, Micro-animations
             </div>
           </div>
 

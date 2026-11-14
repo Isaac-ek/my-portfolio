@@ -14,6 +14,7 @@ import './App.css';
 const Home = lazy(() => import('./pages/Home'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const IndieCrmPage = lazy(() => import('./pages/IndieCrmPage'));
 const SkillsPage = lazy(() => import('./pages/SkillsPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -53,7 +54,7 @@ function AppContent() {
       {/* 📦 Main Layout */}
       <Router>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col text-white relative z-10">
+        <div id="portfolio-shell" className="min-h-screen flex flex-col text-white relative z-10">
           <Navbar />
           <div className="flex-1">
             <Suspense fallback={<div className="text-center py-16">Loading...</div>}>
@@ -61,6 +62,7 @@ function AppContent() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/projects/indie-crm" element={<IndieCrmPage />} />
                 <Route path="/skills" element={<SkillsPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

@@ -1,7 +1,7 @@
 import Skills from '../components/Skills';
 
 const SkillsPage = () => (
-  <main>
+  <main className="pt-24">
     <Skills />
   </main>
 );

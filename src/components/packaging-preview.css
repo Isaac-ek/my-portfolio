@@ -1,0 +1,7 @@
+.packaging-preview { display: block; width: 100%; max-width: 550px; max-height: 440px; margin: auto; }
+.packaging-range { display: flex; align-items: end; justify-content: center; width: 100%; gap: 5px; padding: 22px 12px; background: #f0eeea; border-radius: 2px; }
+.packaging-range-item { flex: 1; min-width: 0; text-align: center; }
+.packaging-range-item > span { font: 8px 'Fira Mono', monospace; color: #44403c; letter-spacing: .02em; }
+.packaging-range-soap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px; }
+.packaging-range-soap .packaging-range-item:nth-child(n+5) { transform: translateX(50%); }
+.packaging-range .packaging-preview { width: 100%; }
