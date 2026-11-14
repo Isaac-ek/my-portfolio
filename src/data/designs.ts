@@ -146,6 +146,93 @@ export const designs: Design[] = [
     ],
     link: '',
   },
+  {
+    id: 'dr-kayla-honey-mixture-system',
+    title: 'Dr Kayla® Natural Health — Honey Mixture Series (5 Formulas)',
+    description:
+      'Nutraceutical folding carton packaging collection and structural print mechanicals for Dr Kayla® herbal honey supplements. Formulated across 5 distinct holistic therapy vectors—respiratory relief, vocal wellness, deep relaxation, immune support, and gastrointestinal care—with European food supplement regulatory compliance (250g).',
+    category: 'Print & Packaging',
+    client: 'Dr Kayla Ltd (Manchester, UK)',
+    year: '2026',
+    tools: ['Adobe Illustrator', 'Adobe Photoshop', 'Packaging Dielines', 'CMYK Pre-press'],
+    deliverables: [
+      '5x Folding Carton Production Dielines (11.0 cm H × 6.8 cm W × 6.8 cm D, 250g)',
+      'Custom Botanical Vector Graphics, Color Codes & Honeycomb Crests',
+      'EU/UK Food Supplement Compliance, Mandatory Warnings & INCI Specifications',
+      'Average Nutritional Information Panels (Energy, Carbs, Protein, Salt)',
+      'Tamper-Evident Glue Flap Geometry & Production Bleed Margins',
+      'High-Fidelity 300-DPI Print-Ready Production Mechanicals',
+    ],
+    palette: ['#D97706', '#059669', '#7C3AED', '#EAB308', '#EA580C'],
+    accent: '#D97706',
+    gradient: 'from-amber-500/20 via-yellow-600/10 to-stone-900',
+    image: '/assets/designs/honey-mixture-1.jpg',
+    gallery: [
+      '/assets/designs/honey-mixture-1.jpg',
+      '/assets/designs/honey-mixture-2.jpg',
+      '/assets/designs/honey-mixture-3.jpg',
+      '/assets/designs/honey-mixture-4.jpg',
+      '/assets/designs/honey-mixture-5.jpg',
+    ],
+    variants: [
+      {
+        id: 'salvia',
+        name: 'SALVIA',
+        subtitle: 'Natural Salvation for the Voice & Throat (250g)',
+        actives: '100% Raw Honey • Sage Extract (Salvia officinalis) • Propolis Extract',
+        accent: '#D97706',
+        image: '/assets/designs/honey-mixture-1.jpg',
+        palette: ['#D97706', '#78350F', '#FEF3C7', '#065F46'],
+        description:
+          'Therapeutic vocal wellness formulation blending raw honey with sage and propolis to soothe sore throats, protect healthy vocal cords, relieve voice straining, and support respiratory mucosal defense.',
+      },
+      {
+        id: 'excelsa',
+        name: 'EXCELSA',
+        subtitle: 'Natural Respiratory Health & Clear Breathing (250g)',
+        actives: 'Raw Honey (78%) • Anise Fruit Extract • Thyme Leaf/Flower • Juniper Shoots',
+        accent: '#059669',
+        image: '/assets/designs/honey-mixture-2.jpg',
+        palette: ['#059669', '#047857', '#064E3B', '#ECFDF5'],
+        description:
+          'Deep respiratory botanical honey designed to loosen mucus, facilitate expectoration, relieve throat scratching, and support free breathing with alpine thyme and juniper.',
+      },
+      {
+        id: 'mirosan',
+        name: 'MIROSAN',
+        subtitle: 'Relaxation, Calmness & Restful Sleep (250g)',
+        actives: 'Raw Honey (78%) • Lemon Balm Extract (Melissa officinalis) • Chamomile Extract',
+        accent: '#7C3AED',
+        image: '/assets/designs/honey-mixture-3.jpg',
+        palette: ['#7C3AED', '#5B21B6', '#EDE9FE', '#2E1065'],
+        description:
+          'Nighttime herbal honey blend pairing raw honey with lemon balm and chamomile to calm the central nervous system, relieve daily stress, and promote gentle, restorative sleep.',
+      },
+      {
+        id: 'apipropol',
+        name: 'APIPROPOL',
+        subtitle: 'Immune Booster & Daily Metabolic Vitality (250g)',
+        actives: 'Pure Natural Honey (85%) • Flower Pollen • Vitamin C (Ascorbic Acid)',
+        accent: '#EAB308',
+        image: '/assets/designs/honey-mixture-4.jpg',
+        palette: ['#EAB308', '#A16207', '#FEFCE8', '#713F12'],
+        description:
+          'Nutrient-dense bee product powerhouse enriched with natural flower pollen (rich in B vitamins, potassium, calcium, iron) and Vitamin C to combat exhaustion, support immunity, and fuel physical endurance.',
+      },
+      {
+        id: 'gastro',
+        name: 'GASTRO',
+        subtitle: 'Natural Digestive Support & Gut Comfort (250g)',
+        actives: '100% Raw Honey • Ginger Extract • Peppermint Leaf • Fennel Seeds',
+        accent: '#EA580C',
+        image: '/assets/designs/honey-mixture-5.jpg',
+        palette: ['#EA580C', '#9A3412', '#FFEDD5', '#15803D'],
+        description:
+          'Holistic digestive wellness dieline uniting raw honey with ginger, peppermint, and fennel seeds to soothe gastrointestinal discomfort, ease bloating and nausea, and restore gut harmony.',
+      },
+    ],
+    link: '',
+  },
 ];
 
 export const categoryColors: Record<

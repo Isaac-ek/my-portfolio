@@ -428,7 +428,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                             rel="noopener noreferrer"
                             className="border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] text-white hover:bg-white hover:text-black transition"
                           >
-                            OPEN FULL-RES DIELINE (20.8 x 21.4 cm) ↗
+                            OPEN FULL-RES DIELINE ↗
                           </a>
                         </div>
                         <p className="text-[#a1a1aa] text-[11px] leading-relaxed mb-2">
