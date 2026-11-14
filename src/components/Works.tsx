@@ -59,6 +59,15 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
     }, 50);
   }, [searchParams, setSearchParams]);
 
+  const openDesignModal = (design: Design, triggerElement?: HTMLElement) => {
+    if (triggerElement) {
+      lastFocusedElementRef.current = triggerElement;
+    }
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('case', design.id);
+    setSearchParams(newParams, { replace: false });
+  };
+
   // Manage accessibility focus & escape key when modal opens/closes
   useEffect(() => {
     if (activeDesignModal) {
