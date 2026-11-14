@@ -10,9 +10,15 @@ The case study describes the implementation inspected in the local Indie CRM che
 - `README.md`: feature scope, data model, and architecture.
 - `public/screenshots/`: actual application screens using seeded Northstar Studio data, copied into this portfolio's project assets.
 
+The repository at `https://github.com/Isaac-ek/Indie-CRM` was confirmed public. The case study links directly to its workspace membership checks, tenant-scoped workflow write, role matrix, and permission tests. The existing `test/rbac.test.ts` suite was run in the CRM checkout: three permission tests passed. This is source and unit-test evidence, not a two-session production test.
+
+The first project card shows the actual lead-detail screen with three annotations: lead/contact, workspace/role, and context/next action. The contribution statement appears beside the deliverable. Framework and implementation lists are kept inside the software cards' expandable details or case studies.
+
 The 30-second public walkthrough is an interactive reconstruction with fictional sample data. It is explicitly labeled and does not connect to production. It demonstrates a single lead moving through qualification, retrieval, and follow-up; real application screenshots are available within each chapter. Chapters change at 0, 7, 15, and 23 seconds. Qualification moves the sample lead immediately when that chapter starts. Progress indicators and a next-chapter button let visitors follow or skip the timed sequence.
 
 Removed unsupported search-latency figures and Redis Pub/Sub/WebSocket propagation claims. The inspected lead actions persist through Prisma and revalidate Next.js routes. There is no published performance benchmark in this portfolio.
+
+The public sample includes a second local teammate snapshot. Refreshing that snapshot reads the current sample stage. Its role selector illustrates the public permission matrix: members can read/edit leads and add notes, while deleting leads or managing members requires an admin or owner. The reconstruction is explicitly distinguished from a live authenticated session.
 
 Before adding a latency claim, record the dataset size, environment, measured request boundary, sample count, and percentiles. Cross-session propagation needs its own measurement and an implemented delivery mechanism.
 
@@ -21,6 +27,12 @@ Before adding a latency claim, record the dataset size, environment, measured re
 The owner confirmed responsibility for the packaging design and copy, including preparation and approval of ingredient/claims copy. The portfolio credits those deliverables without asserting product formulation or regulatory certification.
 
 Assembled carton views are SVG presentation mockups using viewports over the original front and side panels. The full original dielines remain separately available. These mockups are not evidence of a printed production run.
+
+The case study describes completed packaging deliverables and the owner's responsibilities. Its separate “For a similar commission” guidance describes prospective inputs and a possible handoff; it does not invent the historical client's supplied assets.
+
+## Commerce
+
+The commerce case study describes the storefront, Paystack inline checkout and payment webhooks, order handling, and inventory synchronization already attributed to the owner in the portfolio. The commercial rationale is stated as an intended benefit. The former claim that the work eliminated double-order conflicts has been removed: no incident log, before/after dataset, or observation period supports that outcome. The live storefront supports visual inspection; internal operational outcomes are not independently demonstrated by the storefront.
 
 ## CV
 
@@ -39,3 +51,5 @@ The application shell owns the navigation and footer. Desktop and mobile share o
 ## Browsing structure
 
 The hero links directly to the software workflow and the assembled packaging range. The homepage keeps selected work before the career timeline, with a separate link to the full skills page instead of repeating skill matrices. The CV presents experience before an expandable skills section. Actual application screenshots start expanded in the CRM case study.
+
+Selected Work offers direct paths by assignment: lead/client workflows, checkout/stock, and a product-range launch. Commerce and packaging commission links return to the home contact section, including when opened from a standalone project route.

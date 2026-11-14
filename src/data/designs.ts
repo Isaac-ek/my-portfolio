@@ -41,7 +41,7 @@ export const designs: Design[] = [
     id: 'dr-kayla-skincare-system',
     title: 'Dr Kayla® Soap Packaging — Seven Variants',
     description:
-      'Designed a coordinated folding-carton system for seven soap variants, including color differentiation, front-panel hierarchy, packaging copy, and print-ready dielines.',
+      'I designed a coordinated folding-carton system for seven soap variants, including color differentiation, front-panel hierarchy, packaging copy, and print-ready dielines.',
     category: 'Print & Packaging',
     client: 'Dr Kayla Ltd (Manchester, UK)',
     year: '2026',
@@ -160,7 +160,7 @@ export const designs: Design[] = [
     id: 'dr-kayla-honey-mixture-system',
     title: 'Dr Kayla® Honey Mixture Packaging — Five Variants',
     description:
-      'Designed five coordinated 250g honey-mixture cartons, from packaging copy and botanical graphics to front-panel hierarchy, nutrition-panel layout, and print-ready dielines.',
+      'I designed five coordinated 250g honey-mixture cartons, from packaging copy and botanical graphics to front-panel hierarchy, nutrition-panel layout, and print-ready dielines.',
     category: 'Print & Packaging',
     client: 'Dr Kayla Ltd (Manchester, UK)',
     year: '2026',

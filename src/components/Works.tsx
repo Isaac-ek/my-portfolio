@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { PackagingPreview, PackagingRange } from './PackagingPreview';
+import CrmPreview from './CrmPreview';
 import { projects, type Project } from '../data/projects';
 import {
   designs,
@@ -158,6 +159,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
         {/* Editorial 3-Tab Switcher */}
         <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
           <button
+            aria-pressed={tab === 'featured'}
             onClick={() => setTab('featured')}
             className={`px-4 py-3 border transition-colors ${
               tab === 'featured'
@@ -168,6 +170,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
             [01] FEATURED (DUAL SPOTLIGHT)
           </button>
           <button
+            aria-pressed={tab === 'software'}
             onClick={() => setTab('software')}
             className={`px-4 py-3 border transition-colors ${
               tab === 'software'
@@ -178,6 +181,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
             [02] SOFTWARE &amp; SYSTEMS ({projects.length})
           </button>
           <button
+            aria-pressed={tab === 'design'}
             onClick={() => setTab('design')}
             className={`px-4 py-3 border transition-colors ${
               tab === 'design'
@@ -193,24 +197,12 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
       {/* ── Tab 0: Featured Dual Spotlight ── */}
       {tab === 'featured' && (
         <div className="space-y-16">
-          <div className="border border-white/10 bg-white/[0.02] p-4 sm:p-6 font-mono text-xs text-[#a1a1aa] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              Explore a software workflow or inspect an assembled packaging range and its original artwork.
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setTab('software')}
-                className="underline hover:text-white"
-              >
-                All Software ({projects.length}) →
-              </button>
-              <span className="text-white/20">|</span>
-              <button
-                onClick={() => setTab('design')}
-                className="underline hover:text-white"
-              >
-                All Packaging ({designs.length}) →
-              </button>
+          <div className="border border-white/10 bg-white/[0.02] p-4 sm:p-6">
+            <p className="font-mono text-[11px] text-[#a1a1aa] mb-4 uppercase tracking-wider">Find a comparable assignment</p>
+            <div className="grid sm:grid-cols-3 gap-3 font-space text-sm text-[#d4d4d8]">
+              <Link to="/projects/indie-crm" className="border border-white/10 p-4 hover:border-emerald-400/50 transition">Lead &amp; client workflows <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Indie CRM · workflow &amp; source →</span></Link>
+              <Link to="/projects/commerce" className="border border-white/10 p-4 hover:border-white/40 transition">Checkout &amp; stock <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Commerce · delivery &amp; evidence →</span></Link>
+              <button type="button" aria-haspopup="dialog" onClick={(event) => openDesignModal(flagshipDesign, event.currentTarget)} className="border border-white/10 p-4 text-left hover:border-amber-400/50 transition">A product range launch <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Dr Kayla · cartons &amp; artwork →</span></button>
             </div>
           </div>
 
@@ -231,23 +223,8 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 <p className="font-space text-sm text-[#a1a1aa] leading-relaxed mt-3">
                   {flagshipProject.description}
                 </p>
-
-                <Link to="/projects/indie-crm" className="block mt-6 border border-white/10 bg-[#141418] overflow-hidden">
-                  <img src="/assets/projects/indie-crm/lead-inbox.png" alt="Indie CRM lead inbox with sample contacts in the Northstar Studio workspace" className="h-56 w-full object-cover object-top" loading="lazy" />
-                  <span className="block p-3 font-mono text-[10px] text-[#a1a1aa] border-t border-white/10">ACTUAL APPLICATION · SAMPLE DATA · PUBLIC WALKTHROUGH →</span>
-                </Link>
-
-                {/* Tech Badges */}
-                <div className="mt-6 flex flex-wrap gap-1.5 font-mono text-[11px]">
-                  {flagshipProject.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="border border-white/10 bg-white/5 px-2.5 py-1 text-[#d4d4d8]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                <p className="font-space text-sm text-[#d4d4d8] leading-relaxed mt-3"><strong className="text-white">My contribution:</strong> {flagshipProject.contribution}</p>
+                <CrmPreview />
               </div>
 
               {/* Action Links & Demo Note */}
@@ -338,8 +315,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
       {tab === 'software' && (
         <div className="space-y-12">
           {projects.map((project, idx) => {
-            const indexStr = String(idx + 1).padStart(2, '0');
-            const isCrm = project.title.includes('Indie CRM');
+            const isCrm = project.caseStudy === '/projects/indie-crm';
             return (
               <motion.article
                 key={project.title}
@@ -347,149 +323,39 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="border border-white/10 bg-[#0e0e11] p-6 sm:p-10 transition-colors duration-300 hover:border-white/30"
+                className="border border-white/10 bg-[#0e0e11] p-6 sm:p-10 hover:border-white/30 transition-colors"
               >
-                {/* Meta Header */}
-                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#71717a]">
-                  <div className="flex items-center gap-3">
-                    <span className="text-[#f4f4f2]">[{indexStr}]</span>
-                    <span className="uppercase text-[#d4d4d8] tracking-wider">
-                      {project.category || 'FULL-STACK'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="border border-white/10 px-2 py-0.5 text-[11px] text-[#a1a1aa]">
-                      PRODUCTION
-                    </span>
-                  </div>
-                </div>
-
-                {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  {/* Left Column: Title & Description */}
-                  <div className="lg:col-span-8 space-y-4">
-                    <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#f4f4f2] tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p className="font-space text-sm sm:text-base text-[#a1a1aa] leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    {/* Walkthrough (e.g. for Indie CRM) */}
-                    {project.walkthrough && (
-                      <div className="pt-2 border-t border-white/10 mt-4 space-y-3">
-                        <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block">
-                          SYSTEM ARCHITECTURE &amp; WORKFLOW WALKTHROUGH
-                        </span>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          {project.walkthrough.map((step) => (
-                            <div
-                              key={step.step}
-                              className="border border-white/5 bg-[#141418] p-3 font-mono text-xs"
-                            >
-                              <span className="text-[#d4d4d8] font-bold block text-[11px] mb-1">
-                                {step.step} // {step.title}
-                              </span>
-                              <p className="text-[#71717a] text-[11px] leading-relaxed">
-                                {step.description}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* System Impact & Architecture */}
-                    {project.impact && (
-                      <div className="pt-2 border-l border-white/20 pl-4 font-mono text-xs text-[#d4d4d8]">
-                        <span className="text-[#a1a1aa] block text-[10px] uppercase tracking-wider mb-1">
-                          IMPLEMENTATION &amp; OUTCOMES
-                        </span>
-                        <p className="leading-relaxed">{project.impact}</p>
-                      </div>
-                    )}
-
-                    {/* Problem / Solution Narrative */}
-                    {(project.challenge || project.solution) && (
-                      <div className="pt-2 grid sm:grid-cols-2 gap-4 text-xs font-mono text-[#8e8e93]">
-                        {project.challenge && (
-                          <div className="border-l border-white/10 pl-3">
-                            <span className="text-[#a1a1aa] block uppercase text-[10px]">CHALLENGE</span>
-                            <span className="text-[#d4d4d8] leading-relaxed mt-1 block">
-                              {project.challenge}
-                            </span>
-                          </div>
-                        )}
-                        {project.solution && (
-                          <div className="border-l border-white/10 pl-3">
-                            <span className="text-[#a1a1aa] block uppercase text-[10px]">SOLUTION</span>
-                            <span className="text-[#d4d4d8] leading-relaxed mt-1 block">
-                              {project.solution}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Right Column: Stack & Action Links */}
-                  <div className="lg:col-span-4 flex flex-col justify-between h-full border-t lg:border-t-0 lg:border-l border-white/5 pt-6 lg:pt-0 lg:pl-8 space-y-6">
-                    <div>
-                      <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block mb-3">
-                        TECHNOLOGIES EMPLOYED
-                      </span>
-                      <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
-                        {project.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="border border-white/10 bg-white/5 px-2.5 py-1 text-[#d4d4d8]"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
+                <p className="border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#a1a1aa] uppercase tracking-wider">[{String(idx + 1).padStart(2, '0')}] / {project.category}</p>
+                <div className={isCrm ? 'grid lg:grid-cols-2 gap-8 items-start' : ''}>
+                  <div className="space-y-4">
+                    <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#f4f4f2] tracking-tight">{project.title}</h3>
+                    <p className="font-space text-sm sm:text-base text-[#a1a1aa] leading-relaxed">{project.description}</p>
+                    <p className="font-space text-sm text-[#d4d4d8] leading-relaxed"><strong className="text-white">My contribution:</strong> {project.contribution}</p>
+                    <div className="flex flex-wrap gap-3 pt-2 font-mono text-xs">
+                      {project.caseStudy && <Link to={project.caseStudy} className="border border-white bg-white px-4 py-3 text-black font-semibold hover:bg-[#d4d4d8] transition">{isCrm ? 'Explore the 30-second walkthrough →' : 'View assignment & evidence →'}</Link>}
+                      {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer" className="border border-white/20 px-4 py-3 text-white hover:border-white transition">{isCrm ? 'Open production login ↗' : 'Open live project ↗'}</a>}
+                      {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="border border-white/10 px-4 py-3 text-[#a1a1aa] hover:text-white hover:border-white/40 transition">Inspect source ↗</a>}
                     </div>
-
-                    {/* Action Links & Demo Note */}
-                    <div className="space-y-3 font-mono text-xs">
-                      {project.demoNote && (
-                        <p className="text-[11px] text-[#71717a] leading-tight">
-                          {project.demoNote}
-                        </p>
-                      )}
-                      <div className="flex flex-wrap gap-3">
-                        {isCrm && (
-                          <Link
-                            to="/projects/indie-crm"
-                            className="border border-white bg-white text-black font-semibold px-4 py-2 hover:bg-[#d4d4d8] transition"
-                          >
-                            EXPLORE THE WALKTHROUGH →
-                          </Link>
-                        )}
-                        {project.demo && (
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="border border-white/20 bg-white/10 px-4 py-2 text-white hover:bg-white hover:text-black transition"
-                          >
-                            {isCrm ? 'Open production login ↗' : 'Open live project ↗'}
-                          </a>
-                        )}
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="border border-white/10 px-4 py-2 text-[#a1a1aa] hover:border-white/40 hover:text-white transition"
-                          >
-                            SOURCE CODE →
-                          </a>
-                        )}
-                      </div>
+                    {project.demoNote && <p className="font-mono text-[11px] text-[#a1a1aa] leading-relaxed">{project.demoNote}</p>}
+                  </div>
+                  {isCrm && <CrmPreview />}
+                </div>
+                <details className="mt-6 border-t border-white/10 pt-5 font-space text-sm text-[#a1a1aa]">
+                  <summary className="cursor-pointer font-mono text-xs text-[#d4d4d8] hover:text-white">Implementation &amp; evidence</summary>
+                  <div className="grid md:grid-cols-2 gap-6 mt-6 leading-relaxed">
+                    <div className="space-y-4">
+                      {project.challenge && <div><h4 className="text-white font-semibold mb-2">The assignment</h4><p>{project.challenge}</p></div>}
+                      {project.solution && <div><h4 className="text-white font-semibold mb-2">Implementation</h4><p>{project.solution}</p></div>}
+                      {project.deliverables && <div><h4 className="text-white font-semibold mb-2">Delivered</h4><ul className="list-disc pl-5 space-y-1">{project.deliverables.map((item) => <li key={item}>{item}</li>)}</ul></div>}
+                    </div>
+                    <div className="space-y-4">
+                      {project.businessValue && <div><h4 className="text-white font-semibold mb-2">Why this work matters</h4><p>{project.businessValue}</p></div>}
+                      {project.impact && <div><h4 className="text-white font-semibold mb-2">Implementation &amp; outcomes</h4><p>{project.impact}</p></div>}
+                      {project.evidenceNote && <p className="border-l-2 border-white/20 pl-4">{project.evidenceNote}</p>}
                     </div>
                   </div>
-                </div>
+                  <div className="flex flex-wrap gap-2 mt-6 font-mono text-[11px]">{project.tech.map((item) => <span key={item} className="border border-white/10 px-2.5 py-1 text-[#d4d4d8]">{item}</span>)}</div>
+                </details>
               </motion.article>
             );
           })}
@@ -762,7 +628,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 <div className="md:col-span-7 space-y-6">
                   <div>
                     <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2 font-bold">
-                      [DESIGN SUMMARY]
+                      [ASSIGNMENT &amp; MY ROLE]
                     </h5>
                     <p className="text-sm leading-relaxed text-[#d4d4d8]">
                       {activeDesignModal.description}
@@ -782,6 +648,12 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                         </li>
                       ))}
                     </ul>
+                  </div>
+
+                  <div className="border border-white/10 p-4">
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2 font-bold">[FOR A SIMILAR COMMISSION]</h5>
+                    <p className="text-sm leading-relaxed text-[#d4d4d8]">Start with your product and variant list, launch date, and your printer’s carton dimensions or dieline. Share any existing logo and product copy; I can develop the packaging layout, variant system, and copy with you.</p>
+                    <p className="mt-3 text-xs leading-relaxed text-[#a1a1aa]">The handoff can include coordinated front and information panels, variant artwork, and print-ready files for your printer. We agree the deliverables around your production brief.</p>
                   </div>
                 </div>
 
@@ -810,13 +682,13 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                         VIEW PRODUCTION SITE ↗
                       </a>
                     )}
-                    <a
-                      href="#contact"
+                    <Link
+                      to="/#contact"
                       onClick={closeModal}
                       className="text-center border border-white/20 bg-white/5 py-3 text-white hover:bg-white hover:text-black transition"
                     >
                       COMMISSION PACKAGING DESIGN →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
+import CrmTeamPreview from '../components/CrmTeamPreview';
 import './case-study.css';
 
 const chapters = [
@@ -16,6 +17,7 @@ export default function IndieCrmPage() {
   const project = projects[0];
   const [elapsed, setElapsed] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [tourRun, setTourRun] = useState(0);
   const [query, setQuery] = useState('brand refresh');
   const [submittedQuery, setSubmittedQuery] = useState('brand refresh');
   const chapterIndex = chapters.reduce((selected, chapter, index) => elapsed >= chapter.at ? index : selected, 0);
@@ -55,7 +57,9 @@ export default function IndieCrmPage() {
         <h1>Indie CRM</h1>
         <p className="case-deck">From the first inquiry to a follow-up worth remembering.</p>
         <p>A CRM for freelancers and small teams who need their leads, conversations, and next actions in one workspace.</p>
+        <p><strong>My contribution:</strong> {project.contribution}</p>
         <a href="#walkthrough" className="case-inline-link">Explore the 30-second walkthrough ↓</a>
+        <a href={project.github} target="_blank" rel="noopener noreferrer" className="case-inline-link case-source-link">Inspect the public source ↗</a>
       </header>
 
       <section id="walkthrough" className="crm-walkthrough" aria-labelledby="walkthrough-title">
@@ -66,14 +70,14 @@ export default function IndieCrmPage() {
         <p className="walkthrough-disclosure">Interactive reconstruction · fictional sample data · runs locally in this page. Actual application screenshots follow each chapter.</p>
         <div className="walkthrough-controls">
           <button className="case-primary" onClick={() => {
-            if (elapsed === duration) setElapsed(0);
+            if (elapsed === duration) { setElapsed(0); setTourRun((value) => value + 1); }
             setPlaying((value) => !value);
           }}>{playing ? 'Pause walkthrough' : elapsed === duration ? 'Replay walkthrough' : elapsed > 0 ? 'Resume walkthrough' : 'Play 30-second walkthrough'} {playing ? 'Ⅱ' : '▶'}</button>
           <span className="case-time" aria-hidden="true">{timeLabel(elapsed)} / {timeLabel(duration)}</span>
           <label className="sr-only" htmlFor="walkthrough-progress">Walkthrough position in seconds</label>
           <input id="walkthrough-progress" type="range" min="0" max={duration} value={elapsed} onChange={(event) => seek(Number(event.target.value))} aria-valuetext={`${elapsed} of ${duration} seconds`} />
           <button className="case-secondary" disabled={elapsed === duration} onClick={() => seek(chapterEnd)}>{nextChapter ? 'Next chapter →' : 'Finish tour'}</button>
-          <button className="case-secondary" onClick={() => { seek(0); setQuery('brand refresh'); setSubmittedQuery('brand refresh'); }}>Reset</button>
+          <button className="case-secondary" onClick={() => { seek(0); setTourRun((value) => value + 1); setQuery('brand refresh'); setSubmittedQuery('brand refresh'); }}>Reset</button>
         </div>
         <p className="walkthrough-next" aria-live="off">{elapsed === duration ? 'Tour complete. Replay it or explore any chapter.' : playing ? nextChapter ? `Next: ${nextChapter.title} in ${chapterEnd - elapsed}s` : `Tour finishes in ${duration - elapsed}s` : 'Play the tour, or choose any chapter to jump ahead.'}</p>
         <div className="walkthrough-chapters" role="group" aria-label="Walkthrough chapters">
@@ -125,6 +129,7 @@ export default function IndieCrmPage() {
             )}
           </div>
         </div>
+        <CrmTeamPreview key={tourRun} currentStage={qualified ? 'Qualified' : 'New'} />
         <details open className="actual-screenshot">
           <summary>View the actual {chapter.title.toLowerCase()} screen ↗</summary>
           <figure>
@@ -137,6 +142,17 @@ export default function IndieCrmPage() {
       <section className="case-ownership" aria-labelledby="ownership-title">
         <div><p className="case-eyebrow">MY CONTRIBUTION</p><h2 id="ownership-title">Built across the product.</h2></div>
         <div><p>I designed and built the application interface, workspace authentication and membership checks, the PostgreSQL/Prisma data model, and the lead-management actions.</p><p>I also implemented conversation-memory search, AI tagging and reply assistance, recorded AI provenance, webhook intake, and the deployment setup.</p><p className="case-muted">Next.js, Auth.js, Prisma, and OpenAI provide the framework, authentication, data access, and model services.</p></div>
+      </section>
+
+      <section className="case-implementation" aria-labelledby="inspection-title">
+        <p className="case-eyebrow">INSPECT THE IMPLEMENTATION</p>
+        <h2 id="inspection-title">Permissions and writes live on the server.</h2>
+        <p className="case-muted">The public source checks the current workspace and role before a workflow update, scopes the write to that tenant, records an audit event, and revalidates affected routes.</p>
+        <div className="case-notes-grid">
+          <article><h3>Who can do what?</h3><div className="permission-table-wrap"><table className="permission-table"><caption>Workspace capabilities from the public role matrix</caption><thead><tr><th scope="col">Action</th><th scope="col">Member</th><th scope="col">Admin</th><th scope="col">Owner</th></tr></thead><tbody><tr><th scope="row">Read / edit leads</th><td>Yes</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Add notes</th><td>Yes</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Delete leads</th><td>No</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Manage members</th><td>No</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Manage owners</th><td>No</td><td>No</td><td>Yes</td></tr></tbody></table></div><a className="case-inline-link" href="https://github.com/Isaac-ek/Indie-CRM/blob/main/src/lib/rbac.ts" target="_blank" rel="noopener noreferrer">Read the role matrix ↗</a></article>
+          <article><h3>Follow the actual write.</h3><p>The workflow action uses both the lead ID and workspace tenant ID in its database update. Workspace membership is resolved for the authenticated user before this action.</p><ul className="case-source-list"><li><a href="https://github.com/Isaac-ek/Indie-CRM/blob/main/src/lib/lead-actions.ts#L265" target="_blank" rel="noopener noreferrer">Workflow action and tenant-scoped write ↗</a></li><li><a href="https://github.com/Isaac-ek/Indie-CRM/blob/main/src/lib/workspaces.ts" target="_blank" rel="noopener noreferrer">Workspace membership checks ↗</a></li><li><a href="https://github.com/Isaac-ek/Indie-CRM/blob/main/test/rbac.test.ts" target="_blank" rel="noopener noreferrer">Permission tests and denied actions ↗</a></li></ul></article>
+        </div>
+        <p className="case-evidence-note">The sample above illustrates the behavior. These source files and tests expose the implementation for review; the sample is not a test of two live authenticated sessions.</p>
       </section>
 
       <section className="case-implementation" aria-labelledby="implementation-title">

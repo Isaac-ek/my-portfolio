@@ -37,7 +37,7 @@ const Contact = () => {
 
   return (
     <section
-      className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-24 border-t border-white/10"
+      className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-24 border-t border-white/10 scroll-mt-24"
       id="contact"
     >
       {/* Header */}
