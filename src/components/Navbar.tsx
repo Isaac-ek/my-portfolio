@@ -53,14 +53,14 @@ const Navbar = () => {
       }`}
     >
       {/* Top micro-meta running ticker bar */}
-      <div className="hidden md:flex items-center justify-between px-6 py-1.5 border-b border-white/5 text-[10px] font-mono tracking-widest text-[#8e8e93] uppercase">
+      <div className="hidden md:flex items-center justify-between px-6 py-1.5 border-b border-white/5 text-[11px] font-mono tracking-wider text-[#a1a1aa] uppercase">
         <div className="flex items-center gap-4">
           <span>PORTFOLIO VOL. 26</span>
           <span className="text-white/20">/</span>
           <span>NIGERIA [09.0765° N, 07.3986° E]</span>
         </div>
         <div className="flex items-center gap-4">
-          <span className="inline-flex items-center gap-1.5 text-emerald-400">
+          <span className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
             AVAILABLE FOR HIRE &amp; COMMISSIONS
           </span>
@@ -77,25 +77,25 @@ const Navbar = () => {
           className="group flex flex-col leading-none"
           aria-label="Home"
         >
-          <span className="font-syne font-extrabold text-xl sm:text-2xl tracking-tighter text-[#f4f4f2] group-hover:text-white transition">
+          <span className="font-syne font-extrabold text-xl sm:text-2xl tracking-tight text-[#f4f4f2] group-hover:text-white transition">
             CHIEMELIE EKEZIE
           </span>
-          <span className="font-mono text-[9px] tracking-widest text-[#8e8e93] uppercase mt-1">
-            SOFTWARE ENGINEER &amp; VISUAL DESIGNER
+          <span className="font-mono text-[10px] tracking-wider text-[#a1a1aa] uppercase mt-1">
+            FULL-STACK ENGINEER &amp; VISUAL DESIGNER
           </span>
         </Link>
 
         {/* Desktop Links & Theme Toggle */}
         <div className="hidden lg:flex items-center gap-8">
-          <nav className="flex items-center gap-8">
+          <nav className="flex items-center gap-7">
             {navLinks.map((link) => (
               <Link
                 key={link.id}
                 to={link.href}
                 onClick={(e) => handleNavClick(e, link)}
-                className="group flex items-baseline gap-2 font-mono text-xs font-medium tracking-wider text-[#a1a1aa] hover:text-white transition"
+                className="group flex items-baseline gap-1.5 font-mono text-xs font-medium tracking-normal text-[#d4d4d8] hover:text-white transition"
               >
-                <span className="text-[10px] text-[#71717a] group-hover:text-white">
+                <span className="text-[11px] text-[#71717a] group-hover:text-[#a1a1aa]">
                   [{link.id}]
                 </span>
                 <span className="border-b border-transparent group-hover:border-white transition-all pb-0.5">
@@ -108,7 +108,7 @@ const Navbar = () => {
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="flex items-center gap-2 border border-white/20 bg-white/5 hover:border-white hover:bg-white hover:text-black px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[#d4d4d8] transition-all"
+            className="flex items-center gap-2 border border-white/20 bg-white/5 hover:border-white hover:bg-white hover:text-black px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-[#f4f4f2] transition-all"
             aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
           >

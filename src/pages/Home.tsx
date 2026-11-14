@@ -8,8 +8,8 @@ import SocialLinks from '../components/SocialLinks';
 const Home = () => (
   <main className="pt-0">
     <Hero id="hero" />
-    <About id="about" />
     <Works id="projects" />
+    <About id="about" />
     <Skills id="skills" />
     <Contact />
     <SocialLinks />

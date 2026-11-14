@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projects } from '../data/projects';
+import { useSearchParams } from 'react-router-dom';
+import { projects, type Project } from '../data/projects';
 import {
   designs,
   type Design,
@@ -9,32 +10,77 @@ import {
 
 /* ── Editorial Works Component ────────────────────────────── */
 const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
-  const [tab, setTab] = useState<'software' | 'design'>('software');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [tab, setTab] = useState<'featured' | 'software' | 'design'>('featured');
   const [activeDesignModal, setActiveDesignModal] = useState<Design | null>(null);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState<string>('');
   const [selectedVariantId, setSelectedVariantId] = useState<string>('');
 
-  // Listen for the navbar "Design" link click
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
+
+  // Synchronize modal state with URL search param "?case=<id>" for shareable URLs
+  useEffect(() => {
+    const caseId = searchParams.get('case');
+    if (caseId) {
+      const match = designs.find((d) => d.id === caseId);
+      if (match) {
+        setActiveDesignModal(match);
+        if (match.variants && match.variants.length > 0) {
+          setSelectedVariantId(match.variants[0].id);
+          setSelectedGalleryImage(match.variants[0].image);
+        } else {
+          setSelectedVariantId('');
+          setSelectedGalleryImage(match.image || '');
+        }
+      }
+    } else {
+      setActiveDesignModal(null);
+    }
+  }, [searchParams]);
+
+  // Listen for the navbar "Graphic Design" link click
   useEffect(() => {
     const handler = () => setTab('design');
     window.addEventListener('nav-design-tab', handler);
     return () => window.removeEventListener('nav-design-tab', handler);
   }, []);
 
-  const openDesignModal = (design: Design) => {
-    setActiveDesignModal(design);
-    if (design.variants && design.variants.length > 0) {
-      setSelectedVariantId(design.variants[0].id);
-      setSelectedGalleryImage(design.variants[0].image);
-    } else {
-      setSelectedVariantId('');
-      setSelectedGalleryImage(design.image || '');
+  const closeModal = useCallback(() => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('case');
+    setSearchParams(newParams, { replace: false });
+    setActiveDesignModal(null);
+
+    // Return focus to trigger button
+    setTimeout(() => {
+      lastFocusedElementRef.current?.focus();
+    }, 50);
+  }, [searchParams, setSearchParams]);
+
+  // Manage accessibility focus & escape key when modal opens/closes
+  useEffect(() => {
+    if (activeDesignModal) {
+      closeBtnRef.current?.focus();
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
     }
-  };
+  }, [activeDesignModal, closeModal]);
 
   const currentVariant: DesignVariant | undefined =
     activeDesignModal?.variants?.find((v) => v.id === selectedVariantId) ||
     activeDesignModal?.variants?.[0];
+
+  const flagshipProject: Project = projects[0]; // Indie CRM
+  const flagshipDesign: Design = designs[0]; // Dr Kayla Clinical Soaps
 
   return (
     <section
@@ -45,7 +91,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
       {/* Editorial Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 mb-12 gap-6">
         <div>
-          <span className="font-mono text-[11px] tracking-widest text-[#71717a] uppercase block mb-2">
+          <span className="font-mono text-[11px] tracking-widest text-[#a1a1aa] uppercase block mb-2">
             [INDEX / 01] • ARCHIVE OF RECENT COMMISSIONS
           </span>
           <h2 className="font-syne font-extrabold text-4xl sm:text-6xl text-[#f4f4f2] tracking-tight uppercase">
@@ -53,32 +99,213 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
           </h2>
         </div>
 
-        {/* Editorial Tab Switcher */}
-        <div className="flex items-center gap-2 font-mono text-xs">
+        {/* Editorial 3-Tab Switcher */}
+        <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
           <button
-            onClick={() => setTab('software')}
-            className={`px-5 py-3 border transition-colors ${
-              tab === 'software'
+            onClick={() => setTab('featured')}
+            className={`px-4 py-3 border transition-colors ${
+              tab === 'featured'
                 ? 'border-white bg-white text-black font-semibold'
-                : 'border-white/10 text-[#a1a1aa] hover:border-white/30 hover:text-white'
+                : 'border-white/10 text-[#d4d4d8] hover:border-white/30 hover:text-white'
             }`}
           >
-            [01] SOFTWARE &amp; SYSTEMS
+            [01] FEATURED (DUAL SPOTLIGHT)
+          </button>
+          <button
+            onClick={() => setTab('software')}
+            className={`px-4 py-3 border transition-colors ${
+              tab === 'software'
+                ? 'border-white bg-white text-black font-semibold'
+                : 'border-white/10 text-[#d4d4d8] hover:border-white/30 hover:text-white'
+            }`}
+          >
+            [02] SOFTWARE &amp; SYSTEMS ({projects.length})
           </button>
           <button
             onClick={() => setTab('design')}
-            className={`px-5 py-3 border transition-colors ${
+            className={`px-4 py-3 border transition-colors ${
               tab === 'design'
                 ? 'border-white bg-white text-black font-semibold'
-                : 'border-white/10 text-[#a1a1aa] hover:border-white/30 hover:text-white'
+                : 'border-white/10 text-[#d4d4d8] hover:border-white/30 hover:text-white'
             }`}
           >
-            [02] GRAPHIC DESIGN &amp; BRAND
+            [03] GRAPHIC DESIGN &amp; BRAND ({designs.length})
           </button>
         </div>
       </div>
 
-      {/* Tab 1: Software & Systems */}
+      {/* ── Tab 0: Featured Dual Spotlight (Priority 1: Software + Packaging Side by Side) ── */}
+      {tab === 'featured' && (
+        <div className="space-y-16">
+          <div className="border border-white/10 bg-white/[0.02] p-4 sm:p-6 font-mono text-xs text-[#a1a1aa] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-white font-semibold">DUAL-DISCIPLINE PORTFOLIO SHOWCASE:</span> Leading with flagship engineering alongside physical print production dielines.
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setTab('software')}
+                className="underline hover:text-white"
+              >
+                All Software ({projects.length}) →
+              </button>
+              <span className="text-white/20">|</span>
+              <button
+                onClick={() => setTab('design')}
+                className="underline hover:text-white"
+              >
+                All Packaging ({designs.length}) →
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+            {/* 1. Flagship Engineering Project (Indie CRM) */}
+            <article className="border border-white/10 bg-[#0e0e11] p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-white/30 transition-colors">
+              <div>
+                <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4 font-mono text-xs text-[#71717a]">
+                  <span className="text-emerald-400 font-medium">● 01 / FULL-STACK PLATFORM</span>
+                  <span className="border border-white/10 px-2 py-0.5 text-[11px] text-[#a1a1aa]">
+                    PRODUCTION SAAS
+                  </span>
+                </div>
+
+                <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#f4f4f2] tracking-tight">
+                  {flagshipProject.title}
+                </h3>
+                <p className="font-space text-sm text-[#a1a1aa] leading-relaxed mt-3">
+                  {flagshipProject.description}
+                </p>
+
+                {/* Walkthrough Architecture Steps */}
+                {flagshipProject.walkthrough && (
+                  <div className="mt-6 border-t border-white/10 pt-5 space-y-3">
+                    <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block">
+                      CORE ARCHITECTURE &amp; WORKFLOW WALKTHROUGH
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                      {flagshipProject.walkthrough.map((step) => (
+                        <div
+                          key={step.step}
+                          className="border border-white/5 bg-[#141418] p-3 font-mono text-xs"
+                        >
+                          <span className="text-[#a1a1aa] font-bold block text-[11px] mb-1">
+                            {step.step} // {step.title}
+                          </span>
+                          <p className="text-[#71717a] text-[11px] leading-relaxed">
+                            {step.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Tech Badges */}
+                <div className="mt-6 flex flex-wrap gap-1.5 font-mono text-[11px]">
+                  {flagshipProject.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="border border-white/10 bg-white/5 px-2.5 py-1 text-[#d4d4d8]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Links & Demo Note */}
+              <div className="border-t border-white/10 pt-5 space-y-3 font-mono text-xs">
+                {flagshipProject.demoNote && (
+                  <p className="text-[11px] text-[#71717a] leading-tight">
+                    <span className="text-[#a1a1aa]">Notice:</span> {flagshipProject.demoNote}
+                  </p>
+                )}
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={flagshipProject.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-white bg-white text-black font-semibold px-5 py-2.5 hover:bg-[#d4d4d8] transition inline-flex items-center gap-2"
+                  >
+                    <span>OPEN LIVE INSTANCE ↗</span>
+                  </a>
+                  <button
+                    onClick={() => setTab('software')}
+                    className="border border-white/15 px-4 py-2.5 text-[#a1a1aa] hover:border-white/40 hover:text-white transition"
+                  >
+                    INSPECT SYSTEM SPECS →
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            {/* 2. Flagship Packaging Collection (Dr Kayla Clinical Soaps) */}
+            <article className="border border-white/10 bg-[#0e0e11] p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-white/30 transition-colors">
+              <div>
+                <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4 font-mono text-xs text-[#71717a]">
+                  <span className="text-amber-400 font-medium">● 02 / PRINT &amp; PACKAGING</span>
+                  <span className="border border-white/10 px-2 py-0.5 text-[11px] text-[#a1a1aa]">
+                    7 FORMULAS • CMYK DIELINES
+                  </span>
+                </div>
+
+                <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#f4f4f2] tracking-tight">
+                  {flagshipDesign.title}
+                </h3>
+                <p className="font-space text-sm text-[#a1a1aa] leading-relaxed mt-3">
+                  {flagshipDesign.description}
+                </p>
+
+                {/* Visual Specimen Preview */}
+                <div className="mt-5 border border-white/10 bg-[#121216] p-4 relative overflow-hidden group/specimen">
+                  <img
+                    src={flagshipDesign.image}
+                    alt={flagshipDesign.title}
+                    className="max-h-52 w-full object-contain filter drop-shadow-md mx-auto"
+                  />
+                  <div className="mt-3 flex items-center justify-between font-mono text-[11px] text-[#71717a] pt-2 border-t border-white/5">
+                    <span>Client: {flagshipDesign.client}</span>
+                    <span className="text-[#d4d4d8]">Folding Carton (20.8 x 21.4 cm)</span>
+                  </div>
+                </div>
+
+                {/* Formula Palette Dots */}
+                <div className="mt-5 flex items-center gap-2 flex-wrap">
+                  <span className="font-mono text-[10px] tracking-wider text-[#a1a1aa] uppercase mr-1">
+                    FORMULAS:
+                  </span>
+                  {flagshipDesign.variants?.map((v) => (
+                    <span
+                      key={v.id}
+                      className="border border-white/15 px-2 py-0.5 font-mono text-[10px] text-[#d4d4d8] flex items-center gap-1.5"
+                    >
+                      <span
+                        className="h-2 w-2 rounded-full"
+                        style={{ backgroundColor: v.accent }}
+                      />
+                      {v.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Semantic Action Button */}
+              <div className="border-t border-white/10 pt-5 font-mono text-xs">
+                <button
+                  type="button"
+                  aria-haspopup="dialog"
+                  onClick={(e) => openDesignModal(flagshipDesign, e.currentTarget)}
+                  className="w-full border border-white/20 bg-white/10 hover:border-white hover:bg-white hover:text-black py-3 text-center text-[#f4f4f2] font-semibold transition"
+                >
+                  View case study →
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      )}
+
+      {/* ── Tab 1: Software & Systems ── */}
       {tab === 'software' && (
         <div className="space-y-12">
           {projects.map((project, idx) => {
@@ -118,13 +345,37 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                       {project.description}
                     </p>
 
+                    {/* Walkthrough (e.g. for Indie CRM) */}
+                    {project.walkthrough && (
+                      <div className="pt-2 border-t border-white/10 mt-4 space-y-3">
+                        <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block">
+                          SYSTEM ARCHITECTURE &amp; WORKFLOW WALKTHROUGH
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {project.walkthrough.map((step) => (
+                            <div
+                              key={step.step}
+                              className="border border-white/5 bg-[#141418] p-3 font-mono text-xs"
+                            >
+                              <span className="text-[#d4d4d8] font-bold block text-[11px] mb-1">
+                                {step.step} // {step.title}
+                              </span>
+                              <p className="text-[#71717a] text-[11px] leading-relaxed">
+                                {step.description}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {/* System Impact & Architecture */}
                     {project.impact && (
                       <div className="pt-2 border-l border-white/20 pl-4 font-mono text-xs text-[#d4d4d8]">
-                        <span className="text-[#71717a] block text-[10px] uppercase tracking-wider mb-1">
-                          SYSTEM IMPACT &amp; ARCHITECTURE
+                        <span className="text-[#a1a1aa] block text-[10px] uppercase tracking-wider mb-1">
+                          SYSTEM IMPACT &amp; VERIFIED OUTCOMES
                         </span>
-                        <p>{project.impact}</p>
+                        <p className="leading-relaxed">{project.impact}</p>
                       </div>
                     )}
 
@@ -154,7 +405,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   {/* Right Column: Stack & Action Links */}
                   <div className="lg:col-span-4 flex flex-col justify-between h-full border-t lg:border-t-0 lg:border-l border-white/5 pt-6 lg:pt-0 lg:pl-8 space-y-6">
                     <div>
-                      <span className="font-mono text-[10px] tracking-widest text-[#71717a] uppercase block mb-3">
+                      <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block mb-3">
                         TECHNOLOGIES EMPLOYED
                       </span>
                       <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
@@ -169,28 +420,35 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                       </div>
                     </div>
 
-                    {/* Action Links */}
-                    <div className="flex flex-wrap gap-3 font-mono text-xs">
-                      {project.demo && (
-                        <a
-                          href={project.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="border border-white/20 bg-white text-black font-semibold px-4 py-2 hover:bg-[#d4d4d8] transition"
-                        >
-                          VISIT PLATFORM ↗
-                        </a>
+                    {/* Action Links & Demo Note */}
+                    <div className="space-y-3 font-mono text-xs">
+                      {project.demoNote && (
+                        <p className="text-[11px] text-[#71717a] leading-tight">
+                          {project.demoNote}
+                        </p>
                       )}
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="border border-white/10 px-4 py-2 text-[#a1a1aa] hover:border-white/40 hover:text-white transition"
-                        >
-                          SOURCE CODE →
-                        </a>
-                      )}
+                      <div className="flex flex-wrap gap-3">
+                        {project.demo && (
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border border-white/20 bg-white text-black font-semibold px-4 py-2 hover:bg-[#d4d4d8] transition"
+                          >
+                            VISIT PLATFORM ↗
+                          </a>
+                        )}
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border border-white/10 px-4 py-2 text-[#a1a1aa] hover:border-white/40 hover:text-white transition"
+                          >
+                            SOURCE CODE →
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -200,21 +458,17 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
         </div>
       )}
 
-      {/* Tab 2: Graphic Design & Brand Identity */}
+      {/* ── Tab 2: Graphic Design & Brand Identity ── */}
       {tab === 'design' && (
         <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {designs.map((design, idx) => {
               const indexStr = String(idx + 1).padStart(2, '0');
               const hasVariants = design.variants && design.variants.length > 0;
               return (
-                <motion.div
+                <article
                   key={design.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  onClick={() => openDesignModal(design)}
-                  className="group cursor-pointer border border-white/10 bg-[#0e0e11] flex flex-col transition-all duration-300 hover:border-white/40"
+                  className="group border border-white/10 bg-[#0e0e11] flex flex-col transition-all duration-300 hover:border-white/40"
                 >
                   {/* Poster Header */}
                   <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 font-mono text-xs text-[#71717a]">
@@ -255,7 +509,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                     {/* Multi-variant formula pill teaser */}
                     {hasVariants && (
                       <div className="absolute top-3 left-3 bg-[#08080a]/90 backdrop-blur border border-white/15 px-2 py-1 font-mono text-[10px] text-[#d4d4d8]">
-                        ✦ CLICK TO INSPECT ALL {design.variants!.length} DIELINES
+                        ✦ {design.variants!.length} DIELINES READY TO INSPECT
                       </div>
                     )}
 
@@ -268,11 +522,6 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                           style={{ backgroundColor: color }}
                         />
                       ))}
-                    </div>
-
-                    {/* Hover Inspect Stamp */}
-                    <div className="absolute inset-0 bg-[#08080a]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center font-mono text-xs tracking-widest text-white border border-white/40 m-4 z-20">
-                      [VIEW CASE DOSSIER ↗]
                     </div>
                   </div>
 
@@ -301,28 +550,41 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                       )}
                     </div>
 
-                    <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-[11px] text-[#71717a]">
-                      <span>{design.client || 'INDEPENDENT'}</span>
-                      <span className="text-[#f4f4f2] group-hover:underline">INSPECT →</span>
+                    <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                      <span className="text-[#71717a] text-[11px]">{design.client || 'INDEPENDENT'}</span>
+                      <button
+                        type="button"
+                        aria-haspopup="dialog"
+                        onClick={(e) => openDesignModal(design, e.currentTarget)}
+                        className="border border-white/20 bg-white/5 hover:bg-white hover:text-black hover:border-white px-4 py-2 font-mono text-xs font-semibold text-white transition"
+                      >
+                        View case study →
+                      </button>
                     </div>
                   </div>
-                </motion.div>
+                </article>
               );
             })}
           </div>
         </div>
       )}
 
-      {/* Case Study Modal with Interactive Formula Switcher */}
+      {/* ── Case Study Modal with Shareable URL & Focus Trap (Priority 5) ── */}
       <AnimatePresence>
         {activeDesignModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-12">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="case-study-title"
+            ref={modalRef}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-12"
+          >
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setActiveDesignModal(null)}
+              onClick={closeModal}
               className="absolute inset-0 bg-[#08080a]/90 backdrop-blur-md"
             />
 
@@ -331,14 +593,19 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative z-10 max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-white/20 bg-[#0e0e11] p-6 sm:p-10 font-space text-[#f4f4f2]"
+              className="relative z-10 max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-white/20 bg-[#0e0e11] p-6 sm:p-10 font-space text-[#f4f4f2] shadow-2xl"
             >
-              {/* Top Bar */}
+              {/* Top Bar with Semantic Close Button */}
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#71717a]">
-                <span>[CASE STUDY DOSSIER] • {activeDesignModal.category}</span>
+                <div className="flex items-center gap-2">
+                  <span>[CASE STUDY DOSSIER] • {activeDesignModal.category}</span>
+                  <span className="text-[#a1a1aa]">• SHAREABLE URL ACTIVE</span>
+                </div>
                 <button
-                  onClick={() => setActiveDesignModal(null)}
-                  className="font-mono text-xs border border-white/20 px-3 py-1 hover:bg-white hover:text-black transition"
+                  ref={closeBtnRef}
+                  onClick={closeModal}
+                  aria-label="Close case study dialog"
+                  className="font-mono text-xs border border-white/20 px-3 py-1 text-white hover:bg-white hover:text-black transition"
                 >
                   CLOSE [✕]
                 </button>
@@ -346,7 +613,10 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
 
               {/* Title & Metadata */}
               <div className="space-y-2">
-                <h3 className="font-syne font-extrabold text-3xl sm:text-5xl tracking-tight text-white">
+                <h3
+                  id="case-study-title"
+                  className="font-syne font-extrabold text-3xl sm:text-5xl tracking-tight text-white"
+                >
                   {activeDesignModal.title}
                 </h3>
                 {activeDesignModal.client && (
@@ -360,7 +630,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
               {activeDesignModal.variants && activeDesignModal.variants.length > 0 && (
                 <div className="mt-8 border-t border-b border-white/10 py-4">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] tracking-widest text-[#71717a] uppercase block">
+                    <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block">
                       SELECT FORMULA TO INSPECT DIELINE ({activeDesignModal.variants.length} TOTAL)
                     </span>
                     {currentVariant && (
@@ -375,6 +645,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                       return (
                         <button
                           key={v.id}
+                          type="button"
                           onClick={() => {
                             setSelectedVariantId(v.id);
                             setSelectedGalleryImage(v.image);
@@ -382,7 +653,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                           className={`flex items-center gap-2 px-3.5 py-2 font-mono text-xs border transition-all whitespace-nowrap ${
                             isSelected
                               ? 'border-white bg-white text-black font-bold shadow-lg'
-                              : 'border-white/10 bg-[#16161b] text-[#a1a1aa] hover:border-white/30 hover:text-white'
+                              : 'border-white/10 bg-[#16161b] text-[#d4d4d8] hover:border-white/30 hover:text-white'
                           }`}
                         >
                           <span
@@ -431,11 +702,11 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                             OPEN FULL-RES DIELINE ↗
                           </a>
                         </div>
-                        <p className="text-[#a1a1aa] text-[11px] leading-relaxed mb-2">
+                        <p className="text-[#d4d4d8] text-[11px] leading-relaxed mb-2">
                           {currentVariant.description}
                         </p>
-                        <div className="text-[11px] text-[#71717a]">
-                          <span className="text-[#d4d4d8] font-semibold">ACTIVE INGREDIENTS:</span> {currentVariant.actives}
+                        <div className="text-[11px] text-[#a1a1aa]">
+                          <span className="text-[#f4f4f2] font-semibold">ACTIVE INGREDIENTS:</span> {currentVariant.actives}
                         </div>
                       </div>
                     )}
@@ -451,10 +722,10 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   </div>
                 )}
 
-                {/* Variant Switcher Thumbnails if Gallery Exists without variants, or as visual gallery */}
+                {/* Variant Switcher Thumbnails if Gallery Exists */}
                 {activeDesignModal.gallery && activeDesignModal.gallery.length > 1 && (
                   <div className="mt-6 pt-4 border-t border-white/10">
-                    <span className="font-mono text-[10px] tracking-widest text-[#71717a] uppercase block mb-3">
+                    <span className="font-mono text-[10px] tracking-widest text-[#a1a1aa] uppercase block mb-3">
                       ALL PACKAGING DIELINE SHEETS ({activeDesignModal.gallery.length})
                     </span>
                     <div className="flex items-center justify-center gap-2.5 flex-wrap">
@@ -464,6 +735,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                         return (
                           <button
                             key={imgUrl}
+                            type="button"
                             onClick={() => {
                               setSelectedGalleryImage(imgUrl);
                               if (matchedVariant) {
@@ -501,7 +773,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                       className="flex items-center gap-2 border border-white/10 bg-[#08080a] px-3.5 py-1.5"
                     >
                       <span className="h-3.5 w-3.5 rounded-full" style={{ backgroundColor: hex }} />
-                      <span className="text-[#a1a1aa]">{hex}</span>
+                      <span className="text-[#d4d4d8]">{hex}</span>
                     </div>
                   ))}
                 </div>
@@ -511,7 +783,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
               <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-t border-white/10 pt-8">
                 <div className="md:col-span-7 space-y-6">
                   <div>
-                    <h5 className="font-mono text-xs text-[#71717a] uppercase tracking-wider mb-2">
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
                       [DESIGN SUMMARY]
                     </h5>
                     <p className="text-sm leading-relaxed text-[#d4d4d8]">
@@ -520,10 +792,10 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   </div>
 
                   <div>
-                    <h5 className="font-mono text-xs text-[#71717a] uppercase tracking-wider mb-3">
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-3">
                       [DELIVERABLES &amp; PRODUCTION SPECS]
                     </h5>
-                    <ul className="space-y-2 font-mono text-xs text-[#a1a1aa]">
+                    <ul className="space-y-2 font-mono text-xs text-[#d4d4d8]">
                       {activeDesignModal.deliverables.map((d) => (
                         <li key={d} className="flex items-start gap-2">
                           <span className="text-white">✦</span>
@@ -536,12 +808,12 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
 
                 <div className="md:col-span-5 space-y-6 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
                   <div>
-                    <h5 className="font-mono text-xs text-[#71717a] uppercase tracking-wider mb-2">
+                    <h5 className="font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
                       [SOFTWARE / TOOLS]
                     </h5>
                     <div className="flex flex-wrap gap-1.5 font-mono text-xs">
                       {activeDesignModal.tools.map((tool) => (
-                        <span key={tool} className="border border-white/10 bg-white/5 px-2.5 py-1">
+                        <span key={tool} className="border border-white/10 bg-white/5 px-2.5 py-1 text-[#d4d4d8]">
                           {tool}
                         </span>
                       ))}
@@ -561,8 +833,8 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                     )}
                     <a
                       href="#contact"
-                      onClick={() => setActiveDesignModal(null)}
-                      className="text-center border border-white/10 py-3 text-white hover:border-white transition"
+                      onClick={closeModal}
+                      className="text-center border border-white/20 bg-white/5 py-3 text-white hover:bg-white hover:text-black transition"
                     >
                       COMMISSION PACKAGING DESIGN →
                     </a>

@@ -12,8 +12,8 @@
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
   animation-name: particle-twinkle;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
@@ -21,16 +21,16 @@
   will-change: transform, opacity;
 }
 
-/* ☀️ Light Mode: crisp carbon/ink dots */
+/* ☀️ Light Mode: subtle carbon/ink dots */
 html:not(.dark) .particle {
-  background-color: rgba(14, 14, 18, 0.72);
-  box-shadow: 0 0 6px rgba(14, 14, 18, 0.25), 0 0 12px rgba(14, 14, 18, 0.1);
+  background-color: rgba(14, 14, 18, 0.32);
+  box-shadow: 0 0 3px rgba(14, 14, 18, 0.1);
 }
 
-/* Only animate opacity — JS owns transform exclusively */
+/* Only animate opacity — JS owns transform exclusively (gentle ambient twinkle) */
 @keyframes particle-twinkle {
-  0%, 100% { opacity: 0.18; }
-  50%       { opacity: 1;    }
+  0%, 100% { opacity: 0.1; }
+  50%       { opacity: 0.52; }
 }
 
 /* 🌠 Subtle Atmospheric Shooting Stars / Velocity Streaks */

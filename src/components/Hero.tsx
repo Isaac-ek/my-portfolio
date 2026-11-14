@@ -36,9 +36,9 @@ const Hero = (props: HTMLSectionProps) => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.6 }}
-        className="font-mono text-xs sm:text-sm tracking-widest text-[#a1a1aa] uppercase pt-4"
+        className="font-mono text-xs sm:text-sm tracking-widest text-[#d4d4d8] font-medium uppercase pt-4"
       >
-        FULL-STACK SOFTWARE ENGINEER &amp; DIGITAL INFRASTRUCTURE SPECIALIST
+        FULL-STACK ENGINEER &amp; VISUAL DESIGNER
       </motion.p>
     </div>
 
@@ -55,9 +55,9 @@ const Hero = (props: HTMLSectionProps) => (
           &ldquo;Software engineer with a typographer&rsquo;s eye and a systems-level obsession.&rdquo;
         </h2>
 
-        <p className="font-space text-base sm:text-lg leading-relaxed text-[#a1a1aa] max-w-2xl">
-          I build high-performance web applications and design visual identities with actual character.
-          Whether architecting Next.js frontends, engineering resilient Python microservices, or creating
+        <p className="font-space text-base sm:text-lg leading-relaxed text-[#d4d4d8] max-w-2xl">
+          I build high-performance web applications, resilient digital infrastructure, and visual identities with actual character.
+          Whether architecting Next.js frontends, engineering cloud microservices on AWS, or creating
           bespoke brand systems in Figma, I make sure the work is fast, bulletproof, and memorable.
         </p>
 

@@ -108,8 +108,8 @@ const Contact = () => {
             />
 
             <div>
-              <label htmlFor="name" className="block font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
-                01 // SENDER IDENTIFIER (YOUR NAME)
+              <label htmlFor="name" className="block font-mono text-xs font-semibold text-[#f4f4f2] uppercase tracking-wider mb-2">
+                Name
               </label>
               <input
                 id="name"
@@ -124,8 +124,8 @@ const Contact = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
-                02 // ELECTRONIC MAIL ADDRESS
+              <label htmlFor="email" className="block font-mono text-xs font-semibold text-[#f4f4f2] uppercase tracking-wider mb-2">
+                Email
               </label>
               <input
                 id="email"
@@ -140,8 +140,8 @@ const Contact = () => {
             </div>
 
             <div>
-              <label htmlFor="message" className="block font-mono text-xs text-[#a1a1aa] uppercase tracking-wider mb-2">
-                03 // PROJECT SCOPE OR INQUIRY
+              <label htmlFor="message" className="block font-mono text-xs font-semibold text-[#f4f4f2] uppercase tracking-wider mb-2">
+                Tell me about your project
               </label>
               <textarea
                 id="message"
@@ -158,9 +158,9 @@ const Contact = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full border border-white bg-white py-4 font-mono text-xs font-bold uppercase tracking-widest text-black transition hover:bg-[#d4d4d8] disabled:opacity-50"
+              className="w-full border border-white bg-white py-4 font-mono text-xs font-bold uppercase tracking-wider text-black transition hover:bg-[#d4d4d8] disabled:opacity-50"
             >
-              {loading ? 'TRANSMITTING...' : 'TRANSMIT MESSAGE [→]'}
+              {loading ? 'Sending message...' : 'Send message →'}
             </button>
 
             {status === 'success' && (

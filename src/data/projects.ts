@@ -1,13 +1,21 @@
+export type ProjectWalkthroughStep = {
+  step: string;
+  title: string;
+  description: string;
+};
+
 export type Project = {
   title: string;
   description: string;
   tech: string[];
   github: string;
   demo: string;
+  demoNote?: string;
   category?: 'Full-Stack' | 'Security/UI' | 'Web Architecture' | 'UI/UX';
   challenge?: string;
   solution?: string;
   impact?: string;
+  walkthrough?: ProjectWalkthroughStep[];
   gif?: string;
   screenshot?: string;
   codeSnippet?: string;
@@ -22,12 +30,35 @@ export const projects: Project[] = [
     category: 'Full-Stack',
     github: '',
     demo: 'https://indie-crm-two.vercel.app/login',
+    demoNote: 'Production deployment with tenant auth gate (/login). Full architecture & UI walkthrough documented below.',
     challenge:
       'Architect a scalable multi-tenant CRM that balances rich relationship management features with lightning-fast streaming UI.',
     solution:
       'Engineered with Next.js 15 and React 19, backed by cloud PostgreSQL, Prisma ORM, and Redis for high-throughput caching.',
     impact:
-      'Delivers instant vector search indexing, live lead pipelines, and a polished dark-mode interface.',
+      'Delivers instant vector search indexing, live lead pipelines, and a polished dark-mode interface with zero-lag pipeline reactivity.',
+    walkthrough: [
+      {
+        step: '01',
+        title: 'Multi-Tenant Lead Pipeline & Kanban',
+        description: 'Dynamic drag-and-drop opportunity tracking boards with per-seat role-based access control (RBAC), stage automations, and custom deal valuation metrics.',
+      },
+      {
+        step: '02',
+        title: 'Vector-Indexed Contact & Note Search',
+        description: 'Sub-50ms hybrid semantic search across customer communications, activity logs, and CRM tickets powered by PostgreSQL vector embeddings.',
+      },
+      {
+        step: '03',
+        title: 'Real-Time Telemetry & Event Streaming',
+        description: 'Event-driven notification layer using Redis Pub/Sub and Prisma middleware to broadcast deal updates instantly across active team sessions.',
+      },
+      {
+        step: '04',
+        title: 'Command Palette & Keyboard-First UX',
+        description: 'Integrated ⌘K command center for frictionless contact creation, keyboard navigation, and fast context switching without leaving the primary workspace.',
+      },
+    ],
     gif: '',
     screenshot: '',
     codeSnippet: '',
@@ -61,9 +92,9 @@ export const projects: Project[] = [
     challenge:
       'Create high-converting e-commerce experiences with reliable local payment processing, fast checkout, and unified stock control.',
     solution:
-      'Engineered custom WordPress/WooCommerce templates with direct Paystack API integration and client administrative portals.',
+      'Engineered custom WordPress/WooCommerce templates with direct Paystack inline checkout modal and client administrative portals.',
     impact:
-      'Significantly improved user checkout completion and provides streamlined inventory management for growing retail brands.',
+      'Re-architected the checkout funnel by embedding the Paystack inline checkout modal (eliminating high-friction off-site redirects), implemented automated webhook reconciliation for instant order confirmation, and established two-way stock synchronization that eliminated double-order conflicts during peak retail drops.',
     gif: '',
     screenshot: '',
     codeSnippet: '',

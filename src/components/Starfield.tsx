@@ -94,7 +94,7 @@ const Starfield: React.FC = () => {
         star.style.transform = `translate3d(${parallaxX + repelX}px, ${parallaxY + repelY}px, 0) scale(${scale.toFixed(2)})`;
         // Only override opacity when actively near cursor — otherwise let CSS animation run
         if (dist < repelRadius) {
-          star.style.opacity = String(Math.min(1, 0.6 + (1 - dist / repelRadius) * 0.4));
+          star.style.opacity = String(Math.min(0.75, 0.35 + (1 - dist / repelRadius) * 0.4));
         } else {
           star.style.opacity = '';
         }
