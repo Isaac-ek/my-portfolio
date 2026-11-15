@@ -1,0 +1,45 @@
+.security-intro { max-width: 900px; }
+.security-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 16px; }
+.security-intro .security-status { font: 11px/1.8 'Fira Mono', monospace; color: var(--text-muted); }
+.security-cover, .security-model-image { border: 1px solid var(--border-line); background: var(--bg-surface); }
+.security-cover img, .security-step-image img, .security-model-image img { display: block; width: 100%; height: auto; }
+.security-cover figcaption, .security-step-image figcaption, .security-model-image figcaption { padding: 16px 20px; color: var(--text-muted); font-size: 12px; line-height: 1.8; }
+.security-cover figcaption, .security-step-image figcaption { display: flex; gap: 14px 24px; justify-content: space-between; flex-wrap: wrap; }
+.security-case figure a, .security-evidence-grid a { color: var(--text-heading); text-decoration: underline; text-underline-offset: 4px; }
+.security-workflow { margin-top: 64px; border: 1px solid var(--border-line); scroll-margin-top: 120px; }
+.security-case h2#security-workflow-title { margin: 0; font-size: 20px; }
+.security-workflow-note { font-size: 12px; line-height: 1.8; color: var(--text-muted); padding: 20px 26px; }
+.security-step-buttons { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--border-line); }
+.security-step-buttons button { padding: 19px 20px; text-align: left; border-right: 1px solid var(--border-line); color: var(--text-muted); font: 12px/1.6 'Fira Mono', monospace; }
+.security-step-buttons button:last-child { border-right: 0; }
+.security-step-buttons button > span { display: block; margin-bottom: 7px; font-size: 10px; }
+.security-step-buttons button[aria-pressed=true] { background: var(--bg-subtle); color: var(--text-heading); box-shadow: inset 0 -2px #7c8a65; }
+.security-step-copy { padding: 28px 26px; min-height: 215px; }
+.security-step-copy h3 { margin: 10px 0 14px; color: var(--text-heading); font: 700 clamp(23px, 3vw, 31px)/1.25 Syne, sans-serif; }
+.security-step-copy > p:last-child { max-width: 840px; font-size: 14px; line-height: 1.8; color: var(--text-muted); }
+.security-step-image { border-top: 1px solid var(--border-line); }
+.security-step-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px 26px; border-top: 1px solid var(--border-line); }
+.security-step-footer button:disabled { opacity: .4; cursor: default; }
+.security-deliverables { padding-left: 18px; margin-bottom: 25px; list-style: square; font-size: 14px; line-height: 1.8; }
+.security-deliverables li { padding: 7px 0; }
+.security-evidence-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 34px; }
+.security-evidence-grid article > span { font: 10px/1.7 'Fira Mono', monospace; color: var(--text-muted); }
+.security-evidence-grid h3 { color: var(--text-heading); font-size: 20px; font-weight: 600; line-height: 1.4; margin: 12px 0; }
+.security-evidence-grid p { color: var(--text-muted); font-size: 13px; line-height: 1.9; margin-bottom: 20px; }
+.security-evidence-grid a { display: block; font-size: 12px; line-height: 1.8; margin-top: 12px; }
+.security-evidence-grid summary { color: var(--text-heading); cursor: pointer; font-size: 12px; line-height: 1.8; }
+.security-evidence-grid code { display: block; overflow-wrap: anywhere; padding: 14px; margin-top: 14px; font: 11px/1.8 'Fira Mono', monospace; background: var(--bg-subtle); border: 1px solid var(--border-line); }
+.security-model-image { margin-top: 28px; }
+@media (max-width: 700px) {
+  .security-case .security-intro h1 { font-size: clamp(26px, 7.4vw, 48px); }
+  .security-cover figcaption, .security-step-image figcaption { display: block; padding: 14px 16px; }
+  .security-cover figcaption a, .security-step-image figcaption a { display: block; margin-top: 10px; }
+  .security-workflow { margin-top: 40px; scroll-margin-top: 90px; }
+  .security-step-buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .security-step-buttons button { padding: 14px; font-size: 11px; border-bottom: 1px solid var(--border-line); }
+  .security-step-copy { min-height: 270px; padding: 22px 16px; }
+  .security-workflow-note { padding: 16px; }
+  .security-step-footer { padding: 16px; gap: 8px; }
+  .security-step-footer .case-secondary { padding: 10px; font-size: 10px; }
+  .security-evidence-grid { grid-template-columns: 1fr; gap: 28px; }
+}

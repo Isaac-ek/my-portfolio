@@ -23,6 +23,8 @@ export type Project = {
   walkthrough?: ProjectWalkthroughStep[];
   gif?: string;
   screenshot?: string;
+  screenshotAlt?: string;
+  screenshotCaption?: string;
   codeSnippet?: string;
 };
 
@@ -73,24 +75,29 @@ export const projects: Project[] = [
     codeSnippet: '',
   },
   {
-    title: 'SecureStream · IDS X Enc',
+    title: 'SecureStream · Security Workspace',
     description:
-      'A shared security workspace for XGBoost intrusion predictions, scoped website checks, file encryption, and audit history.',
+      'A security engineering prototype combining intrusion classification, authorized website checks, and recoverable file protection in separate customer workspaces.',
     tech: ['React', 'Python (FastAPI)', 'XGBoost', 'AES-256-GCM'],
     category: 'Security/UI',
-    contribution: 'I built the trained intrusion detector and security console, and consolidated the website-checking engine into the same authenticated app.',
+    contribution: 'I built the React/FastAPI application, integrated the saved XGBoost detector, implemented customer isolation and encrypted file recovery, and consolidated the website-checking engine.',
     github: 'https://github.com/Isaac-ek/ids-encryption-file-scanner',
     demo: '',
-    demoNote: 'The consolidated app is available in the linked repository with local setup instructions. A public combined deployment is not published yet.',
+    caseStudy: '/projects/securestream',
+    demoNote: 'Engineering prototype. Explore actual application screenshots and a four-step sample workflow without an account.',
+    deliverables: ['Customer-scoped accounts, records, reports, and live events', 'XGBoost inference and inspectable offline model metrics', 'AES-256-GCM encryption, recovery, and audit history', 'Scoped website checks and optional local ClamAV file inspection'],
+    businessValue: 'Bring investigation records, file operations, and team access into one workspace with traceable actions. Commercial outcomes have not been measured.',
     challenge:
       'Bring intrusion detection, website assessment, and recoverable file protection into one inspectable workflow.',
     solution:
-      'Combined React and FastAPI with the preserved XGBoost model, authenticated sensor alerts, scoped website checks, AES-256-GCM file recovery, and a verifiable stored audit chain.',
+      'Combined React and FastAPI with workspace-scoped data and keys, authenticated sensor alerts, bounded bidirectional flow extraction, scoped website checks, and a stored audit chain.',
     impact:
-      'The consolidated implementation includes tests for model inference, file recovery and tamper rejection, scan boundaries, authenticated alerts, and desktop/mobile workflows.',
-    evidenceNote: 'Sample predictions are labelled as replays. Live capture requires a configured host sensor. Published NSL-KDD results are offline benchmarks; website findings require investigation and the audit chain is not externally immutable.',
+      '29 backend tests and five browser workflows pass, covering customer isolation, file recovery, model inference, capture evaluation, and desktop/mobile use. A separate training experiment failed its improvement gates, so the active XGBoost model was retained.',
+    evidenceNote: 'This is an engineering prototype. Sample predictions are labelled as replays; live classification remains experimental. The NSL-KDD benchmark has weak R2L/U2R recall. Website findings require investigation, and the stored audit chain is not externally immutable.',
     gif: '',
-    screenshot: '',
+    screenshot: '/assets/projects/securestream/overview.jpg',
+    screenshotAlt: 'Actual SecureStream dashboard showing a saved model replay, an encrypted backup, and activity sources in a fictional sample workspace.',
+    screenshotCaption: 'Actual application · fictional sample data · engineering prototype',
     codeSnippet: '',
   },
   {
