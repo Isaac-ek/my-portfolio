@@ -56,6 +56,8 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
     } else if (projectId) {
       if (projectId === 'indie-crm' || projectId === 'indie-crm-saas-platform') {
         navigate('/projects/indie-crm', { replace: true });
+      } else if (projectId === 'securestream' || projectId === 'ids-x-enc') {
+        navigate('/projects/securestream', { replace: true });
       }
     } else {
       setActiveDesignModal(null);
@@ -199,9 +201,10 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
         <div className="space-y-16">
           <div className="border border-white/10 bg-white/[0.02] p-4 sm:p-6">
             <p className="font-mono text-[11px] text-[#a1a1aa] mb-4 uppercase tracking-wider">Find a comparable assignment</p>
-            <div className="grid sm:grid-cols-3 gap-3 font-space text-sm text-[#d4d4d8]">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 font-space text-sm text-[#d4d4d8]">
               <Link to="/projects/indie-crm" className="border border-white/10 p-4 hover:border-emerald-400/50 transition">Lead &amp; client workflows <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Indie CRM · workflow &amp; source →</span></Link>
               <Link to="/projects/commerce" className="border border-white/10 p-4 hover:border-white/40 transition">Checkout &amp; stock <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Commerce · delivery &amp; evidence →</span></Link>
+              <Link to="/projects/securestream" className="border border-white/10 p-4 hover:border-white/40 transition">Security operations tools <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">SecureStream · workflow &amp; screenshots →</span></Link>
               <button type="button" aria-haspopup="dialog" onClick={(event) => openDesignModal(flagshipDesign, event.currentTarget)} className="border border-white/10 p-4 text-left hover:border-amber-400/50 transition">A product range launch <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Dr Kayla · cartons &amp; artwork →</span></button>
             </div>
           </div>
@@ -326,19 +329,27 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 className="border border-white/10 bg-[#0e0e11] p-6 sm:p-10 hover:border-white/30 transition-colors"
               >
                 <p className="border-b border-white/10 pb-4 mb-6 font-mono text-xs text-[#a1a1aa] uppercase tracking-wider">[{String(idx + 1).padStart(2, '0')}] / {project.category}</p>
-                <div className={isCrm ? 'grid lg:grid-cols-2 gap-8 items-start' : ''}>
+                <div className={isCrm || project.screenshot ? 'grid lg:grid-cols-2 gap-8 items-start' : ''}>
                   <div className="space-y-4">
                     <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#f4f4f2] tracking-tight">{project.title}</h3>
                     <p className="font-space text-sm sm:text-base text-[#a1a1aa] leading-relaxed">{project.description}</p>
                     <p className="font-space text-sm text-[#d4d4d8] leading-relaxed"><strong className="text-white">My contribution:</strong> {project.contribution}</p>
                     <div className="flex flex-wrap gap-3 pt-2 font-mono text-xs">
-                      {project.caseStudy && <Link to={project.caseStudy} className="border border-white bg-white px-4 py-3 text-black font-semibold hover:bg-[#d4d4d8] transition">{isCrm ? 'Explore the 30-second walkthrough →' : 'View assignment & evidence →'}</Link>}
+                      {project.caseStudy && <Link to={project.caseStudy} className="border border-white bg-white px-4 py-3 text-black font-semibold hover:bg-[#d4d4d8] transition">{isCrm ? 'Explore the 30-second walkthrough →' : project.caseStudy === '/projects/securestream' ? 'See workflow & screenshots →' : 'View assignment & evidence →'}</Link>}
                       {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer" className="border border-white/20 px-4 py-3 text-white hover:border-white transition">{isCrm ? 'Open production login ↗' : 'Open live project ↗'}</a>}
                       {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="border border-white/10 px-4 py-3 text-[#a1a1aa] hover:text-white hover:border-white/40 transition">Inspect source ↗</a>}
                     </div>
                     {project.demoNote && <p className="font-mono text-[11px] text-[#a1a1aa] leading-relaxed">{project.demoNote}</p>}
                   </div>
                   {isCrm && <CrmPreview />}
+                  {project.screenshot && (
+                    <figure className="min-w-0 border border-white/10">
+                      <Link to={project.caseStudy || '/projects'} aria-label={`View ${project.title} case study`}>
+                        <img src={project.screenshot} alt={project.screenshotAlt || `${project.title} application`} width={1440} height={1050} loading="lazy" decoding="async" className="w-full h-auto" />
+                      </Link>
+                      {project.screenshotCaption && <figcaption className="p-3 font-mono text-[10px] leading-relaxed text-[#a1a1aa]">{project.screenshotCaption}</figcaption>}
+                    </figure>
+                  )}
                 </div>
                 <details className="mt-6 border-t border-white/10 pt-5 font-space text-sm text-[#a1a1aa]">
                   <summary className="cursor-pointer font-mono text-xs text-[#d4d4d8] hover:text-white">Implementation &amp; evidence</summary>

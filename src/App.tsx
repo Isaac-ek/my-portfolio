@@ -16,6 +16,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
 const IndieCrmPage = lazy(() => import('./pages/IndieCrmPage'));
 const CommercePage = lazy(() => import('./pages/CommercePage'));
+const SecureStreamPage = lazy(() => import('./pages/SecureStreamPage'));
 const SkillsPage = lazy(() => import('./pages/SkillsPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -65,6 +66,7 @@ function AppContent() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/indie-crm" element={<IndieCrmPage />} />
                 <Route path="/projects/commerce" element={<CommercePage />} />
+                <Route path="/projects/securestream" element={<SecureStreamPage />} />
                 <Route path="/skills" element={<SkillsPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
