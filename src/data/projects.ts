@@ -82,17 +82,17 @@ export const projects: Project[] = [
     category: 'Security/UI',
     contribution: 'I built the React/FastAPI application, integrated the saved XGBoost detector, implemented customer isolation and encrypted file recovery, and consolidated the website-checking engine.',
     github: 'https://github.com/Isaac-ek/ids-encryption-file-scanner',
-    demo: '',
+    demo: 'https://ids-encryption-file-scanner.vercel.app/',
     caseStudy: '/projects/securestream',
-    demoNote: 'Engineering prototype. Explore actual application screenshots and a four-step sample workflow without an account.',
-    deliverables: ['Customer-scoped accounts, records, reports, and live events', 'XGBoost inference and inspectable offline model metrics', 'AES-256-GCM encryption, recovery, and audit history', 'Scoped website checks and optional local ClamAV file inspection'],
+    demoNote: 'Explore the screenshot workflow without an account. The hosted workspace requires an administrator-created login; email recovery is currently disabled.',
+    deliverables: ['Customer-scoped accounts, records, reports, and live events', 'XGBoost inference and inspectable offline model metrics', 'AES-256-GCM encryption, recovery, and audit history', 'Administrator-approved website checks and optional local ClamAV file inspection'],
     businessValue: 'Bring investigation records, file operations, and team access into one workspace with traceable actions. Commercial outcomes have not been measured.',
     challenge:
       'Bring intrusion detection, website assessment, and recoverable file protection into one inspectable workflow.',
     solution:
       'Combined React and FastAPI with workspace-scoped data and keys, authenticated sensor alerts, bounded bidirectional flow extraction, scoped website checks, and a stored audit chain.',
     impact:
-      '29 backend tests and five browser workflows pass, covering customer isolation, file recovery, model inference, capture evaluation, and desktop/mobile use. A separate training experiment failed its improvement gates, so the active XGBoost model was retained.',
+      '52 backend tests and six browser workflows pass, covering customer isolation, file recovery, model inference, approved websites, and password-reset behavior. The hosted release uses persistent PostgreSQL storage; a separate PostgreSQL fixture verified concurrent reset links and session revocation. A separate training experiment failed its improvement gates, so the active XGBoost model was retained.',
     evidenceNote: 'This is an engineering prototype. Sample predictions are labelled as replays; live classification remains experimental. The NSL-KDD benchmark has weak R2L/U2R recall. Website findings require investigation, and the stored audit chain is not externally immutable.',
     gif: '',
     screenshot: '/assets/projects/securestream/overview.jpg',
