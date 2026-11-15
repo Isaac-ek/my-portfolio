@@ -79,9 +79,9 @@ export const projects: Project[] = [
     tech: ['React', 'Python (FastAPI)', 'XGBoost', 'AES-256-GCM'],
     category: 'Security/UI',
     contribution: 'I built the trained intrusion detector and security console, and consolidated the website-checking engine into the same authenticated app.',
-    github: 'https://github.com/Isaac-ek/ids-encryption-file-scanner/tree/codex/unified-security-console',
+    github: 'https://github.com/Isaac-ek/ids-encryption-file-scanner',
     demo: '',
-    demoNote: 'The consolidated app is available in the linked source branch with local setup instructions. A public combined deployment is not published yet.',
+    demoNote: 'The consolidated app is available in the linked repository with local setup instructions. A public combined deployment is not published yet.',
     challenge:
       'Bring intrusion detection, website assessment, and recoverable file protection into one inspectable workflow.',
     solution:
