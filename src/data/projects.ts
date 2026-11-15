@@ -73,20 +73,22 @@ export const projects: Project[] = [
     codeSnippet: '',
   },
   {
-    title: 'IDS X Enc Security Console',
+    title: 'SecureStream · IDS X Enc',
     description:
-      'Security monitoring interface demonstrating live file encryption, threat quarantine isolation, and real-time network logs.',
-    tech: ['React', 'Python (Flask)', 'Tailwind CSS', 'AES-256'],
+      'A shared security workspace for XGBoost intrusion predictions, scoped website checks, file encryption, and audit history.',
+    tech: ['React', 'Python (FastAPI)', 'XGBoost', 'AES-256-GCM'],
     category: 'Security/UI',
-    contribution: 'I built the security console interface and its monitoring, quarantine, and audit-trail views.',
-    github: 'https://github.com/Isaac-ek/Vulnerability-Scanner',
-    demo: 'https://vulnerability-scanner-ten.vercel.app/',
+    contribution: 'I built the trained intrusion detector and security console, and consolidated the website-checking engine into the same authenticated app.',
+    github: 'https://github.com/Isaac-ek/ids-encryption-file-scanner',
+    demo: '',
+    demoNote: 'The consolidated app is available in the linked repository with local setup instructions. A public combined deployment is not published yet.',
     challenge:
-      'Make enterprise security operations, threat telemetry, and encryption mechanisms intuitive and actionable in real time.',
+      'Bring intrusion detection, website assessment, and recoverable file protection into one inspectable workflow.',
     solution:
-      'Built a focused console interface with live AES-256 encryption monitoring, threat quarantine controls, and audit trails.',
+      'Combined React and FastAPI with the preserved XGBoost model, authenticated sensor alerts, scoped website checks, AES-256-GCM file recovery, and a verifiable stored audit chain.',
     impact:
-      'Demonstrates applied cybersecurity principles, secure backend services, and high-clarity telemetry visualization.',
+      'The consolidated implementation includes tests for model inference, file recovery and tamper rejection, scan boundaries, authenticated alerts, and desktop/mobile workflows.',
+    evidenceNote: 'Sample predictions are labelled as replays. Live capture requires a configured host sensor. Published NSL-KDD results are offline benchmarks; website findings require investigation and the audit chain is not externally immutable.',
     gif: '',
     screenshot: '',
     codeSnippet: '',
