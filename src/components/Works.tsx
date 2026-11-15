@@ -336,7 +336,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                     <p className="font-space text-sm text-[#d4d4d8] leading-relaxed"><strong className="text-white">My contribution:</strong> {project.contribution}</p>
                     <div className="flex flex-wrap gap-3 pt-2 font-mono text-xs">
                       {project.caseStudy && <Link to={project.caseStudy} className="border border-white bg-white px-4 py-3 text-black font-semibold hover:bg-[#d4d4d8] transition">{isCrm ? 'Explore the 30-second walkthrough →' : project.caseStudy === '/projects/securestream' ? 'See workflow & screenshots →' : 'View assignment & evidence →'}</Link>}
-                      {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer" className="border border-white/20 px-4 py-3 text-white hover:border-white transition">{isCrm ? 'Open production login ↗' : 'Open live project ↗'}</a>}
+                      {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer" className="border border-white/20 px-4 py-3 text-white hover:border-white transition">{isCrm || project.caseStudy === '/projects/securestream' ? 'Open production login ↗' : 'Open live project ↗'}</a>}
                       {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="border border-white/10 px-4 py-3 text-[#a1a1aa] hover:text-white hover:border-white/40 transition">Inspect source ↗</a>}
                     </div>
                     {project.demoNote && <p className="font-mono text-[11px] text-[#a1a1aa] leading-relaxed">{project.demoNote}</p>}

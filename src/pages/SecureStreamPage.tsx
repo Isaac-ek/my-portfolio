@@ -5,7 +5,9 @@ import './case-study.css';
 import './securestream-case.css';
 
 const source = 'https://github.com/Isaac-ek/ids-encryption-file-scanner';
-const revision = `${source}/blob/70b26241307037be0b78413b71643686caa4d8a1`;
+const release = "75996945f72f5bdc6ae4c2823d73622f4793f560";
+const revision = `${source}/blob/${release}`;
+const captureRevision = `${source}/tree/70b26241307037be0b78413b71643686caa4d8a1`;
 const imageRoot = '/assets/projects/securestream';
 const fileHash = '9a3f7e1857ce7c9c7c55e0327454a8e92f05f3f51fa0a1e2892eb52dbc687afe';
 const steps = [
@@ -65,9 +67,10 @@ export default function SecureStreamPage() {
         <p><strong>My contribution:</strong> {project.contribution}</p>
         <div className="security-actions">
           <a href="#security-workflow" className="case-primary">Explore the four-step workflow ↓</a>
-          <a href={`${source}/tree/70b26241307037be0b78413b71643686caa4d8a1`} target="_blank" rel="noopener noreferrer" className="case-secondary">Inspect this revision’s source ↗</a>
+          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="case-secondary">Open production login ↗</a>
+          <a href={`${source}/tree/${release}`} target="_blank" rel="noopener noreferrer" className="case-secondary">Inspect current release source ↗</a>
         </div>
-        <p className="security-status">Actual application screenshots · fictional sample data · no account needed</p>
+        <p className="security-status">Screenshots need no account · hosted workspace requires an administrator-created login</p>
       </header>
 
       <figure className="security-cover">
@@ -83,7 +86,7 @@ export default function SecureStreamPage() {
           <h2 id="security-workflow-title">One sample investigation, four steps.</h2>
           <span>SELF-PACED / ACTUAL APP</span>
         </div>
-        <p className="security-workflow-note">Step through screenshots of a real local run. The portfolio page explains the workflow; it does not operate the security app.</p>
+        <p className="security-workflow-note">Step through screenshots of a real local run. These captures document an earlier local build; the production login opens the current hosted app. <a href={captureRevision} target="_blank" rel="noopener noreferrer" className="case-inline-link">Inspect the screenshot revision ↗</a></p>
         <div className="security-step-buttons" role="group" aria-label="Security workflow steps">
           {steps.map((item, index) => (
             <button key={item.label} aria-pressed={selected === index} aria-controls="security-step-content" onClick={() => setSelected(index)}>
@@ -114,7 +117,7 @@ export default function SecureStreamPage() {
         <div><p className="case-eyebrow">OWNERSHIP &amp; DELIVERABLES</p><h2 id="security-ownership">One application, with clear boundaries.</h2><p className="case-muted">I consolidated the detector and website-checking engine, rebuilt the interface, and added the controls that make their behavior inspectable.</p></div>
         <div>
           <ul className="security-deliverables">{project.deliverables?.map((item) => <li key={item}>{item}</li>)}</ul>
-          <p className="case-muted">Each customer has separate records, files, encryption keys, audit history, scan target policy, and event delivery. Administrators create team logins inside their own workspace.</p>
+          <p className="case-muted">Each customer has separate records, files, encryption keys, audit history, scan target policy, and event delivery. Administrators create team logins, reset member passwords, and approve exact website targets inside their own workspace. The hosted release uses persistent PostgreSQL records, database-backed encrypted files, and shared views that refresh every 15 seconds.</p>
           <a className="case-inline-link" href={`${revision}/docs/customer-workspaces.md`} target="_blank" rel="noopener noreferrer">Inspect customer isolation and provisioning ↗</a>
         </div>
       </section>
@@ -123,7 +126,7 @@ export default function SecureStreamPage() {
         <p className="case-eyebrow">IMPLEMENTATION &amp; EVIDENCE</p><h2 id="security-evidence">Check the behavior behind the interface.</h2>
         <div className="security-evidence-grid">
           <article><span>01 / RECOVERY</span><h3>The recovered bytes match.</h3><p>The sample file was encrypted, restored, downloaded, and compared with the original during screenshot capture. The encrypted backup remained available.</p><details><summary>Inspect the sample SHA-256</summary><code>{fileHash}</code><a href={`${imageRoot}/restored-file.jpg`} target="_blank" rel="noopener noreferrer">View the actual recovery screen ↗</a></details></article>
-          <article><span>02 / VERIFICATION</span><h3>29 backend tests. Five browser flows.</h3><p>At this revision, checks pass for customer boundaries, file recovery, authenticated events, scoped checks, model inference, capture labels, and desktop/mobile use.</p><a href={`${revision}/tests/test_workspaces.py`} target="_blank" rel="noopener noreferrer">Read the customer isolation tests ↗</a><a href={`${revision}/frontend/e2e/workspace.spec.js`} target="_blank" rel="noopener noreferrer">Read the browser workflows ↗</a></article>
+          <article><span>02 / VERIFICATION</span><h3>52 backend tests. Six browser flows.</h3><p>At the linked release, checks pass for customer boundaries, file recovery, approved websites, model inference, and account recovery. A separate PostgreSQL fixture verified competing reset links produce one password change and revoke prior sessions.</p><a href={`${revision}/tests/test_workspaces.py`} target="_blank" rel="noopener noreferrer">Read the customer isolation tests ↗</a><a href={`${revision}/frontend/e2e/workspace.spec.js`} target="_blank" rel="noopener noreferrer">Read the browser workflows ↗</a></article>
           <article><span>03 / MODEL DECISION</span><h3>Keep the result, even when it disappoints.</h3><p>I compared Random Forest and XGBoost candidates using training-only validation. The selected candidate scored lower on the held-out benchmark and failed its release gates, so the active model was retained.</p><a href={`${revision}/docs/experiments/customer-readiness-1.json`} target="_blank" rel="noopener noreferrer">Inspect the experiment results ↗</a></article>
         </div>
       </section>
@@ -132,7 +135,8 @@ export default function SecureStreamPage() {
         <p className="case-eyebrow">OFFLINE EVALUATION / NSL-KDD</p><h2 id="security-model">The model has measurable limits.</h2>
         <p className="case-muted">The preserved XGBoost bundle was evaluated on 22,544 NSL-KDD test records: 77.78% accuracy and 0.5693 macro F1. R2L recall is 12.89%; U2R recall is 13.43%. Those weak classes remain an open problem.</p>
         <figure className="security-model-image"><img src={`${imageRoot}/model-performance.jpg`} alt="Actual model performance screen showing offline metrics and weak R2L and U2R recall alongside the experimental live-capture notice." width={1440} height={1050} loading="lazy" decoding="async" /><figcaption>Actual application metrics. Offline benchmark results do not establish live-network effectiveness.</figcaption></figure>
-        <p className="case-evidence-note">Live flow extraction remains experimental because a network-only sensor cannot observe all host and content features used by the training dataset. Website findings need investigation, ClamAV availability is explicit, and the audit chain is stored locally. This project is presented as an engineering prototype.</p>
+        <p className="case-evidence-note">Email password recovery is implemented but remains disabled until a sender domain is verified. Administrators can still reset member passwords. Hosted uploads are limited to 3 MiB per file; packet capture requires a separately configured sensor.</p>
+        <p className="case-evidence-note">Live flow extraction remains experimental because a network-only sensor cannot observe all host and content features used by the training dataset. Website findings need investigation, ClamAV availability is explicit, and the audit chain is stored in the application database. This project is presented as an engineering prototype.</p>
         <a className="case-inline-link" href={`${revision}/docs/detector-validation.md`} target="_blank" rel="noopener noreferrer">Inspect the benchmark, failed candidate, and capture-validation method ↗</a>
       </section>
 
