@@ -1,4 +1,4 @@
-/* Small, slow dots stay behind the opaque reading surfaces. */
+/* Visible, slow dots stay in the margins behind opaque reading surfaces. */
 .editorial-backdrop {
   position: fixed;
   inset: 0;
@@ -9,11 +9,12 @@
 
 .backdrop-particle {
   position: absolute;
+  left: clamp(8px, var(--particle-left), calc(100% - 12px));
   width: var(--particle-size);
   height: var(--particle-size);
   border-radius: 50%;
   background-color: var(--text-heading);
-  opacity: 0.28;
+  opacity: 0.5;
   animation: backdrop-drift var(--drift-duration) var(--drift-delay) ease-in-out infinite alternate;
 }
 
@@ -22,16 +23,24 @@ html:not(.dark) .editorial-backdrop {
 }
 
 html:not(.dark) .backdrop-particle {
-  opacity: 0.18;
+  opacity: 0.3;
 }
 
 @keyframes backdrop-drift {
-  from { transform: translate3d(-5px, 10px, 0); }
-  to { transform: translate3d(7px, -14px, 0); }
+  from { transform: translate3d(var(--drift-start-x, -6px), 20px, 0); }
+  to { transform: translate3d(var(--drift-end-x, 8px), -24px, 0); }
 }
 
 @media (max-width: 640px) {
-  .backdrop-particle:nth-child(n + 13) { display: none; }
+  .backdrop-particle {
+    left: clamp(8px, var(--particle-mobile-left), calc(100% - 12px));
+    --drift-start-x: -2px;
+    --drift-end-x: 2px;
+  }
+  .backdrop-particle:nth-child(n + 33) { display: none; }
+  #portfolio-shell :is(#hero, #projects, #about, #contact, .case-study) {
+    background-clip: content-box;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
