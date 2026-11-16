@@ -10,11 +10,11 @@ const loadData = async (file) => {
   return import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);
 };
 const { profile } = await loadData('src/data/profile.ts');
-const { projects } = await loadData('src/data/projects.ts');
+const { cvProjects } = await loadData('src/data/projects.ts');
 const result = spawnSync(process.env.PDF_PYTHON || 'python3', [
   fileURLToPath(new URL('scripts/build_resume.py', root)),
   fileURLToPath(new URL('public/Chiemelie_Isaac_Ekezie_Resume.pdf', root)),
-], { input: JSON.stringify({ profile, projects }), encoding: 'utf8' });
+], { input: JSON.stringify({ profile, projects: cvProjects }), encoding: 'utf8' });
 if (result.error) throw result.error;
 if (result.status !== 0) throw new Error(result.stderr || 'Resume generation failed. Install reportlab in your Python environment.');
 console.log(result.stdout.trim());

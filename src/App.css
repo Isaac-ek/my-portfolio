@@ -14,8 +14,8 @@
   --bg-subtle: #f0f0ed;
   --text-heading: #09090b;
   --text-body: #27272a;
-  --text-muted: #52525b;
-  --text-faint: #71717a;
+  --text-muted: #454550;
+  --text-faint: #565660;
   --border-line: rgba(0, 0, 0, 0.1);
   --border-subtle: rgba(0, 0, 0, 0.05);
   color-scheme: light;
@@ -26,9 +26,9 @@ html.dark {
   --bg-surface: #0e0e11;
   --bg-subtle: #121216;
   --text-heading: #ffffff;
-  --text-body: #f4f4f2;
-  --text-muted: #a1a1aa;
-  --text-faint: #71717a;
+  --text-body: #ececf0;
+  --text-muted: #c4c4cd;
+  --text-faint: #a7a7b2;
   --border-line: rgba(255, 255, 255, 0.12);
   --border-subtle: rgba(255, 255, 255, 0.05);
   color-scheme: dark;
@@ -42,28 +42,8 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Subtle architectural grain & hairline paper texture */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
-  opacity: 0.6;
-}
-
-/* Noise texture layer */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -9;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
+/* Content is set on a calm canvas, without grain or a dot grid. */
+body::before, body::after { content: none; }
 
 /* Custom scrollbars */
 ::-webkit-scrollbar {
@@ -85,16 +65,6 @@ body::after {
 html:not(.dark) body {
   background-color: #f7f7f5;
   color: #18181b;
-}
-
-html:not(.dark) body::before {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
-  opacity: 0.7;
-}
-
-html:not(.dark) body::after {
-  opacity: 0.012;
-  filter: invert(1);
 }
 
 html:not(.dark) ::-webkit-scrollbar-track {
@@ -155,12 +125,12 @@ html:not(.dark) [class*="text-[#d4d4d8]"] {
 }
 
 html:not(.dark) [class*="text-[#a1a1aa]"] {
-  color: #52525b !important;
+  color: #454550 !important;
 }
 
 html:not(.dark) [class*="text-[#71717a]"],
 html:not(.dark) [class*="text-[#8e8e93]"] {
-  color: #71717a !important;
+  color: #565660 !important;
 }
 
 /* Border overrides in Light Mode */
@@ -218,20 +188,12 @@ html:not(.dark) textarea:focus {
 
 html:not(.dark) input::placeholder,
 html:not(.dark) textarea::placeholder {
-  color: #71717a !important;
+  color: #565660 !important;
 }
 
 /* Modal Backdrop in Light Mode */
 html:not(.dark) [class*="bg-[#08080a]/90"] {
   background-color: rgba(247, 247, 245, 0.88) !important;
-}
-
-html:not(.dark) .coord-stamp {
-  color: rgba(0, 0, 0, 0.28) !important;
-}
-
-html:not(.dark) .crosshair {
-  color: rgba(0, 0, 0, 0.18) !important;
 }
 
 /* ── Dark Mode: Experience row hover — title glows white ── */
@@ -260,3 +222,10 @@ html:not(.dark) .group:hover [class*="group-hover:text-[#d4d4d8]"] {
 html:not(.dark) .group:hover[class*="hover:bg-white/[0.03]"] {
   background-color: rgba(0, 0, 0, 0.04) !important;
 }
+
+/* Keep existing editorial hierarchy while lifting small text off the canvas. */
+html.dark :is(.text-\[\#a1a1aa\], .text-\[\#8e8e93\]) { color: var(--text-muted); }
+html.dark .text-\[\#71717a\] { color: var(--text-faint); }
+html.dark .text-\[\#d4d4d8\] { color: #e4e4ea; }
+html.dark .placeholder\:text-\[\#71717a\]::placeholder { color: var(--text-faint); }
+a:hover { color: var(--text-heading); }

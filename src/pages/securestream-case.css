@@ -16,16 +16,16 @@
 .security-step-buttons button[aria-pressed=true] { background: var(--bg-subtle); color: var(--text-heading); box-shadow: inset 0 -2px #7c8a65; }
 .security-step-copy { padding: 28px 26px; min-height: 215px; }
 .security-step-copy h3 { margin: 10px 0 14px; color: var(--text-heading); font: 700 clamp(23px, 3vw, 31px)/1.25 Syne, sans-serif; }
-.security-step-copy > p:last-child { max-width: 840px; font-size: 14px; line-height: 1.8; color: var(--text-muted); }
+.security-step-copy > p:last-child { max-width: 840px; font-size: 16px; line-height: 1.8; color: var(--text-muted); }
 .security-step-image { border-top: 1px solid var(--border-line); }
 .security-step-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px 26px; border-top: 1px solid var(--border-line); }
 .security-step-footer button:disabled { opacity: .4; cursor: default; }
-.security-deliverables { padding-left: 18px; margin-bottom: 25px; list-style: square; font-size: 14px; line-height: 1.8; }
+.security-deliverables { padding-left: 18px; margin-bottom: 25px; list-style: square; font-size: 15px; line-height: 1.8; }
 .security-deliverables li { padding: 7px 0; }
 .security-evidence-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 34px; }
 .security-evidence-grid article > span { font: 10px/1.7 'Fira Mono', monospace; color: var(--text-muted); }
 .security-evidence-grid h3 { color: var(--text-heading); font-size: 20px; font-weight: 600; line-height: 1.4; margin: 12px 0; }
-.security-evidence-grid p { color: var(--text-muted); font-size: 13px; line-height: 1.9; margin-bottom: 20px; }
+.security-evidence-grid p { color: var(--text-muted); font-size: 15px; line-height: 1.9; margin-bottom: 20px; }
 .security-evidence-grid a { display: block; font-size: 12px; line-height: 1.8; margin-top: 12px; }
 .security-evidence-grid summary { color: var(--text-heading); cursor: pointer; font-size: 12px; line-height: 1.8; }
 .security-evidence-grid code { display: block; overflow-wrap: anywhere; padding: 14px; margin-top: 14px; font: 11px/1.8 'Fira Mono', monospace; background: var(--bg-subtle); border: 1px solid var(--border-line); }
