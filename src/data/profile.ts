@@ -49,7 +49,7 @@ export const profile = {
     'React 19',
     'TypeScript',
     'Node.js / Express',
-    'Python / Flask',
+    'Python / FastAPI / Flask',
     'PostgreSQL / Prisma',
     'AWS (EC2, S3)',
     'Figma & UI/UX',
@@ -97,12 +97,13 @@ export const profile = {
       title: 'Backend & Cloud Infrastructure',
       items: [
         'Node.js / Express',
-        'Python / Flask',
+        'Python / FastAPI / Flask',
         'PostgreSQL / Prisma',
         'Redis & pgvector',
         'AWS (EC2, S3, IAM)',
         'Docker Compose',
         'RESTful APIs',
+        'XGBoost inference',
       ],
     },
     {

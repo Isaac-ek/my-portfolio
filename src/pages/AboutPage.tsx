@@ -1,8 +1,10 @@
 import React from 'react';
 import { profile } from '../data/profile';
+import { cvProjects } from '../data/projects';
+import { Link } from 'react-router-dom';
 
 const AboutPage: React.FC = () => (
-  <main className="max-w-5xl mx-auto px-4 sm:px-8 py-28 md:py-36 space-y-16">
+  <main className="cv-page max-w-5xl mx-auto px-4 sm:px-8 py-28 md:py-36 space-y-16">
     {/* Dossier Masthead */}
     <header className="border border-white/10 bg-[#0e0e11] p-8 sm:p-14 space-y-8">
       <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[11px] text-[#a1a1aa] uppercase tracking-widest">
@@ -103,7 +105,7 @@ const AboutPage: React.FC = () => (
               {exp.company} • {exp.location}
             </p>
 
-            <p className="font-space text-sm text-[#d4d4d8] leading-relaxed">
+            <p className="font-space text-base text-[#d4d4d8] leading-relaxed">
               {exp.summary}
             </p>
 
@@ -112,7 +114,7 @@ const AboutPage: React.FC = () => (
                 <span className="font-mono text-[10px] text-[#a1a1aa] uppercase tracking-wider block mb-2 font-semibold">
                   Selected contributions:
                 </span>
-                <ul className="space-y-2.5 font-space text-xs text-[#d4d4d8]">
+                <ul className="space-y-2.5 font-space text-sm sm:text-base text-[#d4d4d8]">
                   {exp.highlights.map((highlight, idx) => (
                     <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
                       <span className="text-emerald-400 font-mono text-xs mt-0.5">✦</span>
@@ -127,6 +129,23 @@ const AboutPage: React.FC = () => (
       </div>
     </section>
 
+    <section aria-labelledby="cv-projects-heading" className="border border-white/10 bg-[#0e0e11] p-8 sm:p-12 space-y-8">
+      <h2 id="cv-projects-heading" className="font-mono text-xs font-bold text-white uppercase tracking-wider border-b border-white/10 pb-4">Selected engineering projects</h2>
+      {cvProjects.map((project) => (
+        <article key={project.title} className="space-y-3">
+          <h3 className="font-syne font-bold text-lg text-white">{project.title}</h3>
+          <p className="font-space text-base text-[#d4d4d8] leading-relaxed">{project.description}</p>
+          <ul className="list-disc pl-5 font-space text-base text-[#d4d4d8] leading-relaxed space-y-2">
+            {project.cvHighlights?.map((highlight) => <li key={highlight}>{highlight}</li>)}
+          </ul>
+          <div className="flex flex-wrap gap-4 font-mono text-xs">
+            <Link to={project.caseStudy!} className="text-white underline underline-offset-4">Walkthrough &amp; evidence →</Link>
+            <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-[#d4d4d8] underline underline-offset-4">Source code ↗</a>
+          </div>
+        </article>
+      ))}
+    </section>
+
     <section aria-labelledby="competency-heading" className="border border-white/10 bg-[#0e0e11] p-6 sm:p-8">
       <details>
         <summary className="cursor-pointer font-mono text-xs text-[#d4d4d8]">
@@ -137,7 +156,7 @@ const AboutPage: React.FC = () => (
           {profile.skillGroups.map((group) => (
             <div key={group.title} className="space-y-2">
               <h3 className="font-mono text-xs font-semibold text-white">{group.title}</h3>
-              <p className="font-space text-sm leading-relaxed text-[#a1a1aa]">{group.items.join(' · ')}</p>
+              <p className="font-space text-base leading-relaxed text-[#a1a1aa]">{group.items.join(' · ')}</p>
             </div>
           ))}
         </div>

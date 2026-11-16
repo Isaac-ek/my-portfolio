@@ -13,6 +13,7 @@ export type Project = {
   demoNote?: string;
   caseStudy?: string;
   contribution: string;
+  cvHighlights?: string[];
   deliverables?: string[];
   businessValue?: string;
   evidenceNote?: string;
@@ -34,6 +35,7 @@ export const projects: Project[] = [
     description:
       'A workspace-based CRM for independent operators: capture a lead, keep the conversation in context, plan a follow-up, and search past client conversations.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'PostgreSQL', 'Prisma', 'Auth.js'],
+    cvHighlights: ['Built tenant-scoped lead, conversation, and follow-up workflows with Next.js, PostgreSQL, and Prisma.'],
     category: 'Full-Stack',
     github: 'https://github.com/Isaac-ek/Indie-CRM',
     demo: 'https://indie-crm-two.vercel.app/login',
@@ -79,6 +81,7 @@ export const projects: Project[] = [
     description:
       'A security engineering prototype combining intrusion classification, authorized website checks, and recoverable file protection in separate customer workspaces.',
     tech: ['React', 'Python (FastAPI)', 'XGBoost', 'AES-256-GCM'],
+    cvHighlights: ['Built React/FastAPI workflows for team access, authorized website checks, and XGBoost inference.', 'Implemented workspace-scoped PostgreSQL records, AES-256-GCM file recovery, and audited account controls.'],
     category: 'Security/UI',
     contribution: 'I built the React/FastAPI application, integrated the saved XGBoost detector, implemented customer isolation and encrypted file recovery, and consolidated the website-checking engine.',
     github: 'https://github.com/Isaac-ek/ids-encryption-file-scanner',
@@ -92,7 +95,7 @@ export const projects: Project[] = [
     solution:
       'Combined React and FastAPI with workspace-scoped data and keys, authenticated sensor alerts, bounded bidirectional flow extraction, scoped website checks, and a stored audit chain.',
     impact:
-      '52 backend tests and six browser workflows pass, covering customer isolation, file recovery, model inference, approved websites, and password-reset behavior. The hosted release uses persistent PostgreSQL storage; a separate PostgreSQL fixture verified concurrent reset links and session revocation. A separate training experiment failed its improvement gates, so the active XGBoost model was retained.',
+      '68 backend tests and six browser workflows pass, covering customer isolation, file recovery, model inference, approved websites, and password-reset behavior. The hosted release uses persistent PostgreSQL storage; a separate PostgreSQL fixture verified concurrent reset links and session revocation. A separate training experiment failed its improvement gates, so the active XGBoost model was retained.',
     evidenceNote: 'This is an engineering prototype. Sample predictions are labelled as replays; live classification remains experimental. The NSL-KDD benchmark has weak R2L/U2R recall. Website findings require investigation, and the stored audit chain is not externally immutable.',
     gif: '',
     screenshot: '/assets/projects/securestream/overview.jpg',
@@ -143,3 +146,8 @@ export const projects: Project[] = [
     codeSnippet: '',
   },
 ];
+
+// Shared by the web CV and downloadable resume.
+export const cvProjects = projects.filter((project) =>
+  ["/projects/indie-crm", "/projects/securestream"].includes(project.caseStudy || ""),
+);

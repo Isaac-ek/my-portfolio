@@ -79,7 +79,7 @@
 .case-notes-grid article > span { font: 10px 'Fira Mono', monospace; color: var(--text-muted); }
 .case-notes-grid h3 { font-size: 20px; font-weight: 600; margin: 10px 0; color: var(--text-heading); }
 .case-notes-grid p, .case-evidence-note { font-size: 14px; line-height: 1.8; color: var(--text-muted); }
-.case-evidence-note { border: 1px solid var(--border-line); padding: 18px; margin-top: 30px; font-size: 12px; }
+.case-evidence-note { background: var(--bg-surface); border: 1px solid var(--border-line); padding: 18px; margin-top: 30px; font-size: 14px; }
 .case-production { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 45px 0; }
 .case-production .case-secondary { flex-shrink: 0; }
 .case-study :focus-visible, .packaging-preview:focus-visible { outline: 2px solid #059669; outline-offset: 5px; }

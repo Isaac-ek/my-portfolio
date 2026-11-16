@@ -5,7 +5,7 @@ import './case-study.css';
 import './securestream-case.css';
 
 const source = 'https://github.com/Isaac-ek/ids-encryption-file-scanner';
-const release = "75996945f72f5bdc6ae4c2823d73622f4793f560";
+const release = "411d9bc4f875068066d9e86a9ea67dffcabe0ff9";
 const revision = `${source}/blob/${release}`;
 const captureRevision = `${source}/tree/70b26241307037be0b78413b71643686caa4d8a1`;
 const imageRoot = '/assets/projects/securestream';
@@ -126,7 +126,7 @@ export default function SecureStreamPage() {
         <p className="case-eyebrow">IMPLEMENTATION &amp; EVIDENCE</p><h2 id="security-evidence">Check the behavior behind the interface.</h2>
         <div className="security-evidence-grid">
           <article><span>01 / RECOVERY</span><h3>The recovered bytes match.</h3><p>The sample file was encrypted, restored, downloaded, and compared with the original during screenshot capture. The encrypted backup remained available.</p><details><summary>Inspect the sample SHA-256</summary><code>{fileHash}</code><a href={`${imageRoot}/restored-file.jpg`} target="_blank" rel="noopener noreferrer">View the actual recovery screen ↗</a></details></article>
-          <article><span>02 / VERIFICATION</span><h3>52 backend tests. Six browser flows.</h3><p>At the linked release, checks pass for customer boundaries, file recovery, approved websites, model inference, and account recovery. A separate PostgreSQL fixture verified competing reset links produce one password change and revoke prior sessions.</p><a href={`${revision}/tests/test_workspaces.py`} target="_blank" rel="noopener noreferrer">Read the customer isolation tests ↗</a><a href={`${revision}/frontend/e2e/workspace.spec.js`} target="_blank" rel="noopener noreferrer">Read the browser workflows ↗</a></article>
+          <article><span>02 / VERIFICATION</span><h3>68 backend tests. Six browser flows.</h3><p>At the linked release, checks pass for customer boundaries, file recovery, approved websites, model inference, and account recovery. A separate PostgreSQL fixture verified competing reset links produce one password change and revoke prior sessions.</p><a href={`${revision}/tests/test_workspaces.py`} target="_blank" rel="noopener noreferrer">Read the customer isolation tests ↗</a><a href={`${revision}/frontend/e2e/workspace.spec.js`} target="_blank" rel="noopener noreferrer">Read the browser workflows ↗</a></article>
           <article><span>03 / MODEL DECISION</span><h3>Keep the result, even when it disappoints.</h3><p>I compared Random Forest and XGBoost candidates using training-only validation. The selected candidate scored lower on the held-out benchmark and failed its release gates, so the active model was retained.</p><a href={`${revision}/docs/experiments/customer-readiness-1.json`} target="_blank" rel="noopener noreferrer">Inspect the experiment results ↗</a></article>
         </div>
       </section>

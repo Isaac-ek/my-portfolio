@@ -26,9 +26,9 @@ def p(text, style):
     return Paragraph(escape(clean(text)), style)
 
 base = ParagraphStyle('body', fontName='Helvetica', fontSize=9.4, leading=14, textColor=ink, spaceAfter=7)
-small = ParagraphStyle('small', parent=base, fontSize=8.5, leading=12, textColor=muted)
+small = ParagraphStyle('small', parent=base, fontSize=8.5, leading=12, textColor=muted, spaceAfter=5)
 title = ParagraphStyle('title', parent=base, fontName='Helvetica-Bold', fontSize=23, leading=28, spaceAfter=9)
-heading = ParagraphStyle('heading', parent=base, fontName='Helvetica-Bold', fontSize=11, leading=15, textColor=accent, spaceBefore=17, spaceAfter=10, keepWithNext=True)
+heading = ParagraphStyle('heading', parent=base, fontName='Helvetica-Bold', fontSize=11, leading=15, textColor=accent, spaceBefore=12, spaceAfter=7, keepWithNext=True)
 role = ParagraphStyle('role', parent=base, fontName='Helvetica-Bold', fontSize=10, leading=14, spaceAfter=3, keepWithNext=True)
 meta = ParagraphStyle('meta', parent=small, spaceAfter=5, keepWithNext=True)
 bullet = ParagraphStyle('bullet', parent=base, leftIndent=11, firstLineIndent=-9, spaceAfter=5)
@@ -58,11 +58,18 @@ story.append(PageBreak())
 section('Professional experience / continued')
 experience(profile['experience'][3])
 section('Selected work')
-for project in [projects[0], projects[1]]:
+for project in projects:
     content = [p(project['title'], role), p(project['description'], base)]
+    for highlight in project.get('cvHighlights', []):
+        content.append(p('- ' + highlight, bullet))
+    links = []
     if project.get('caseStudy'):
         url = profile['website'] + project['caseStudy']
-        content.append(Paragraph(f'<link href="{url}" color="#087f75">Public walkthrough and case study</link>', small))
+        links.append(f'<link href="{url}" color="#087f75">Case study &amp; walkthrough</link>')
+    if project.get('github'):
+        links.append(f'<link href="{project["github"]}" color="#087f75">Source code</link>')
+    if links:
+        content.append(Paragraph(' | '.join(links), small))
     story.append(KeepTogether(content))
     story.append(Spacer(1, 8))
 story.append(p('Dr Kayla packaging systems', role))
