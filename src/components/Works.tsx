@@ -1,3 +1,4 @@
+import ResponsiveImage from './ResponsiveImage';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -345,7 +346,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   {project.screenshot && (
                     <figure className="min-w-0 border border-white/10">
                       <Link to={project.caseStudy || '/projects'} aria-label={`View ${project.title} case study`}>
-                        <img src={project.screenshot} alt={project.screenshotAlt || `${project.title} application`} width={1440} height={1050} loading="lazy" decoding="async" className="w-full h-auto" />
+                        <ResponsiveImage src={project.screenshot} sizes="(max-width: 1023px) calc(100vw - 80px), 540px" alt={project.screenshotAlt || `${project.title} application`} width={1440} height={1050} loading="lazy" decoding="async" className="w-full h-auto" />
                       </Link>
                       {project.screenshotCaption && <figcaption className="p-3 font-mono text-[10px] leading-relaxed text-[#a1a1aa]">{project.screenshotCaption}</figcaption>}
                     </figure>
@@ -401,7 +402,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   </div>
 
                   <figure className="border-b border-white/10 bg-[#121216] p-4">
-                    {hasVariants ? <PackagingRange design={design} /> : design.image ? <img src={design.image} alt={design.title} loading="lazy" className="h-64 w-full object-contain" /> : null}
+                    {hasVariants ? <PackagingRange design={design} /> : design.image ? <ResponsiveImage src={design.image} alt={design.title} loading="lazy" className="h-64 w-full object-contain" /> : null}
                     <figcaption className="pt-3 font-mono text-[10px] text-[#a1a1aa] leading-relaxed">ASSEMBLED RANGE MOCKUPS · Front panels and original dielines inside.</figcaption>
                   </figure>
 
@@ -575,7 +576,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                 {selectedGalleryImage ? (
                   <div className="space-y-4">
                     <div className="relative flex items-center justify-center max-h-[520px] bg-black/40 p-4 border border-white/5 rounded overflow-hidden">
-                      {viewMode === 'range' ? <PackagingRange design={activeDesignModal} /> : currentVariant && viewMode !== 'dieline' ? <PackagingPreview variant={currentVariant} frontOnly={viewMode === 'front'} /> : <img src={currentVariant?.dielineImage || selectedGalleryImage} alt={`${currentVariant?.name || activeDesignModal.title} original production dieline`} className="max-h-[480px] max-w-full object-contain mx-auto" /> }
+                      {viewMode === 'range' ? <PackagingRange design={activeDesignModal} /> : currentVariant && viewMode !== 'dieline' ? <PackagingPreview variant={currentVariant} frontOnly={viewMode === 'front'} /> : <ResponsiveImage src={currentVariant?.dielineImage || selectedGalleryImage} sizes="(max-width: 640px) calc(100vw - 96px), 800px" alt={`${currentVariant?.name || activeDesignModal.title} original production dieline`} className="max-h-[480px] max-w-full object-contain mx-auto" /> }
                     </div>
 
                     {/* Formula Specs Banner under Image */}

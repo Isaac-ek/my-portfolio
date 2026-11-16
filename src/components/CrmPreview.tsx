@@ -1,10 +1,11 @@
+import ResponsiveImage from './ResponsiveImage';
 import { Link } from 'react-router-dom';
 
 export default function CrmPreview() {
   return (
     <figure className="mt-5 border border-white/10 bg-[#141418] overflow-hidden">
       <Link to="/projects/indie-crm" aria-label="Open Indie CRM case study and public walkthrough" className="block relative">
-        <img src="/assets/projects/indie-crm/lead-detail.png" alt="Actual Indie CRM screen showing Maya Cole’s sample lead, workspace access, and relationship context" className="aspect-[9/7] w-full object-cover object-top" loading="lazy" />
+        <ResponsiveImage src="/assets/projects/indie-crm/lead-detail.png" alt="Actual Indie CRM screen showing Maya Cole’s sample lead, workspace access, and relationship context" variant="card" sizes="(max-width: 639px) calc(100vw - 84px), (max-width: 767px) calc(100vw - 132px), (max-width: 1023px) calc(100vw - 164px), 540px" className="aspect-[9/7] w-full object-cover object-top" loading="lazy" />
         <span aria-hidden="true" className="absolute left-[28%] top-[12%] flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-white font-mono text-[10px] border border-white">1</span>
         <span aria-hidden="true" className="absolute right-[5%] top-[14%] flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-white font-mono text-[10px] border border-white">2</span>
         <span aria-hidden="true" className="absolute left-[62%] top-[81%] flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-white font-mono text-[10px] border border-white">3</span>
