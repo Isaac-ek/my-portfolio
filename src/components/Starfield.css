@@ -13,7 +13,7 @@
   height: var(--particle-size);
   border-radius: 50%;
   background-color: var(--text-heading);
-  opacity: 0.22;
+  opacity: 0.28;
   animation: backdrop-drift var(--drift-duration) var(--drift-delay) ease-in-out infinite alternate;
 }
 
@@ -22,7 +22,7 @@ html:not(.dark) .editorial-backdrop {
 }
 
 html:not(.dark) .backdrop-particle {
-  opacity: 0.14;
+  opacity: 0.18;
 }
 
 @keyframes backdrop-drift {
@@ -31,7 +31,7 @@ html:not(.dark) .backdrop-particle {
 }
 
 @media (max-width: 640px) {
-  .backdrop-particle:nth-child(n + 9) { display: none; }
+  .backdrop-particle:nth-child(n + 13) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
