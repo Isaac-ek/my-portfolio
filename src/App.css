@@ -229,3 +229,8 @@ html.dark .text-\[\#71717a\] { color: var(--text-faint); }
 html.dark .text-\[\#d4d4d8\] { color: #e4e4ea; }
 html.dark .placeholder\:text-\[\#71717a\]::placeholder { color: var(--text-faint); }
 a:hover { color: var(--text-heading); }
+
+/* Accent labels stay readable on paper as well as the dark canvas. */
+html:not(.dark) :is(.text-emerald-400, .text-emerald-300) { color: #047857; }
+html:not(.dark) :is(.text-amber-400, .text-amber-300) { color: #92400e; }
+html:not(.dark) :is(.text-red-400, .text-red-300) { color: #b91c1c; }
