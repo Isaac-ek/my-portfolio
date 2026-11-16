@@ -345,9 +345,15 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   {isCrm && <CrmPreview />}
                   {project.screenshot && (
                     <figure className="min-w-0 border border-white/10">
-                      <Link to={project.caseStudy || '/projects'} aria-label={`View ${project.title} case study`}>
-                        <ResponsiveImage src={project.screenshot} sizes="(max-width: 1023px) calc(100vw - 80px), 540px" alt={project.screenshotAlt || `${project.title} application`} width={1440} height={1050} loading="lazy" decoding="async" className="w-full h-auto" />
-                      </Link>
+                      {project.caseStudy ? (
+                        <Link to={project.caseStudy} aria-label={`View ${project.title} case study`}>
+                          <ResponsiveImage src={project.screenshot} sizes="(max-width: 1023px) calc(100vw - 80px), 540px" alt={project.screenshotAlt || `${project.title} application`} loading="lazy" className="w-full h-auto" />
+                        </Link>
+                      ) : (
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title}`}>
+                          <ResponsiveImage src={project.screenshot} sizes="(max-width: 1023px) calc(100vw - 80px), 540px" alt={project.screenshotAlt || `${project.title} application`} loading="lazy" className="w-full h-auto" />
+                        </a>
+                      )}
                       {project.screenshotCaption && <figcaption className="p-3 font-mono text-[10px] leading-relaxed text-[#a1a1aa]">{project.screenshotCaption}</figcaption>}
                     </figure>
                   )}

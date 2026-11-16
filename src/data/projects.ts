@@ -127,22 +127,25 @@ export const projects: Project[] = [
     codeSnippet: '',
   },
   {
-    title: 'Finance Dashboard UI Design',
+    title: 'Finance Overview · Interactive Demo',
     description:
-      'A responsive finance dashboard built for tracking balances, transaction activity, and category insights through a polished, easy-to-scan interface.',
+      'A browser-local personal finance demo: add a transaction and see monthly totals, cash flow, and spending categories update together.',
     tech: ['React', 'TypeScript', 'Tailwind CSS', 'Recharts', 'Zustand'],
     category: 'UI/UX',
-    contribution: 'I designed and built the responsive dashboard interface, chart summaries, and transaction tables.',
+    contribution: 'I designed and built the responsive interface, reporting-month analytics, transaction editing, and persistent browser-local state.',
     github: 'https://github.com/Isaac-ek/finance-dashboard-ui',
     demo: 'https://finance-dashboard-ui-orcin-iota.vercel.app/',
     challenge:
-      'Present financial metrics and transaction history in a way that stays readable as the dashboard gets denser.',
+      'Make financial activity readable and keep every overview figure aligned with its reporting period.',
     solution:
-      'Combined strong visual hierarchy, chart-driven summaries, and clear transaction tables to keep data-rich screens approachable.',
+      'Connected a reporting-month selector, cent-based totals, six-month cash flow, category breakdowns, and searchable transaction records.',
     impact:
-      'Shows product thinking for data-heavy experiences and the ability to ship a polished analytics-style interface to production.',
+      'Adding, editing, deleting, and undoing a sample transaction updates the overview. Sample dates stay current; visitor edits are preserved. Nine data tests and four browser workflows cover these behaviors.',
     gif: '',
-    screenshot: '',
+    screenshot: '/assets/projects/finance/overview.jpg',
+    screenshotAlt: 'Actual Finance Overview demo showing populated cash-flow charts, the reporting month, income, expenses, and spending categories.',
+    screenshotCaption: 'Actual interactive demo · fictional sample data · saved in this browser',
+    demoNote: 'No account needed. Editor and read-only modes demonstrate interface behavior; this demo uses fictional USD transactions stored in your browser.',
     codeSnippet: '',
   },
 ];
