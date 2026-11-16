@@ -1,12 +1,39 @@
-/* A quiet, static wash keeps the typography and work in focus. */
+/* Small, slow dots stay behind the opaque reading surfaces. */
 .editorial-backdrop {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.3;
-  background: radial-gradient(ellipse at 95% 0%, rgba(124, 138, 101, 0.045), transparent 42%);
+  overflow: hidden;
+  background: radial-gradient(ellipse at 95% 0%, rgba(124, 138, 101, 0.014), transparent 42%);
+}
+
+.backdrop-particle {
+  position: absolute;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  border-radius: 50%;
+  background-color: var(--text-heading);
+  opacity: 0.22;
+  animation: backdrop-drift var(--drift-duration) var(--drift-delay) ease-in-out infinite alternate;
 }
 
 html:not(.dark) .editorial-backdrop {
   background: none;
+}
+
+html:not(.dark) .backdrop-particle {
+  opacity: 0.14;
+}
+
+@keyframes backdrop-drift {
+  from { transform: translate3d(-5px, 10px, 0); }
+  to { transform: translate3d(7px, -14px, 0); }
+}
+
+@media (max-width: 640px) {
+  .backdrop-particle:nth-child(n + 9) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop-particle { animation: none; }
 }
