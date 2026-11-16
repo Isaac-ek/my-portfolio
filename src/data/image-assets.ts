@@ -73,6 +73,12 @@ export const imageAssets: Record<string, ImageAsset> = {
     "width": 4344,
     "height": 3258
   },
+  "/assets/projects/finance/overview.jpg": {
+    "src": "/assets/optimized/overview-960-93e4f460550d.webp",
+    "srcSet": "/assets/optimized/overview-320-76bb6fb0504c.webp 320w, /assets/optimized/overview-640-579663b9a806.webp 640w, /assets/optimized/overview-960-93e4f460550d.webp 960w, /assets/optimized/overview-1440-4315bcb79695.webp 1440w",
+    "width": 1440,
+    "height": 1050
+  },
   "/assets/projects/indie-crm/dashboard.png": {
     "src": "/assets/optimized/dashboard-960-4756ca7326f2.webp",
     "srcSet": "/assets/optimized/dashboard-320-6bfca7ea2d1c.webp 320w, /assets/optimized/dashboard-640-69496cb012fe.webp 640w, /assets/optimized/dashboard-960-4756ca7326f2.webp 960w, /assets/optimized/dashboard-1440-3193770362a5.webp 1440w",

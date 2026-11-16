@@ -204,7 +204,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
             <p className="font-mono text-[11px] text-[#a1a1aa] mb-4 uppercase tracking-wider">Find a comparable assignment</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 font-space text-sm text-[#d4d4d8]">
               <Link to="/projects/indie-crm" className="border border-white/10 p-4 hover:border-emerald-400/50 transition">Lead &amp; client workflows <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Indie CRM · workflow &amp; source →</span></Link>
-              <Link to="/projects/commerce" className="border border-white/10 p-4 hover:border-white/40 transition">Checkout &amp; stock <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Commerce · delivery &amp; evidence →</span></Link>
+              <Link to="/projects/commerce" className="border border-white/10 p-4 hover:border-white/40 transition">Product galleries <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Chuga Bags · client gallery →</span></Link>
               <Link to="/projects/securestream" className="border border-white/10 p-4 hover:border-white/40 transition">Security operations tools <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">SecureStream · workflow &amp; screenshots →</span></Link>
               <button type="button" aria-haspopup="dialog" onClick={(event) => openDesignModal(flagshipDesign, event.currentTarget)} className="border border-white/10 p-4 text-left hover:border-amber-400/50 transition">A product range launch <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Dr Kayla · cartons &amp; artwork →</span></button>
             </div>
@@ -345,9 +345,15 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
                   {isCrm && <CrmPreview />}
                   {project.screenshot && (
                     <figure className="min-w-0 border border-white/10">
-                      <Link to={project.caseStudy || '/projects'} aria-label={`View ${project.title} case study`}>
-                        <ResponsiveImage src={project.screenshot} sizes="(max-width: 1023px) calc(100vw - 80px), 540px" alt={project.screenshotAlt || `${project.title} application`} width={1440} height={1050} loading="lazy" decoding="async" className="w-full h-auto" />
-                      </Link>
+                      {project.caseStudy ? (
+                        <Link to={project.caseStudy} aria-label={`View ${project.title} case study`}>
+                          <ResponsiveImage src={project.screenshot} sizes="(max-width: 1023px) calc(100vw - 80px), 540px" alt={project.screenshotAlt || `${project.title} application`} loading="lazy" className="w-full h-auto" />
+                        </Link>
+                      ) : (
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title}`}>
+                          <ResponsiveImage src={project.screenshot} sizes="(max-width: 1023px) calc(100vw - 80px), 540px" alt={project.screenshotAlt || `${project.title} application`} loading="lazy" className="w-full h-auto" />
+                        </a>
+                      )}
                       {project.screenshotCaption && <figcaption className="p-3 font-mono text-[10px] leading-relaxed text-[#a1a1aa]">{project.screenshotCaption}</figcaption>}
                     </figure>
                   )}
