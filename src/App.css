@@ -234,3 +234,21 @@ a:hover { color: var(--text-heading); }
 html:not(.dark) :is(.text-emerald-400, .text-emerald-300) { color: #047857; }
 html:not(.dark) :is(.text-amber-400, .text-amber-300) { color: #92400e; }
 html:not(.dark) :is(.text-red-400, .text-red-300) { color: #b91c1c; }
+
+/* Keep decoration in the margins and give the reading area a solid surface. */
+#portfolio-shell :is(#hero, #projects, #about, #contact, .case-study) {
+  background-color: var(--bg-primary);
+}
+html.dark #portfolio-shell [class*="bg-[#0e0e11]"] {
+  background-color: #141418;
+}
+html.dark #portfolio-shell [class*="border-white/10"] {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+html.dark #portfolio-shell [class*="border-white/5"] {
+  border-color: rgba(255, 255, 255, 0.09);
+}
+html.dark .cv-page > :is(header, section),
+html.dark .case-evidence-note {
+  background-color: #141418;
+}
