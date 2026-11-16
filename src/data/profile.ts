@@ -168,11 +168,10 @@ export const profile = {
       company: 'Chuga Rex Limited',
       location: 'Lagos, Nigeria',
       period: 'March 2024 – August 2024',
-      summary: 'Brand design and storefront development for a retail accessories business.',
+      summary: 'Brand design and a responsive product gallery for a bags business.',
       highlights: [
-        'Created brand identity assets and desktop/mobile storefront layouts in Figma, then built the responsive WordPress/WooCommerce interface.',
-        'Integrated Paystack inline checkout and payment webhooks so customers could pay within the storefront and orders could record payment confirmations.',
-        'Configured Cloudflare caching and synchronized inventory between the warehouse stock records and online catalog.',
+        'Created brand identity assets and desktop/mobile page layouts in Figma.',
+        'Built the WordPress product gallery with School Bags and Travel Bag categories, plus company and contact navigation.',
       ],
     },
     {

@@ -204,7 +204,7 @@ const Works: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => {
             <p className="font-mono text-[11px] text-[#a1a1aa] mb-4 uppercase tracking-wider">Find a comparable assignment</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 font-space text-sm text-[#d4d4d8]">
               <Link to="/projects/indie-crm" className="border border-white/10 p-4 hover:border-emerald-400/50 transition">Lead &amp; client workflows <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Indie CRM · workflow &amp; source →</span></Link>
-              <Link to="/projects/commerce" className="border border-white/10 p-4 hover:border-white/40 transition">Checkout &amp; stock <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Commerce · delivery &amp; evidence →</span></Link>
+              <Link to="/projects/commerce" className="border border-white/10 p-4 hover:border-white/40 transition">Product galleries <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Chuga Bags · client gallery →</span></Link>
               <Link to="/projects/securestream" className="border border-white/10 p-4 hover:border-white/40 transition">Security operations tools <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">SecureStream · workflow &amp; screenshots →</span></Link>
               <button type="button" aria-haspopup="dialog" onClick={(event) => openDesignModal(flagshipDesign, event.currentTarget)} className="border border-white/10 p-4 text-left hover:border-amber-400/50 transition">A product range launch <span className="block mt-1 font-mono text-[11px] text-[#a1a1aa]">Dr Kayla · cartons &amp; artwork →</span></button>
             </div>
