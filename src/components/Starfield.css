@@ -1,4 +1,4 @@
-/* Visible, slow dots stay in the margins behind opaque reading surfaces. */
+/* Slow dots are scattered across the canvas behind the page content. */
 .editorial-backdrop {
   position: fixed;
   inset: 0;
@@ -32,15 +32,7 @@ html:not(.dark) .backdrop-particle {
 }
 
 @media (max-width: 640px) {
-  .backdrop-particle {
-    left: clamp(8px, var(--particle-mobile-left), calc(100% - 12px));
-    --drift-start-x: -2px;
-    --drift-end-x: 2px;
-  }
   .backdrop-particle:nth-child(n + 33) { display: none; }
-  #portfolio-shell :is(#hero, #projects, #about, #contact, .case-study) {
-    background-clip: content-box;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

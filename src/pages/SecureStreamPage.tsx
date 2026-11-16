@@ -1,3 +1,4 @@
+import ResponsiveImage from '../components/ResponsiveImage';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
@@ -74,7 +75,7 @@ export default function SecureStreamPage() {
       </header>
 
       <figure className="security-cover">
-        <img src={`${imageRoot}/overview.jpg`} alt={project.screenshotAlt} width={1440} height={1050} decoding="async" />
+        <ResponsiveImage src={`${imageRoot}/overview.jpg`} loading="eager" fetchPriority="high" sizes="(max-width: 1180px) calc(100vw - 64px), 1116px" alt={project.screenshotAlt} width={1440} height={1050} decoding="async" />
         <figcaption>
           <span>The delivered workspace: recent events, activity origins, and file protection in one interface.</span>
           <a href={`${imageRoot}/overview.jpg`} target="_blank" rel="noopener noreferrer">Open full-size overview ↗</a>
@@ -100,7 +101,7 @@ export default function SecureStreamPage() {
           <p>{step.text}</p>
         </div>
         <figure className="security-step-image">
-          <img key={step.image} src={`${imageRoot}/${step.image}.jpg`} alt={step.alt} width={1440} height={1050} decoding="async" />
+          <ResponsiveImage key={step.image} src={`${imageRoot}/${step.image}.jpg`} sizes="(max-width: 1180px) calc(100vw - 64px), 1116px" alt={step.alt} width={1440} height={1050} decoding="async" />
           <figcaption>
             <span>{step.caption}</span>
             <a href={`${imageRoot}/${step.image}.jpg`} target="_blank" rel="noopener noreferrer">Open full-size screenshot ↗</a>
@@ -134,7 +135,7 @@ export default function SecureStreamPage() {
       <section className="case-implementation" aria-labelledby="security-model">
         <p className="case-eyebrow">OFFLINE EVALUATION / NSL-KDD</p><h2 id="security-model">The model has measurable limits.</h2>
         <p className="case-muted">The preserved XGBoost bundle was evaluated on 22,544 NSL-KDD test records: 77.78% accuracy and 0.5693 macro F1. R2L recall is 12.89%; U2R recall is 13.43%. Those weak classes remain an open problem.</p>
-        <figure className="security-model-image"><img src={`${imageRoot}/model-performance.jpg`} alt="Actual model performance screen showing offline metrics and weak R2L and U2R recall alongside the experimental live-capture notice." width={1440} height={1050} loading="lazy" decoding="async" /><figcaption>Actual application metrics. Offline benchmark results do not establish live-network effectiveness.</figcaption></figure>
+        <figure className="security-model-image"><ResponsiveImage src={`${imageRoot}/model-performance.jpg`} alt="Actual model performance screen showing offline metrics and weak R2L and U2R recall alongside the experimental live-capture notice." width={1440} height={1050} loading="lazy" decoding="async" /><figcaption>Actual application metrics. Offline benchmark results do not establish live-network effectiveness.</figcaption></figure>
         <p className="case-evidence-note">Email password recovery is implemented but remains disabled until a sender domain is verified. Administrators can still reset member passwords. Hosted uploads are limited to 3 MiB per file; packet capture requires a separately configured sensor.</p>
         <p className="case-evidence-note">Live flow extraction remains experimental because a network-only sensor cannot observe all host and content features used by the training dataset. Website findings need investigation, ClamAV availability is explicit, and the audit chain is stored in the application database. This project is presented as an engineering prototype.</p>
         <a className="case-inline-link" href={`${revision}/docs/detector-validation.md`} target="_blank" rel="noopener noreferrer">Inspect the benchmark, failed candidate, and capture-validation method ↗</a>

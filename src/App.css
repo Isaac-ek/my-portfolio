@@ -235,10 +235,7 @@ html:not(.dark) :is(.text-emerald-400, .text-emerald-300) { color: #047857; }
 html:not(.dark) :is(.text-amber-400, .text-amber-300) { color: #92400e; }
 html:not(.dark) :is(.text-red-400, .text-red-300) { color: #b91c1c; }
 
-/* Keep decoration in the margins and give the reading area a solid surface. */
-#portfolio-shell :is(#hero, #projects, #about, #contact, .case-study) {
-  background-color: var(--bg-primary);
-}
+/* Solid cards separate the work from the scattered page decoration. */
 html.dark #portfolio-shell [class*="bg-[#0e0e11]"] {
   background-color: #141418;
 }

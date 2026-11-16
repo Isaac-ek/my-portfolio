@@ -1,3 +1,4 @@
+import ResponsiveImage from '../components/ResponsiveImage';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
@@ -133,7 +134,7 @@ export default function IndieCrmPage() {
         <details open className="actual-screenshot">
           <summary>View the actual {chapter.title.toLowerCase()} screen ↗</summary>
           <figure>
-            <a href={`/assets/projects/indie-crm/${chapter.screen}.png`} target="_blank" rel="noopener noreferrer"><img src={`/assets/projects/indie-crm/${chapter.screen}.png`} alt={chapter.caption} loading="lazy" /></a>
+            <a href={`/assets/projects/indie-crm/${chapter.screen}.png`} target="_blank" rel="noopener noreferrer"><ResponsiveImage src={`/assets/projects/indie-crm/${chapter.screen}.png`} sizes="(max-width: 1180px) calc(100vw - 64px), 1116px" alt={chapter.caption} loading="lazy" /></a>
             <figcaption>{chapter.caption} Open the image to inspect the full screen.</figcaption>
           </figure>
         </details>
