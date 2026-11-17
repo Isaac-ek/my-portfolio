@@ -148,6 +148,23 @@ export const projects: Project[] = [
     demoNote: 'No account needed. Editor and read-only modes demonstrate interface behavior; this demo uses fictional USD transactions stored in your browser.',
     codeSnippet: '',
   },
+
+  {
+    title: 'Small Hours · Audio Transcriber',
+    description:
+      'Turn a short English recording into an editable transcript. Try the built-in sample or select a file, review the timestamped segments, and download plain text or SRT subtitles.',
+    tech: ['JavaScript', 'Whisper', 'Transformers.js', 'Web Workers', 'WebAssembly'],
+    category: 'Web Architecture',
+    contribution: 'I built the recording and transcript editor, moved speech recognition into a browser worker, and implemented timestamped text and subtitle exports.',
+    github: 'https://github.com/Isaac-ek/small-hours-transcriber',
+    demo: 'https://small-hours-transcriber.vercel.app/',
+    demoNote: 'No account needed. The browser downloads the model on first use and processes the recording on your device. The source also includes a separate Python edition with a saved recording library.',
+    solution: 'A Web Worker runs a quantized Whisper model. The browser decodes the audio and keeps recordings and edits in the current tab.',
+    impact: 'Verified transcription of a real audio sample and a selected file on the public build, followed by editing and both exports. The browser test observed no upload requests.',
+    screenshot: '/assets/projects/small-hours/transcript.jpg',
+    screenshotAlt: 'Small Hours showing playback and three editable timestamped segments from the built-in speech sample, with text and subtitle download buttons.',
+    screenshotCaption: 'Actual browser app · built-in synthetic recording transcribed on device',
+  },
 ];
 
 // Shared by the web CV and downloadable resume.

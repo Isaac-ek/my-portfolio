@@ -150,5 +150,11 @@ export const imageAssets: Record<string, ImageAsset> = {
     "srcSet": "/assets/optimized/saved-event-320-671f35410d79.webp 320w, /assets/optimized/saved-event-640-693c0f82facd.webp 640w, /assets/optimized/saved-event-960-6ca811b2e200.webp 960w, /assets/optimized/saved-event-1440-fe894423f261.webp 1440w",
     "width": 1440,
     "height": 1050
+  },
+  "/assets/projects/small-hours/transcript.jpg": {
+    "src": "/assets/optimized/transcript-960-d8f993b8fd16.webp",
+    "srcSet": "/assets/optimized/transcript-320-88739fcbff63.webp 320w, /assets/optimized/transcript-640-adf6853e8ba1.webp 640w, /assets/optimized/transcript-960-d8f993b8fd16.webp 960w, /assets/optimized/transcript-1440-6603e7f5331d.webp 1440w",
+    "width": 1440,
+    "height": 1236
   }
 };

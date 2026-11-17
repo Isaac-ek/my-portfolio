@@ -52,7 +52,7 @@ const Navbar = () => {
       }`}
     >
       {/* Top micro-meta running ticker bar */}
-      <div className="hidden md:flex items-center justify-between px-6 py-1.5 border-b border-white/5 text-[11px] font-mono tracking-wider text-[#a1a1aa] uppercase">
+      <div className="hidden xl:flex items-center justify-between px-6 py-1.5 border-b border-white/5 text-[11px] font-mono tracking-wider text-[#a1a1aa] uppercase">
         <div className="flex items-center gap-4">
           <span>PORTFOLIO VOL. 26</span>
           <span className="text-white/20">/</span>
@@ -69,24 +69,27 @@ const Navbar = () => {
       </div>
 
       {/* Main Masthead Nav */}
-      <div className="mx-auto flex h-16 md:h-20 max-w-7xl items-center justify-between px-4 sm:px-8">
+      <div className="mx-auto flex h-16 md:h-20 max-w-7xl items-center justify-between px-3 sm:px-8">
         {/* Brand Masthead */}
         <Link
           to="/"
-          className="group flex flex-col leading-none"
+          className="group flex min-w-0 items-center gap-2 sm:gap-4 leading-none"
           aria-label="Home"
         >
-          <span className="font-syne font-extrabold text-[11px] min-[380px]:text-[13px] sm:text-2xl whitespace-nowrap tracking-tight text-[#f4f4f2] group-hover:text-white transition">
-            CHIEMELIE EKEZIE
-          </span>
-          <span className="font-mono text-[6px] min-[380px]:text-[7px] sm:text-[10px] whitespace-nowrap tracking-wider text-[#a1a1aa] uppercase mt-1">
-            FULL-STACK ENGINEER &amp; VISUAL DESIGNER
+          <img src="/assets/brand/official-mark.svg" width="32" height="37" alt="" className="w-5 h-auto shrink-0 sm:w-8 dark:invert" />
+          <span className="flex min-w-0 flex-col">
+            <span className="truncate font-syne font-extrabold text-[11px] min-[380px]:text-[13px] sm:text-2xl tracking-tight text-[#f4f4f2] group-hover:text-white transition">
+              CHIEMELIE EKEZIE
+            </span>
+            <span className="hidden min-[380px]:block truncate font-mono text-[7px] sm:text-[10px] tracking-wider text-[#a1a1aa] uppercase mt-1">
+              FULL-STACK ENGINEER &amp; VISUAL DESIGNER
+            </span>
           </span>
         </Link>
 
         {/* One navigation tree shared by desktop and the mobile drawer. */}
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:gap-8">
-          <nav id="primary-navigation" aria-label="Primary navigation" className={`${menuOpen ? 'flex' : 'hidden'} lg:flex absolute left-0 right-0 top-full lg:static flex-col lg:flex-row gap-4 lg:gap-7 bg-[#08080a] lg:bg-transparent border-b lg:border-0 border-white/10 p-6 lg:p-0`}>
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 xl:gap-8">
+          <nav id="primary-navigation" aria-label="Primary navigation" className={`${menuOpen ? 'flex' : 'hidden'} xl:flex absolute left-0 right-0 top-full xl:static flex-col xl:flex-row gap-4 xl:gap-7 bg-[#08080a] xl:bg-transparent border-b xl:border-0 border-white/10 p-6 xl:p-0`}>
             {navLinks.map((link) => (
               <Link
                 key={link.id}
@@ -116,12 +119,12 @@ const Navbar = () => {
           </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden flex items-center justify-center whitespace-nowrap p-2 text-xs font-mono tracking-widest border border-white/15 rounded text-[#f4f4f2]"
+            className="xl:hidden flex items-center justify-center whitespace-nowrap p-2 text-xs font-mono tracking-widest border border-white/15 rounded text-[#f4f4f2]"
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
             aria-controls="primary-navigation"
           >
-            {menuOpen ? 'CLOSE ✕' : 'MENU [≡]'}
+            {menuOpen ? 'CLOSE' : 'MENU'}<span aria-hidden="true" className="hidden sm:inline ml-1">{menuOpen ? '✕' : '[≡]'}</span>
           </button>
         </div>
       </div>
