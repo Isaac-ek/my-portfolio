@@ -152,7 +152,7 @@ export const projects: Project[] = [
   {
     title: 'Small Hours · Audio Transcriber',
     description:
-      'Turn a short English recording into an editable transcript. Try the built-in sample or select a file, review the timestamped segments, and download plain text or SRT subtitles.',
+      'Turn an English recording of up to 10 minutes into an editable transcript. Try the built-in sample or select a file, review the timestamped segments, and download plain text or SRT subtitles.',
     tech: ['JavaScript', 'Whisper', 'Transformers.js', 'Web Workers', 'WebAssembly'],
     category: 'Web Architecture',
     contribution: 'I built the recording and transcript editor, moved speech recognition into a browser worker, and implemented timestamped text and subtitle exports.',

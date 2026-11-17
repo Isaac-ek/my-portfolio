@@ -152,8 +152,8 @@ export const imageAssets: Record<string, ImageAsset> = {
     "height": 1050
   },
   "/assets/projects/small-hours/transcript.jpg": {
-    "src": "/assets/optimized/transcript-960-d8f993b8fd16.webp",
-    "srcSet": "/assets/optimized/transcript-320-88739fcbff63.webp 320w, /assets/optimized/transcript-640-adf6853e8ba1.webp 640w, /assets/optimized/transcript-960-d8f993b8fd16.webp 960w, /assets/optimized/transcript-1440-6603e7f5331d.webp 1440w",
+    "src": "/assets/optimized/transcript-960-0b664627e5d1.webp",
+    "srcSet": "/assets/optimized/transcript-320-b7b2dbeb3635.webp 320w, /assets/optimized/transcript-640-e834e7b80fbf.webp 640w, /assets/optimized/transcript-960-0b664627e5d1.webp 960w, /assets/optimized/transcript-1440-d6d44b0e390e.webp 1440w",
     "width": 1440,
     "height": 1236
   }
